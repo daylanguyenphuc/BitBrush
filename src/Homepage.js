@@ -50,12 +50,12 @@ const Homepage = () => {
                 <Grid item xs={4} sm={4} md={4}>
                     <CreditScoreIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" gutterBottom>Fast transaction</Typography>
-                    <Typography variant="h7" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque odio non volutpat tempor. Aliquam mollis ex eleifend, placerat dolor non, viverra nisi.</Typography>
+                    <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque odio non volutpat tempor. Aliquam mollis ex eleifend, placerat dolor non, viverra nisi.</Typography>
                 </Grid>
                 <Grid item xs={4} sm={4} md={4}>
                     <TrendingUpIcon sx={{ fontSize: 40 }} />
                     <Typography variant="h5" gutterBottom>Growth transaction</Typography>
-                    <Typography variant="h7" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque odio non volutpat tempor. Aliquam mollis ex eleifend, placerat dolor non, viverra nisi.</Typography>
+                    <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque odio non volutpat tempor. Aliquam mollis ex eleifend, placerat dolor non, viverra nisi.</Typography>
                 </Grid>
             </Grid>
         </Container>
