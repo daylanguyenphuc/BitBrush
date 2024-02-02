@@ -143,7 +143,7 @@ const CreateNFT = () => {
                                         />
                                     </FormControl>
                                     <Box style={{ marginBottom: '20px' }}>
-                                        <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags: </Typography>
+                                        <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags (optional): </Typography>
                                         {selectedTags.map((tag, index) => (
                                             <Chip
                                                 key={index}
