@@ -8,13 +8,14 @@ import '@fontsource/roboto/700.css';
 import Header from "./Header";
 import Footer from './Footer';
 
+import SignUpPage from "./SignUpPage";
 import Homepage from "./Homepage";
 import Marketplace from "./Marketplace";
 import Collection from "./Collection";
+import Ranking from "./Ranking";
 import Create from "./Create";
 import CreateNFT from "./CreateNFT";
 import CreateCollection from "./CreateCollection";
-import SignUpPage from "./SignUpPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route exact path="/signup" element={<SignUpPage />} />
             <Route exact path="/marketplace" element={<Marketplace />} />
             <Route exact path="/collection" element={<Collection />} />
+            <Route exact path="/ranking" element={<Ranking />} />
             <Route exact path="/create" element={<Create />} />
             <Route exact path="/create/createNFT" element={<CreateNFT />} />
             <Route exact path="/create/createCollection" element={<CreateCollection />} />
