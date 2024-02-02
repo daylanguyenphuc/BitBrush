@@ -16,6 +16,7 @@ import Ranking from "./Ranking";
 import Create from "./Create";
 import CreateNFT from "./CreateNFT";
 import CreateCollection from "./CreateCollection";
+import UserProfile from "./UserProfile";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route exact path="/create" element={<Create />} />
             <Route exact path="/create/createNFT" element={<CreateNFT />} />
             <Route exact path="/create/createCollection" element={<CreateCollection />} />
+            <Route exact path="/userprofile" element={<UserProfile />} />
           </Routes>
         </div>
         <Footer/>
