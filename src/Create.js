@@ -5,7 +5,7 @@ import PhotoIcon from '@mui/icons-material/Photo';
 
 const Create = () => {
     return (  
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" style={{ padding: '0'}} >
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={6}>
                     <Grid container spacing={10}>

@@ -12,6 +12,7 @@ import Marketplace from "./Marketplace";
 import Collection from "./Collection";
 import Create from "./Create";
 import CreateNFT from "./CreateNFT";
+import CreateCollection from "./CreateCollection";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/collection" element={<Collection />} />
             <Route exact path="/create" element={<Create />} />
             <Route exact path="/create/createNFT" element={<CreateNFT />} />
+            <Route exact path="/create/createCollection" element={<CreateCollection />} />
           </Routes>
         </div>
         <Footer/>
