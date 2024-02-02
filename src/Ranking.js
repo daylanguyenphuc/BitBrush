@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Container, Typography, Table, TableHead, TableCell, TableContainer, TableRow, Paper, Avatar } from '@mui/material';
+import { Grid, Container, Typography, Table, TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Avatar } from '@mui/material';
 
 const data = [
   { rank: 1, artist: 'Artist 1', sales: 50, volume: '100 ETH' },
@@ -21,7 +21,7 @@ const Ranking = () => {
     <Container maxWidth="xl" style={{ marginTop: '100px', marginBottom: '200px' }}>
       <TableContainer component={Paper}>
         <Table>
-        <TableHead>
+          <TableHead>
             <TableRow>
               <TableCell align="left">#</TableCell>
               <TableCell align="left">Artist</TableCell>
@@ -29,17 +29,19 @@ const Ranking = () => {
               <TableCell align="left">Volume</TableCell>
             </TableRow>
           </TableHead>
-          {data.map((row) => (
-            <TableRow key={row.rank}>
-              <TableCell>{row.rank}</TableCell>
-              <TableCell style={{display: 'flex', alignItems: 'center' }}>
-                <Avatar alt={row.artist} src={`url_to_artist_avatar_${row.rank}`} />
-                <Typography variant="body2" gutterBottom style={{marginLeft: '10px' }}>{row.artist}</Typography>
-              </TableCell>
-              <TableCell>{row.sales}</TableCell>
-              <TableCell>{row.volume}</TableCell>
-            </TableRow>
-          ))}
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row.rank}>
+                <TableCell>{row.rank}</TableCell>
+                <TableCell style={{display: 'flex', alignItems: 'center' }}>
+                  <Avatar alt={row.artist} src={`url_to_artist_avatar_${row.rank}`} />
+                  <Typography variant="body2" gutterBottom style={{marginLeft: '10px' }}>{row.artist}</Typography>
+                </TableCell>
+                <TableCell>{row.sales}</TableCell>
+                <TableCell>{row.volume}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </Container>

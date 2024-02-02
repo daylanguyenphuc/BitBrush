@@ -24,7 +24,7 @@ const Homepage = () => {
                             <Typography variant="h1" >Discover, and collect digital art NTFs</Typography>
                             <Typography variant="h3" gutterBottom>Digital marketplace for crypto collectibles and non-fungible tokens (NFTs). Buy, sell and discover exclusive digital assets.</Typography>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={12} id>
+                        <Grid item xs={12} sm={12} md={12}>
                             <Grid container style={{margin: '15px 0'}}>
                                 <Grid item xs={4} sm={4} md={4}>
                                     <Typography variant="h4" gutterBottom>98K</Typography>

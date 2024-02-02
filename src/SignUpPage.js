@@ -1,26 +1,8 @@
-import * as React from 'react';
-import { useState } from 'react';
-
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-
+import React, { useState } from 'react';
+import { Stepper, Step, StepLabel, Button, Typography, Container, TextField, InputAdornment, Grid } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-  Container,
-  TextField,
-  Grid,
-  InputAdornment
-} from '@mui/material';
 
 const SignUpPage = () => {
   
@@ -205,7 +187,7 @@ const SignUpPage = () => {
                 <Button
                   variant="contained"
                   color={isWalletConnected ? 'success' : 'secondary'}
-                  onClick={() => handleConnectWallet(1)}
+                  onClick={() => handleConnectWallet()}
                   size="large"
                   style={{
                     width: '100%',
@@ -219,10 +201,7 @@ const SignUpPage = () => {
                   ) : ( 'Connect Wallet')}
                 </Button>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <Button color="primary" onClick={handleBack} size="large" style={{ flex: 1 }}>
-                    Back
-                  </Button>
-
+                  <Button color="primary" onClick={handleBack} size="large" style={{ flex: 1 }}>Back</Button>
                   <Button
                     variant="contained"
                     color="primary"
@@ -230,20 +209,15 @@ const SignUpPage = () => {
                     onClick={handleNext}
                     disabled={!isWalletConnected}
                     style={{ flex: 1 }}
-                  >
-                    Sign up
-                  </Button>
+                  >Sign up</Button>
                 </div>
-
                 <Button
                   variant="outlined"
                   color="primary"
                   size="large"
                   onClick={handleConnectLater}
                   style={{ width: '100%', flex: 1, marginTop: '1rem' }}
-                >
-                  Skip this step
-                </Button>
+                >Skip this step</Button>
               </div>
             )}
 

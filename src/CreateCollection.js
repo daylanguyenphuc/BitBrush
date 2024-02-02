@@ -25,7 +25,6 @@ const CreateCollection = () => {
                     required
                     id="newCollectionName"
                     label="Collection name"
-                    defaultValue=""
                     fullWidth
                     value={collectionName}
                     onChange={handleCollectionNameChange}
@@ -37,7 +36,6 @@ const CreateCollection = () => {
                     label="Collection description"
                     multiline
                     rows={3}
-                    defaultValue=""
                     fullWidth
                     value={collectionDescription}
                     onChange={handleCollectionDescriptionChange}

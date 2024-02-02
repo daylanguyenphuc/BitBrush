@@ -123,7 +123,6 @@ const CreateNFT = () => {
                                             required
                                             id="newNFTname"
                                             label="Name"
-                                            defaultValue=""
                                             fullWidth
                                             value={name}
                                             onChange={handleNameChange}
@@ -135,7 +134,6 @@ const CreateNFT = () => {
                                             label="Descreption"
                                             multiline
                                             rows={3}
-                                            defaultValue=""
                                             fullWidth
                                             value={descreption}
                                             onChange={handleDescreptionChange}
@@ -189,7 +187,6 @@ const CreateNFT = () => {
                                             required
                                             id="newCollectionName"
                                             label="Collection name"
-                                            defaultValue=""
                                             fullWidth
                                             value={collectionName}
                                             onChange={handleCollectionNameChange}
@@ -201,7 +198,6 @@ const CreateNFT = () => {
                                             label="Collection description"
                                             multiline
                                             rows={3}
-                                            defaultValue=""
                                             fullWidth
                                             value={collectionDescription}
                                             onChange={handleCollectionDescriptionChange}
