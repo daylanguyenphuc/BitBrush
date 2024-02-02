@@ -236,6 +236,7 @@ const SignUpPage = () => {
                 </div>
 
                 <Button
+                  variant="outlined"
                   color="primary"
                   size="large"
                   onClick={handleConnectLater}
