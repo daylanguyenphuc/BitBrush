@@ -31,24 +31,27 @@ const Marketplace = () => {
 
     // Filter by price range function
     function valuetext(value) {
-        return `${value} ETH`;
+        return `${value.toFixed(2)} ETH`; // Format value to display two decimal places
     }
-    const minDistance = 10;
-    const [priceFilterRange, setFilterPriceRange] = React.useState([20, 37]);
+    const minDistance = 0.5;
+    const maxPrice = 10;
+    const [priceFilterRange, setFilterPriceRange] = React.useState([0, 5]); // Set initial range
     const handleChangePriceRange = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
-          return;
+            return;
         }
+        // Clamp values within the specified range
+        const clampedValue = (value) => Math.min(Math.max(value, 0), maxPrice);
         if (newValue[1] - newValue[0] < minDistance) {
-          if (activeThumb === 0) {
-            const clamped = Math.min(newValue[0], 100 - minDistance);
-            setFilterPriceRange([clamped, clamped + minDistance]);
-          } else {
-            const clamped = Math.max(newValue[1], minDistance);
-            setFilterPriceRange([clamped - minDistance, clamped]);
-          }
+            if (activeThumb === 0) {
+                const clamped = clampedValue(newValue[0]);
+                setFilterPriceRange([clamped, clamped + minDistance]);
+            } else {
+                const clamped = clampedValue(newValue[1] - minDistance);
+                setFilterPriceRange([clamped, clamped + minDistance]);
+            }
         } else {
-            setFilterPriceRange(newValue);
+            setFilterPriceRange([clampedValue(newValue[0]), clampedValue(newValue[1])]);
         }
     };
 
@@ -58,7 +61,7 @@ const Marketplace = () => {
 
     return (  
         <>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
             <Typography variant="h1" gutterBottom>Marketplace</Typography>
             <Typography variant="h3" gutterBottom>Browse through more than 50K NFTs on the BrushBit Marketplace.</Typography>
         </Container>
@@ -68,7 +71,8 @@ const Marketplace = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '35vh',
+                marginTop: '100px',
+                marginBottom: '20px'
             }}
         >
             <Grid container spacing={2}>
@@ -110,7 +114,7 @@ const Marketplace = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12}>
-                    <Typography variant="body" gutterBottom>Tags: </Typography>
+                <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags: </Typography>
                     {selectedTags.map((tag, index) => (
                         <Chip
                             key={index}
@@ -131,17 +135,20 @@ const Marketplace = () => {
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} sx={{ marginBottom: '16px' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography variant="body" sx={{ marginRight: '16px' }}>Price range: from {valuetext(priceFilterRange[0])}</Typography>
+                        <Typography variant="body2" sx={{ marginRight: '16px' }}>Price range: from {valuetext(priceFilterRange[0])}</Typography>
                         <Slider
                             getAriaLabel={() => 'Minimum distance shift'}
                             value={priceFilterRange}
                             onChange={handleChangePriceRange}
                             valueLabelDisplay="auto"
                             getAriaValueText={valuetext}
+                            min={0}
+                            max={maxPrice}
+                            step={0.01}
                             disableSwap
                             sx={{ width: '300px' }}
                         />
-                        <Typography variant="body" sx={{ marginLeft: '16px' }}>to {valuetext(priceFilterRange[1])}</Typography>
+                        <Typography variant="body2" sx={{ marginLeft: '16px' }}>to {valuetext(priceFilterRange[1])}</Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -154,9 +161,17 @@ const Marketplace = () => {
                             <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
                         </Box>
                         <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Typography variant="h5" gutterBottom>Heading</Typography>
-                            <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                            <Typography variant="subtitle1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                            <Grid container spacing={0}>
+                                <Grid item xs={9} sm={9} md={9}>
+                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                </Grid>
+                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={12}>
+                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                </Grid>
+                            </Grid>
                         </Box>
                         <Box style={{ width: '100%' }}>
                             <Button variant="contained">Buy now</Button>
@@ -170,9 +185,17 @@ const Marketplace = () => {
                             <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
                         </Box>
                         <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Typography variant="h5" gutterBottom>Heading</Typography>
-                            <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                            <Typography variant="subtitle1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                            <Grid container spacing={0}>
+                                <Grid item xs={9} sm={9} md={9}>
+                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                </Grid>
+                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={12}>
+                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                </Grid>
+                            </Grid>
                         </Box>
                         <Box style={{ width: '100%' }}>
                             <Button variant="contained">Buy now</Button>
@@ -186,9 +209,65 @@ const Marketplace = () => {
                             <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
                         </Box>
                         <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Typography variant="h5" gutterBottom>Heading</Typography>
-                            <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                            <Typography variant="subtitle1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
+                            <Grid container spacing={0}>
+                                <Grid item xs={9} sm={9} md={9}>
+                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                </Grid>
+                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={12}>
+                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <Box style={{ width: '100%' }}>
+                            <Button variant="contained">Buy now</Button>
+                            <Button variant="text">View details</Button>
+                        </Box>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                    <Paper style={{ padding: '5%'}}>
+                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
+                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
+                        </Box>
+                        <Box style={{ width: '100%', margin: '15px 0' }}>
+                            <Grid container spacing={0}>
+                                <Grid item xs={9} sm={9} md={9}>
+                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                </Grid>
+                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={12}>
+                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <Box style={{ width: '100%' }}>
+                            <Button variant="contained">Buy now</Button>
+                            <Button variant="text">View details</Button>
+                        </Box>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                    <Paper style={{ padding: '5%'}}>
+                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
+                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt='product'/>
+                        </Box>
+                        <Box style={{ width: '100%', margin: '15px 0' }}>
+                            <Grid container spacing={0}>
+                                <Grid item xs={9} sm={9} md={9}>
+                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                </Grid>
+                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={12}>
+                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                </Grid>
+                            </Grid>
                         </Box>
                         <Box style={{ width: '100%' }}>
                             <Button variant="contained">Buy now</Button>

@@ -21,9 +21,9 @@ const Footer = () => {
     };
 
     return (
-        <footer style={{ backgroundColor: '#fff', color: '#212121', padding: '20px 0' }}>
+        <footer style={{ backgroundColor: '#f0f0f0', color: '#212121', padding: '20px 0' }}>
             <Container maxWidth="xl">
-                <Grid container spacing={8} style={{ padding: '60px'}}>
+                <Grid container spacing={8} style={{ padding: '60px 0'}}>
                     <Grid item xs={12} sm={12} md={4}>
                         <Typography variant="h4" gutterBottom>BitBrush</Typography>
                         <Typography variant="body2">The world's first and lagrest digital marketplace for crypto collectibles and non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital items.</Typography>

@@ -1,6 +1,17 @@
+import { Link } from 'react-router-dom';
 import { Container, Grid, Typography, Box, Button, Card, CardContent, CardMedia, CardActionArea } from "@mui/material";
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+
+const scrollToSection = () => {
+    const element = document.getElementById('learnMore');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+};
 
 const Homepage = () => {
     return ( 
@@ -8,13 +19,13 @@ const Homepage = () => {
         <Container maxWidth="xl" style={{ padding: '0'}}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={6}>
-                    <Grid container style={{ padding: '8%'}}>
+                    <Grid container style={{margin: '30px 0'}}>
                         <Grid item xs={12} sm={12} md={12}>
-                            <Typography variant="h1" gutterBottom>Discover, and collect digital art NTFs</Typography>
+                            <Typography variant="h1" >Discover, and collect digital art NTFs</Typography>
                             <Typography variant="h3" gutterBottom>Digital marketplace for crypto collectibles and non-fungible tokens (NFTs). Buy, sell and discover exclusive digital assets.</Typography>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={12}>
-                            <Grid container>
+                        <Grid item xs={12} sm={12} md={12} id>
+                            <Grid container style={{margin: '15px 0'}}>
                                 <Grid item xs={4} sm={4} md={4}>
                                     <Typography variant="h4" gutterBottom>98K</Typography>
                                     <Typography variant="h5" gutterBottom>Artworks</Typography>
@@ -30,9 +41,9 @@ const Homepage = () => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={6} sm={6} md={6}><Button variant="contained" size="large"><Typography variant="button" display="block">Explore now</Typography></Button></Grid>
-                                <Grid item xs={6} sm={6} md={6}><Button variant="outlined" size="large"><Typography variant="button" display="block">Learn more</Typography></Button></Grid>
+                            <Grid container spacing={0} style={{margin: '20px 0'}}>
+                                <Grid item xs={5} sm={5} md={5}><Link to='/marketplace' style={{textDecoration: 'none'}}><Button variant="contained" size="large"><Typography variant="button" display="block">Explore now</Typography></Button></Link></Grid>
+                                <Grid item xs={5} sm={5} md={5}><Button variant="outlined" size="large" onClick={scrollToSection}><Typography variant="button" display="block">Learn more</Typography></Button></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -42,7 +53,7 @@ const Homepage = () => {
                 </Grid>
             </Grid>
         </Container>
-        <Container maxWidth="xl" style={{ padding: '80px 2%', backgroundColor: 'rgba(217, 224, 236, 0.20)' }}>
+        <Container maxWidth="xl" style={{ padding: '80px 2%', backgroundColor: 'rgba(217, 224, 236, 0.20)' }} id="learnMore">
             <Grid container spacing={6}>
                 <Grid item xs={4} sm={4} md={4}>
                     <Typography variant="h3" gutterBottom>The amazing NFT art of the world is here</Typography>
@@ -100,7 +111,7 @@ const Homepage = () => {
         <Container maxWidth="xl" style={{ textAlign: 'center', padding: '80px 2%', backgroundColor: 'rgba(217, 224, 236, 0.20)' }}>
             <Typography variant="h1" gutterBottom>Can not wait any longer?</Typography>
             <Typography variant="h3" gutterBottom>Start trading NTFs now.</Typography>
-            <Button variant="contained" size="large"><Typography variant="button" display="block">Explore now</Typography></Button>
+            <Link to='/marketplace' style={{textDecoration: 'none'}}><Button variant="contained" size="large" style={{ margin: '25px 0' }}><Typography variant="button" display="block">Explore now</Typography></Button></Link>
         </Container>
         </>
     );

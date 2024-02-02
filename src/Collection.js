@@ -25,7 +25,7 @@ const Collection = () => {
 
     return (  
         <>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
             <Typography variant="h1" gutterBottom>Browse collections</Typography>
             <Typography variant="h3" gutterBottom>Browse through more than 30k NFT Collections on NFTers.</Typography>
         </Container>
@@ -38,7 +38,8 @@ const Collection = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 textAlign: 'center',
-                height: '25vh',
+                marginTop: '100px',
+                marginBottom: '50px'
             }}
         >
             <TextField

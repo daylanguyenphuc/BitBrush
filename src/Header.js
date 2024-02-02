@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,10 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-
-const pages = ['Marketplace', 'Collection', 'Ranking'];
-const settings = ['My wallet', 'My profile', 'Account settings', 'Logout'];
+import HomeIcon from '@mui/icons-material/Home';
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,24 +37,23 @@ function Header() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'roboto',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              BitBrush
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -88,42 +84,18 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <Link to='/' style={{textDecoration:'none', color:'#4a4a4a'}}><MenuItem><Typography textAlign="center">Homepage</Typography></MenuItem></Link>
+              <Link to='/marketplace' style={{textDecoration:'none', color:'#4a4a4a'}}><MenuItem><Typography textAlign="center">Marketplace</Typography></MenuItem></Link>
+              <Link to='/collection' style={{textDecoration:'none', color:'#4a4a4a'}}><MenuItem><Typography textAlign="center">Collection</Typography></MenuItem></Link>
+              <Link to='/ranking' style={{textDecoration:'none', color:'#4a4a4a'}}><MenuItem><Typography textAlign="center">Ranking</Typography></MenuItem></Link>
+              <Link to='/create' style={{textDecoration:'none', color:'#4a4a4a'}}><MenuItem><Typography textAlign="center">Create</Typography></MenuItem></Link>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Link to='/marketplace' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Marketplace</Button></Link>
+            <Link to='/collection' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Collection</Button></Link>
+            <Link to='/ranking' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Ranking</Button></Link>
+            <Link to='/create' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Create</Button></Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -147,12 +119,11 @@ function Header() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+            >   
+              <MenuItem><Typography textAlign="center">My wallet</Typography></MenuItem>
+              <MenuItem><Typography textAlign="center">My profile</Typography></MenuItem>
+              <MenuItem><Typography textAlign="center">Account settings</Typography></MenuItem>
+              <MenuItem><Typography textAlign="center">Logout</Typography></MenuItem>
             </Menu>
           </Box>
         </Toolbar>
