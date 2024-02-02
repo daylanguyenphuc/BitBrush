@@ -7,7 +7,7 @@ const Create = () => {
     return (  
         <Container maxWidth="xl" style={{ padding: '0'}} >
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={6}>
+                <Grid item xs={12} sm={12} md={6} style={{ padding: '0 5%'}}>
                     <Grid container spacing={10}>
                         <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'center', alignSelf: 'center', marginTop: '10vh' }}>
                             <Typography variant="h1" gutterBottom>Create</Typography>
