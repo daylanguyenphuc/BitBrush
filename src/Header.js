@@ -122,7 +122,7 @@ function Header() {
             >   
               <MenuItem><Typography textAlign="center">My wallet</Typography></MenuItem>
               <MenuItem><Typography textAlign="center">My profile</Typography></MenuItem>
-              <MenuItem><Typography textAlign="center">Account settings</Typography></MenuItem>
+              <MenuItem><Link to='/accountsetting' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Account settings</Typography></Link></MenuItem>
               <MenuItem><Typography textAlign="center">Logout</Typography></MenuItem>
             </Menu>
           </Box>
