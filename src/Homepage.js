@@ -30,15 +30,15 @@ const Homepage = () => {
                             <Grid item xs={12} sm={10} md={10} lg={7}>
                                 <Grid container style={{ margin: '15px 0' }}>
                                     <Grid item xs={4} sm={4} md={4}>
-                                        <Typography variant="h4" gutterBottom>98K</Typography>
+                                        <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>98K</Typography>
                                         <Typography variant="h6" gutterBottom>Artworks</Typography>
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4}>
-                                        <Typography variant="h4" gutterBottom>12K</Typography>
+                                        <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>12K</Typography>
                                         <Typography variant="h6" gutterBottom>Auction</Typography>
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4}>
-                                        <Typography variant="h4" gutterBottom>15K</Typography>
+                                        <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>15K</Typography>
                                         <Typography variant="h6" gutterBottom>Artists</Typography>
                                     </Grid>
                                 </Grid>
@@ -90,7 +90,7 @@ const Homepage = () => {
                     <Grid item xs={12} sm={12} md={4}>
                         <Card>
                             <CardActionArea>
-                                <CardMedia component="img" width="250" image="./Setupwallet.png" alt="green iguana" />
+                                <CardMedia component="img" width="250" image="./Setupwallet.png" alt="Setup your wallet" />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">Setup your wallet</Typography>
                                     <Typography variant="body2" color="text.secondary">Set up your wallet of choice. Connect it to the Animerket by access to My wallet page.</Typography>
@@ -101,7 +101,7 @@ const Homepage = () => {
                     <Grid item xs={12} sm={12} md={4}>
                         <Card>
                             <CardActionArea>
-                                <CardMedia component="img" width="250" image="./Createcollection.png" alt="green iguana" />
+                                <CardMedia component="img" width="250" image="./Createcollection.png" alt="Create collection" />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">Create collection</Typography>
                                     <Typography variant="body2" color="text.secondary">Upload your work and setup your collectin. Add a descreption, identify tags and price.</Typography>
@@ -112,7 +112,7 @@ const Homepage = () => {
                     <Grid item xs={12} sm={12} md={4}>
                         <Card>
                             <CardActionArea>
-                                <CardMedia component="img" width="250" image="./Startearning.png" alt="green iguana" />
+                                <CardMedia component="img" width="250" image="./Startearning.png" alt="Start earning" />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">Start earning</Typography>
                                     <Typography variant="body2" color="text.secondary">Choose between auctions and fixed-price listing. Start earning by selling your NFTs of trading others.</Typography>
@@ -125,7 +125,7 @@ const Homepage = () => {
             
             <Container maxWidth="xl" style={{ textAlign: 'center', padding: '3rem 4rem', backgroundColor: 'rgba(217, 224, 236, 0.20)' }}>
                 <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '1rem' }} gutterBottom>Cannot wait any longer?</Typography>
-                <Typography variant="h5" gutterBottom>Start trading NTFs now.</Typography>
+                <Typography variant="h5" gutterBottom>Start trading NFTs now.</Typography>
                 <Link to='/marketplace' style={{ textDecoration: 'none' }}><Button variant="contained" size="large" style={{ margin: '25px 0' }}><Typography variant="button" display="block">Explore now</Typography></Button></Link>
             </Container>
         </>

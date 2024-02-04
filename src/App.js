@@ -4,6 +4,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import '@fontsource/montserrat';
 
 import Header from "./Header";
 import Footer from './Footer';
@@ -25,6 +26,12 @@ const theme = createTheme({
     primary: {
       main: '#3D00B7',
     },
+  },
+  typography: {
+    fontFamily: [
+      'Montserrat', 
+      'sans-serif',
+    ].join(','),
   },
 });
 
