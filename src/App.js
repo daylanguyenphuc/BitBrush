@@ -17,6 +17,7 @@ import Create from "./Create";
 import CreateNFT from "./CreateNFT";
 import CreateCollection from "./CreateCollection";
 import AccountSetting from "./AccountSetting";
+import User from "./User";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route exact path="/create/createNFT" element={<CreateNFT />} />
             <Route exact path="/create/createCollection" element={<CreateCollection />} />
             <Route exact path="/accountsetting" element={<AccountSetting />} />
+            <Route exact path="/user" element={<User />} />
           </Routes>
         </div>
         <Footer/>
