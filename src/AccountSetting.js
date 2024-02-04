@@ -40,11 +40,11 @@ const AccountSetting = () => {
   return (
 
     <>
-    <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-        <Typography variant="h1" >Account settings</Typography>
-        <Typography variant="h3" gutterBottom>Manage your account's informations</Typography>
+    <Container maxWidth="xl" style={{ marginTop: '3rem', marginBottom: '3rem' }}>
+        <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} >Account settings</Typography>
+        <Typography variant="h5" gutterBottom>Manage your account's informations</Typography>
     </Container>
-    <Container maxWidth="xl" style={{ marginTop: '100px', marginBottom: '50px' }}>
+    <Container maxWidth="xl" style={{ marginBottom: '3rem' }}>
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={tab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

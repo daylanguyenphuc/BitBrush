@@ -16,10 +16,10 @@ const CreateCollection = () => {
         <>
         
         <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-            <Typography variant="h2">Create a collection</Typography>
+            <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase' }} >Create a collection</Typography>
             <Typography variant="h5" gutterBottom>Launch your NFT collection for others to mint.</Typography>
         </Container>
-        <Container maxWidth="xl" style={{ marginTop: '100px', marginBottom: '200px' }}>
+        <Container maxWidth="xl" style={{ marginTop: '3rem', marginBottom: '3rem' }}>
             <FormControl fullWidth>
                 <TextField
                     required
@@ -28,7 +28,7 @@ const CreateCollection = () => {
                     fullWidth
                     value={collectionName}
                     onChange={handleCollectionNameChange}
-                    style={{ marginBottom: '20px' }}
+                    style={{ marginBottom: '1rem' }}
                 />
                 <TextField
                     required
@@ -39,7 +39,7 @@ const CreateCollection = () => {
                     fullWidth
                     value={collectionDescription}
                     onChange={handleCollectionDescriptionChange}
-                    style={{ marginBottom: '20px' }}
+                    style={{ marginBottom: '1rem' }}
                 />
             </FormControl>
             <Button variant="contained">Create new collection</Button>
