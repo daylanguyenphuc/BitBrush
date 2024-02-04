@@ -12,7 +12,7 @@ const Marketplace = () => {
     };
 
     // Filter by tags function
-    const [unselectedTags, setUnselectedTags] = useState(['Painting and drawing','Vector art','3D model','Pixel art','2D animation','3D animation']);
+    const [unselectedTags, setUnselectedTags] = useState(['Painting and drawing', 'Vector art', '3D model', 'Pixel art', '2D animation', '3D animation']);
     const [selectedTags, setSelectedTags] = useState([]);
     const handleTagClick = (tag) => {
         setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
@@ -26,7 +26,7 @@ const Marketplace = () => {
     // Sort function
     const [sort, setSort] = useState('');
     const handleSort = (event) => {
-        setSort(event.target.value);    
+        setSort(event.target.value);
     };
 
     // Filter by price range function
@@ -59,238 +59,335 @@ const Marketplace = () => {
     const [page, setPage] = useState(1);
     const handlePageChange = (event, value) => { setPage(value); }
 
-    return (  
+    return (
         <>
-        <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-            <Typography variant="h1" gutterBottom>Marketplace</Typography>
-            <Typography variant="h3" gutterBottom>Browse through more than 50K NFTs on the BrushBit Marketplace.</Typography>
-        </Container>
-        <Container
-            maxWidth="xl"
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '100px',
-                marginBottom: '20px'
-            }}
-        >
-            <Grid container spacing={2}>
-                <Grid item xs={8} sm={8} md={8}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        label="Search for collections"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton>
-                                        <SearchIcon />
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={4} sm={4} md={4}>
-                    <Box sx={{ minWidth: 120 }}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={sort}
-                                label="Sort by"
-                                onChange={handleSort}
-                            >
-                                <MenuItem value={'newest'}>Newest</MenuItem>
-                                <MenuItem value={'oldest'}>Oldest</MenuItem>
-                                <MenuItem value={'priceLow'}>Price: Low to high</MenuItem>
-                                <MenuItem value={'priceHigh'}>Price: High to low</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </Grid>
-                <Grid item xs={12} sm={12} md={12}>
-                <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags: </Typography>
-                    {selectedTags.map((tag, index) => (
-                        <Chip
-                            key={index}
-                            label={tag}
-                            onDelete={() => handleTagDelete(tag)}
-                            color="primary"
-                            style={{ margin: '4px' }}
+            <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
+                <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} gutterBottom>Marketplace</Typography>
+                <Typography variant="h5" gutterBottom>Browse through more than 50K NFTs on the BrushBit Marketplace.</Typography>
+            </Container>
+            
+            <Container
+                maxWidth="xl"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '3rem',
+                    marginBottom: '1rem'
+                }}
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={8} sm={8} md={8}>
+                        <TextField
+                            variant="outlined"
+                            fullWidth
+                            label="Search for collections"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton>
+                                            <SearchIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
-                    ))}
-                    {unselectedTags.map((tag, index) => (
-                        <Chip
-                            key={index}
-                            label={tag}
-                            onClick={() => handleTagClick(tag)}
-                            style={{ margin: '4px', cursor: 'pointer' }}
-                        />
-                    ))}
+                    </Grid>
+                    <Grid item xs={4} sm={4} md={4}>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={sort}
+                                    label="Sort by"
+                                    onChange={handleSort}
+                                >
+                                    <MenuItem value={'newest'}>Newest</MenuItem>
+                                    <MenuItem value={'oldest'}>Oldest</MenuItem>
+                                    <MenuItem value={'priceLow'}>Price: Low to high</MenuItem>
+                                    <MenuItem value={'priceHigh'}>Price: High to low</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags: </Typography>
+                        {selectedTags.map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                onDelete={() => handleTagDelete(tag)}
+                                color="primary"
+                                style={{ margin: '4px' }}
+                            />
+                        ))}
+                        {unselectedTags.map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                onClick={() => handleTagClick(tag)}
+                                style={{ margin: '4px', cursor: 'pointer' }}
+                            />
+                        ))}
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} sx={{ marginBottom: '16px' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Typography variant="body2" sx={{ marginRight: '16px' }}>Price range: from {valuetext(priceFilterRange[0])}</Typography>
+                            <Slider
+                                getAriaLabel={() => 'Minimum distance shift'}
+                                value={priceFilterRange}
+                                onChange={handleChangePriceRange}
+                                valueLabelDisplay="auto"
+                                getAriaValueText={valuetext}
+                                min={0}
+                                max={maxPrice}
+                                step={0.01}
+                                disableSwap
+                                sx={{ width: '300px' }}
+                            />
+                            <Typography variant="body2" sx={{ marginLeft: '16px' }}>to {valuetext(priceFilterRange[1])}</Typography>
+                        </Box>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} sx={{ marginBottom: '16px' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography variant="body2" sx={{ marginRight: '16px' }}>Price range: from {valuetext(priceFilterRange[0])}</Typography>
-                        <Slider
-                            getAriaLabel={() => 'Minimum distance shift'}
-                            value={priceFilterRange}
-                            onChange={handleChangePriceRange}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                            min={0}
-                            max={maxPrice}
-                            step={0.01}
-                            disableSwap
-                            sx={{ width: '300px' }}
-                        />
-                        <Typography variant="body2" sx={{ marginLeft: '16px' }}>to {valuetext(priceFilterRange[1])}</Typography>
-                    </Box>
+            </Container>
+            <Container maxWidth="xl">
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-01.jpg" alt="image" />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-02.jpg" alt="image" />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-03.jpg" alt="image" />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-04.jpg" alt="image" />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-05.jpg" alt='product' />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-06.jpg" alt='product' />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-07.jpg" alt='product' />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-08.jpg" alt='product' />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Paper style={{ padding: '5%' }}>
+                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-09.jpg" alt='product' />
+                            </Box>
+                            <Box style={{ width: '100%', margin: '15px 0' }}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={9} sm={9} md={9}>
+                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                                    </Grid>
+                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12}>
+                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box style={{ width: '100%' }}>
+                                <Button variant="contained">Buy now</Button>
+                                <Button variant="text">View details</Button>
+                            </Box>
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Container>
-        <Container maxWidth="xl">
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Paper style={{ padding: '5%'}}>
-                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
-                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
-                        </Box>
-                        <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Grid container spacing={0}>
-                                <Grid item xs={9} sm={9} md={9}>
-                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                </Grid>
-                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Box style={{ width: '100%' }}>
-                            <Button variant="contained">Buy now</Button>
-                            <Button variant="text">View details</Button>
-                        </Box>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Paper style={{ padding: '5%'}}>
-                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
-                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
-                        </Box>
-                        <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Grid container spacing={0}>
-                                <Grid item xs={9} sm={9} md={9}>
-                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                </Grid>
-                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Box style={{ width: '100%' }}>
-                            <Button variant="contained">Buy now</Button>
-                            <Button variant="text">View details</Button>
-                        </Box>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Paper style={{ padding: '5%'}}>
-                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
-                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
-                        </Box>
-                        <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Grid container spacing={0}>
-                                <Grid item xs={9} sm={9} md={9}>
-                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                </Grid>
-                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Box style={{ width: '100%' }}>
-                            <Button variant="contained">Buy now</Button>
-                            <Button variant="text">View details</Button>
-                        </Box>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Paper style={{ padding: '5%'}}>
-                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
-                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt="image"/>
-                        </Box>
-                        <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Grid container spacing={0}>
-                                <Grid item xs={9} sm={9} md={9}>
-                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                </Grid>
-                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Box style={{ width: '100%' }}>
-                            <Button variant="contained">Buy now</Button>
-                            <Button variant="text">View details</Button>
-                        </Box>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Paper style={{ padding: '5%'}}>
-                        <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px'}}>
-                            <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="image.jpg" alt='product'/>
-                        </Box>
-                        <Box style={{ width: '100%', margin: '15px 0' }}>
-                            <Grid container spacing={0}>
-                                <Grid item xs={9} sm={9} md={9}>
-                                    <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                </Grid>
-                                <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                    <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Box style={{ width: '100%' }}>
-                            <Button variant="contained">Buy now</Button>
-                            <Button variant="text">View details</Button>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container>
-        <Container
-            maxWidth="xl"
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                height : '20vh',
-            }}
-        >
-            <Pagination count={10} page={page} onChange={handlePageChange} />
-        </Container>
+            </Container>
+            <Container
+                maxWidth="xl"
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    height: '20vh',
+                }}
+            >
+                <Pagination count={10} page={page} onChange={handlePageChange} />
+            </Container>
         </>
     );
 }
- 
+
 export default Marketplace;

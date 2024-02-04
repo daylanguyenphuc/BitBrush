@@ -76,10 +76,10 @@ const CreateNFT = () => {
         <>
 
         <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-            <Typography variant="h2">Create an NFT</Typography>
+            <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase' }} >Create an NFT</Typography>
             <Typography variant="h5" gutterBottom>Create a collection and mint NFT directly to your wallet.</Typography>
         </Container>
-        <Container maxWidth="xl" style={{ marginTop: '100px', marginBottom: '200px' }}>
+        <Container maxWidth="xl" style={{ marginTop: '3rem', marginBottom: '3rem' }}>
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={6} md={6}>
                     <Paper elevation={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', border: '2px dashed #ccc', cursor: 'pointer', aspectRatio: '1 / 1', textAlign: 'center', color: '#abaaa9'}} {...getRootProps()}>

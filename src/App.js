@@ -18,27 +18,39 @@ import CreateNFT from "./CreateNFT";
 import CreateCollection from "./CreateCollection";
 import AccountSetting from "./AccountSetting";
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#3D00B7',
+    },
+  },
+});
+
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Header/>
-        <div className="contents">
-          <Routes>
-            <Route exact path="/" element={<Homepage />} />
-            <Route exact path="/signup" element={<SignUpPage />} />
-            <Route exact path="/marketplace" element={<Marketplace />} />
-            <Route exact path="/collection" element={<Collection />} />
-            <Route exact path="/ranking" element={<Ranking />} />
-            <Route exact path="/create" element={<Create />} />
-            <Route exact path="/create/createNFT" element={<CreateNFT />} />
-            <Route exact path="/create/createCollection" element={<CreateCollection />} />
-            <Route exact path="/accountsetting" element={<AccountSetting />} />
-          </Routes>
-        </div>
-        <Footer/>
-      </Router>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Router>
+          <Header />
+          <div className="contents">
+            <Routes>
+              <Route exact path="/" element={<Homepage />} />
+              <Route exact path="/signup" element={<SignUpPage />} />
+              <Route exact path="/marketplace" element={<Marketplace />} />
+              <Route exact path="/collection" element={<Collection />} />
+              <Route exact path="/ranking" element={<Ranking />} />
+              <Route exact path="/create" element={<Create />} />
+              <Route exact path="/create/createNFT" element={<CreateNFT />} />
+              <Route exact path="/create/createCollection" element={<CreateCollection />} />
+              <Route exact path="/accountsetting" element={<AccountSetting />} />
+            </Routes>
+          </div>
+          <Footer />
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 

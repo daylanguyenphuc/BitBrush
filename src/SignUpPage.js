@@ -5,7 +5,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const SignUpPage = () => {
-  
+
   // Show password function
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -90,23 +90,25 @@ const SignUpPage = () => {
   };
 
   return (
-    <Container style={{ marginTop: '4rem', marginBottom: '4rem' }}>
+    <Container style={{ marginTop: '6rem', marginBottom: '6rem' }}>
 
       <Grid container spacing={2} >
         <Grid item xs={12}>
-          <Typography variant='h2' style={{ textAlign: 'center', marginBottom: '3rem' }}>{isLogin ? 'Welcome back' : 'Create an account'}</Typography>
+          <Typography variant='h2' style={{ fontWeight: 'bold', textTransform: 'uppercase', textAlign: 'center', marginBottom: '3rem' }}>{isLogin ? 'Welcome back' : 'Create an account'}</Typography>
         </Grid>
-        <Grid item xs={12} sx={{ marginRight: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }, marginLeft: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }}}>
-          {!isLogin && (
+
+        {!isLogin && (
+          <Grid item xs={12} sx={{ marginRight: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }, marginLeft: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' } }}>
             <Stepper activeStep={activeStep} alternativeLabel style={{ marginBottom: '3rem' }}>
               <Step><StepLabel>Account Information</StepLabel></Step>
               <Step><StepLabel>Personal Information</StepLabel></Step>
               <Step><StepLabel>Connect Wallet</StepLabel></Step>
             </Stepper>
-          )}
-        </Grid>
+          </Grid>
+        )}
+
         {!isLogin ? (
-          <Grid item xs={12} sx={{ marginRight: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }, marginLeft: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }}}>
+          <Grid item xs={12} sx={{ marginRight: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }, marginLeft: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' } }}>
             {activeStep === 0 && (
               <div>
                 <Typography variant="h6">Step 1: Account Information</Typography>
@@ -198,7 +200,7 @@ const SignUpPage = () => {
                     <>
                       Wallet connected <CheckCircleIcon style={{ marginLeft: '0.5rem' }} />
                     </>
-                  ) : ( 'Connect Wallet')}
+                  ) : ('Connect Wallet')}
                 </Button>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                   <Button color="primary" onClick={handleBack} size="large" style={{ flex: 1 }}>Back</Button>
