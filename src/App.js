@@ -17,6 +17,7 @@ import Ranking from "./Ranking";
 import Create from "./Create";
 import CreateNFT from "./CreateNFT";
 import CreateCollection from "./CreateCollection";
+import Wallet from "./Wallet";
 import AccountSetting from "./AccountSetting";
 import User from "./User";
 
@@ -54,6 +55,7 @@ function App() {
               <Route exact path="/create/createCollection" element={<CreateCollection />} />
               <Route exact path="/accountsetting" element={<AccountSetting />} />
               <Route exact path="/user" element={<User />} />
+              <Route exact path="/wallet" element={<Wallet />} />
             </Routes>
           </div>
           <Footer />

@@ -171,8 +171,8 @@ const User = () => {
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
                             <Tab label="Personal information" value="1" />
-                            <Tab label="Created" value="2" />
-                            <Tab label="Owned" value="3" />
+                            <Tab label="Created NFTs" value="2" />
+                            <Tab label="Owned NFTs" value="3" />
                             <Tab label="Collections" value="4" />
                             <Tab label="Transaction history" value="5" />
                         </TabList>
@@ -181,6 +181,7 @@ const User = () => {
                         <Typography variant="body1" gutterBottom><b>User ID: </b>564a3c5f-784c-40ed-b46d-6a1f5ef0f1cd</Typography>
                         <Typography variant="body1" gutterBottom><b>Phone number: </b><a href="tel:1234567890">1234567890</a></Typography>
                         <Typography variant="body1" gutterBottom><b>Email: </b><a href="mailto:johndoe@gmail.com">johndoe@gmail.com</a></Typography>
+                        <Typography variant="body1" gutterBottom><b>Gender: </b>Male</Typography>
                         <Typography variant="body1" gutterBottom><b>Birthdate: </b>01/01/1990</Typography>
                         <Typography variant="body1" gutterBottom><b>Join date: </b>01/01/2020</Typography>
                     </TabPanel>
