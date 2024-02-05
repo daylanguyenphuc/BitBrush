@@ -76,7 +76,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-01.jpeg"
+                            image="collection-01.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -95,7 +95,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-02.avif"
+                            image="collection-02.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -114,7 +114,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-03.avif"
+                            image="collection-03.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -133,7 +133,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-04.jpeg"
+                            image="collection-04.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -152,7 +152,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-05.png"
+                            image="collection-05.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -171,7 +171,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-06.jpeg"
+                            image="collection-06.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -190,7 +190,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-07.jpeg"
+                            image="collection-07.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -209,7 +209,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-08.jpeg"
+                            image="collection-08.jpg"
                             alt="test image"        
                         />
                         <CardContent>
@@ -228,7 +228,7 @@ const Collection = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="collection-09.jpeg"
+                            image="collection-09.jpg"
                             alt="test image"        
                         />
                         <CardContent>

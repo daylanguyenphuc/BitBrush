@@ -7,10 +7,10 @@ import TabPanel from '@mui/lab/TabPanel';
 const AccountSetting = () => {
 
   // Change tab function
-    const [tab, setTab] = useState('1');
-    const handleChangeTab = (event, newTab) => {
-        setTab(newTab);
-    };
+  const [tab, setTab] = useState('1');
+  const handleChangeTab = (event, newTab) => {
+      setTab(newTab);
+  };
 
   // Update information function
   const [userId, setUserId] =  useState('564a3c5f-784c-40ed-b46d-6a1f5ef0f1cd');
@@ -48,10 +48,10 @@ const AccountSetting = () => {
         <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={tab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
-                        <Tab label="My personal information" value="1" />
-                        <Tab label="Password management" value="2" />
-                    </TabList>
+                  <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
+                      <Tab label="My personal information" value="1" />
+                      <Tab label="Password management" value="2" />
+                  </TabList>
                 </Box>
                 <TabPanel value="1">
                   <Box>
@@ -137,7 +137,7 @@ const AccountSetting = () => {
                   </Box>
                 </TabPanel>
                 <TabPanel value="2">
-                <Box>
+                  <Box>
                     <form onSubmit={handleUpdateUserPassword}>
                       <TextField
                         label="Old password"

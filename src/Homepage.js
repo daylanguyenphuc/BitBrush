@@ -35,7 +35,7 @@ const Homepage = () => {
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4}>
                                         <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>12K</Typography>
-                                        <Typography variant="h6" gutterBottom>Auction</Typography>
+                                        <Typography variant="h6" gutterBottom>Collections</Typography>
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4}>
                                         <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>15K</Typography>
@@ -71,15 +71,15 @@ const Homepage = () => {
                     <Grid item xs={12} sm={12} md={4}>
                         <Typography variant="h3" style={{ fontWeight: 'bold' }} gutterBottom>The amazing NFT art of the world is here</Typography>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={3.5}>
+                    <Grid item xs={12} sm={12} md={4}>
                         <CreditScoreIcon sx={{ fontSize: 40 }} />
                         <Typography variant="h5" style={{ fontWeight: 'bold' }} gutterBottom>Fast transaction</Typography>
-                        <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque odio non volutpat tempor. Aliquam mollis ex eleifend, placerat dolor non, viverra nisi.</Typography>
+                        <Typography variant="body1" gutterBottom>Experience seamless and swift transactions with our cutting-edge technology, immersing yourself in the captivating world of digital art. Enjoy the thrill of instant transactions, putting the power of NFTs at your fingertips.</Typography>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={3.5}>
+                    <Grid item xs={12} sm={12} md={4}>
                         <TrendingUpIcon sx={{ fontSize: 40 }} />
                         <Typography variant="h5" style={{ fontWeight: 'bold' }} gutterBottom>Growth transaction</Typography>
-                        <Typography variant="body1" gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque odio non volutpat tempor. Aliquam mollis ex eleifend, placerat dolor non, viverra nisi.</Typography>
+                        <Typography variant="body1" gutterBottom>Invest in the evolution of NFT art with our empowering platform. We foster an environment where the value of digital creations flourishes, creating a symbiotic relationship between artists and collectors.</Typography>
                     </Grid>
                 </Grid>
             </Container>
@@ -104,7 +104,7 @@ const Homepage = () => {
                                 <CardMedia component="img" width="250" image="./Createcollection.png" alt="Create collection" />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">Create collection</Typography>
-                                    <Typography variant="body2" color="text.secondary">Upload your work and setup your collectin. Add a descreption, identify tags and price.</Typography>
+                                    <Typography variant="body2" color="text.secondary">Upload your work and setup your collectin. Add a description, identify tags and price.</Typography>
                                 </CardContent>
                             </CardActionArea>
                         </Card>
