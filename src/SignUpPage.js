@@ -30,7 +30,7 @@ const SignUpPage = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const [gender, setGender] = useState('');
-  const [birthdate, setBirthdate] = useState('');
+  const [birthdate, setBirthdate] = useState('00/00/0000');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
@@ -55,7 +55,7 @@ const SignUpPage = () => {
       setSignupFirstNameError(!validateAlphabetic(signupFirstName.trim()));
       setSignupLastNameError(!validateAlphabetic(signupLastName.trim()));
       setGenderError(!gender);
-      setBirthdateError(!birthdate);
+      setBirthdateError(!birthdate || birthdate=='00/00/0000');
       setPhoneNumberError(!phoneNumber || !/^\d+$/.test(phoneNumber) || phoneNumber.trim().length !== 10);
     }
 
@@ -220,6 +220,8 @@ const SignUpPage = () => {
                   required
                   fullWidth
                   margin="normal"
+                  error={signupPhoneNumberError}
+                  helperText={signupPhoneNumberError && 'Use correct phone number format'}
                 />
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
