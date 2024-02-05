@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Grid, Typography, TextField, InputAdornment, IconButton, Chip, Select, MenuItem, InputLabel, Box, FormControl, Slider, Pagination, Paper, Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 const CollectionDetail = () => {
 
@@ -176,7 +177,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -200,7 +201,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -224,7 +225,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -248,7 +249,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -272,7 +273,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -296,7 +297,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -320,7 +321,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -344,7 +345,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -368,7 +369,7 @@ const CollectionDetail = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                             </Box>
                         </Paper>
                     </Grid>

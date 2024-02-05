@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Button, InputAdornment, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Pagination from '@mui/material/Pagination';
+import { Link } from 'react-router-dom';
 
 const Collection = () => {
 
@@ -86,7 +87,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -105,7 +108,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -124,7 +129,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -143,7 +150,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -162,7 +171,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -181,7 +192,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -200,7 +213,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -219,7 +234,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -238,7 +255,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -257,7 +276,9 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
+                            <Link to='/collectiondetail'>
                             <Button size="small" color="primary">Discover collection</Button>
+                            </Link>
                         </CardActions>
                     </Card>
                 </Grid>
