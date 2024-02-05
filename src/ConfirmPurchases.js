@@ -2,7 +2,7 @@ import { Container, Typography, Button } from "@mui/material";
 
 const ConfirmPurchase = () => {
     return (  
-        <Container style={{ textAlign: 'center', margin: '50px 0' }}>
+        <Container maxWidth="xl" style={{ textAlign: 'center', display: 'block', margin: '50px auto' }}>
             <Typography variant="h1" gutterBottom style={{ margin: '50px 0' }}>Your purchase is completed!</Typography>
             <svg width="25%" height="25%" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_1028_5454)">
