@@ -37,7 +37,7 @@ function Header() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
+          {/* <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
               <img
                 src={process.env.PUBLIC_URL + '/logo.png'}
                 alt="BitBrush Logo"
@@ -48,8 +48,8 @@ function Header() {
                   display: { xs: 'none', md: 'flex' },
                 }}
               />
-            </Link>
-          {/* <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
+            </Link> */}
+          <Link to='/' style={{textDecoration: 'none', color: 'inherit'}}>
             <Typography
               variant="h6"
               noWrap
@@ -65,7 +65,7 @@ function Header() {
             >
               BitBrush
             </Typography>
-          </Link> */}
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

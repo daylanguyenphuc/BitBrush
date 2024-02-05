@@ -34,7 +34,7 @@ const NFTDetail = () => {
                 </Grid>
                 <Grid item  xs={12} sm={6} md={6}>
                     <Box>
-                        <Typography variant="h4">NFT's name here</Typography>
+                        <Typography variant="h4" style={{ fontWeight: 'bold'}}>NFT's name here</Typography>
                         <Typography variant="subtitle1" gutterBottom>Created date: 20/01/2024 15:19:13</Typography>
                         <Grid container spacing={2}>
                             <Grid item  xs={12} sm={12} md={6} style={{display: 'flex', alignItems: 'center' }}>
