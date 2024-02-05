@@ -104,7 +104,7 @@ const Homepage = () => {
                                 <CardMedia component="img" width="250" image="./Createcollection.png" alt="Create collection" />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">Create collection</Typography>
-                                    <Typography variant="body2" color="text.secondary">Upload your work and setup your collectin. Add a description, identify tags and price.</Typography>
+                                    <Typography variant="body2" color="text.secondary">Upload your work and setup your collection. Add a description, identify tags and price.</Typography>
                                 </CardContent>
                             </CardActionArea>
                         </Card>

@@ -1,8 +1,22 @@
 import React, { useState } from "react";
-import { Container, Grid, Typography, TextField, InputAdornment, IconButton, Chip, Select, MenuItem, InputLabel, Box, FormControl, Slider, Pagination, Paper, Button } from "@mui/material";
+import { Link } from 'react-router-dom';
+import { Container, Grid, Typography, TextField, InputAdornment, IconButton, Chip, Select, MenuItem, InputLabel, Box, FormControl, Slider, Pagination, Paper, Button, Accordion, AccordionDetails, AccordionSummary, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Dialog, DialogTitle, DialogActions, DialogContent } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Marketplace = () => {
+
+    // Confirm purchase function
+    const [confirmPurchase, setConfirmPurchase] = React.useState(false);
+    const handleNoConirmPurchase = () => {
+        setConfirmPurchase(false);
+    };
+    const handleConfirmPurchase = () => {
+        setConfirmPurchase(true);
+    };
+    const handlePurchase = () => {
+        console.log("purcharse");
+    };
 
     // Search by name function
     const [searchTerm, setSearchTerm] = useState('');
@@ -63,18 +77,18 @@ const Marketplace = () => {
         <>
             <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
                 <Typography
-                variant="h2"
-                style={{
-                    textTransform: 'uppercase',
-                    fontSize: '3rem',
-                }}
-                gutterBottom
+                    variant="h2"
+                    style={{
+                        textTransform: 'uppercase',
+                        fontSize: '3rem',
+                    }}
+                    gutterBottom
                 >
-                Marketplace
+                    Marketplace
                 </Typography>
                 <Typography variant="h5" gutterBottom>Browse through more than 50K NFTs on the BrushBit Marketplace.</Typography>
             </Container>
-            
+
             <Container
                 maxWidth="xl"
                 style={{
@@ -184,8 +198,8 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -209,7 +223,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -233,7 +247,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -257,7 +271,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -281,7 +295,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -305,7 +319,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -329,7 +343,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -353,7 +367,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -377,7 +391,7 @@ const Marketplace = () => {
                             </Box>
                             <Box style={{ width: '100%' }}>
                                 <Button variant="contained">Buy now</Button>
-                                <Button variant="text">View details</Button>
+                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
                     </Grid>
@@ -395,6 +409,76 @@ const Marketplace = () => {
             >
                 <Pagination count={10} page={page} onChange={handlePageChange} />
             </Container>
+
+            <Dialog open={confirmPurchase} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">{"Confirm your purchase"}</DialogTitle>
+                <DialogContent>
+                    <Box style={{ margin: '30px' }}>
+                        <Accordion defaultExpanded>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">NFT's information</Typography></AccordionSummary>
+                            <AccordionDetails>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} sm={3} md={3}>
+                                        <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-03.jpg" alt='product' />
+                                    </Grid>
+                                    <Grid item xs={8} sm={6} md={6} >
+                                        <Typography variant="subtitle1">NFT's name here</Typography>
+                                        <Typography variant="body1">Created by: Nguyen Phuc</Typography>
+                                        <Typography variant="body2" gutterBottom >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac tellus id risus gravida elementum eu nec ipsum. Maecenas dignissim sem scelerisque, finibus elit ac, consectetur eros. Pellentesque metus nibh, consequat at sodales fermentum, bibendum ut ante.</Typography>
+                                    </Grid>
+                                    <Grid item xs={4} sm={3} md={3} style={{ textAlign: 'center' }}>
+                                        <Typography variant="body1" color='primary' >0.007 ETH</Typography>
+                                    </Grid>
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion defaultExpanded>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">Purchase information</Typography></AccordionSummary>
+                            <AccordionDetails>
+                                <TableContainer>
+                                    <Table size="small" aria-label="table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell align="left">Category</TableCell>
+                                                <TableCell align="right">Price</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell align="left">NFT's name here</TableCell>
+                                                <TableCell align="right">0.007 ETH</TableCell>
+                                            </TableRow>
+                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell align="left">Network fee</TableCell>
+                                                <TableCell align="right">+ 0.02 ETH</TableCell>
+                                            </TableRow>
+                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell align="left">Processing fee</TableCell>
+                                                <TableCell align="right">+ 0.005 ETH</TableCell>
+                                            </TableRow>
+                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell align="left">Total:</TableCell>
+                                                <TableCell align="right">0.212 ETH</TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion defaultExpanded>
+                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">Address information</Typography></AccordionSummary>
+                            <AccordionDetails>
+                                <Typography variant="body1" gutterBottom><b>From: </b>564a3c...f0f1cd</Typography>
+                                <Typography variant="body1" gutterBottom><b>To: </b>4c40ed...f0f1cd</Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleNoConirmPurchase} variant="text">Cancel purchase</Button>
+                    <Button onClick={handlePurchase} variant="contained" autoFocus><Link to='/purchasecompleted' style={{ color: 'white', textDecoration: 'none' }}>Confirm purchase</Link></Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 }
