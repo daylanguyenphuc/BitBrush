@@ -463,8 +463,6 @@ const User = () => {
                                                 >
                                                     <MenuItem value={'newest'}>Newest</MenuItem>
                                                     <MenuItem value={'oldest'}>Oldest</MenuItem>
-                                                    <MenuItem value={'priceLow'}>Price: Low to high</MenuItem>
-                                                    <MenuItem value={'priceHigh'}>Price: High to low</MenuItem>
                                                 </Select>
                                             </FormControl>
                                         </Box>
@@ -489,24 +487,6 @@ const User = () => {
                                             />
                                         ))}
                                     </Grid>
-                                    <Grid item xs={12} sm={12} md={12} sx={{ marginBottom: '16px' }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <Typography variant="body2" sx={{ marginRight: '16px' }}>Price range: from {valuetext(ownedPriceFilterRange[0])}</Typography>
-                                            <Slider
-                                                getAriaLabel={() => 'Minimum distance shift'}
-                                                value={ownedPriceFilterRange}
-                                                onChange={handleChangeOwnedPriceRange}
-                                                valueLabelDisplay="auto"
-                                                getAriaValueText={valuetext}
-                                                min={0}
-                                                max={maxOwnedPrice}
-                                                step={0.01}
-                                                disableSwap
-                                                sx={{ width: '300px' }}
-                                            />
-                                            <Typography variant="body2" sx={{ marginLeft: '16px' }}>to {valuetext(ownedPriceFilterRange[1])}</Typography>
-                                        </Box>
-                                    </Grid>
                                 </Grid>
                             </Box>
                             <Box>
@@ -530,7 +510,7 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                <Link to='/nftdetail'><Button variant="contained">View details</Button></Link>
                                             </Box>
                                         </Paper>
                                     </Grid>
@@ -553,7 +533,7 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                <Link to='/nftdetail'><Button variant="contained">View details</Button></Link>
                                             </Box>
                                         </Paper>
                                     </Grid>
@@ -576,7 +556,7 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                <Link to='/nftdetail'><Button variant="contained">View details</Button></Link>
                                             </Box>
                                         </Paper>
                                     </Grid>
@@ -599,7 +579,7 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                <Link to='/nftdetail'><Button variant="contained">View details</Button></Link>
                                             </Box>
                                         </Paper>
                                     </Grid>
@@ -622,7 +602,7 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                <Link to='/nftdetail'><Button variant="contained">View details</Button></Link>
                                             </Box>
                                         </Paper>
                                     </Grid>
