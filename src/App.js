@@ -20,6 +20,7 @@ import CreateCollection from "./CreateCollection";
 import Wallet from "./Wallet";
 import AccountSetting from "./AccountSetting";
 import User from "./User";
+import NFTDetail from "./NFTDetail";
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -56,6 +57,7 @@ function App() {
               <Route exact path="/accountsetting" element={<AccountSetting />} />
               <Route exact path="/user" element={<User />} />
               <Route exact path="/wallet" element={<Wallet />} />
+              <Route exact path="/nftdetail" element={<NFTDetail />} />
             </Routes>
           </div>
           <Footer />
