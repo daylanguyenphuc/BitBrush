@@ -530,7 +530,6 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                                 <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                                             </Box>
                                         </Paper>
@@ -554,7 +553,6 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                                 <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                                             </Box>
                                         </Paper>
@@ -578,7 +576,6 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                                 <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                                             </Box>
                                         </Paper>
@@ -602,7 +599,6 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                                 <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                                             </Box>
                                         </Paper>
@@ -626,7 +622,6 @@ const User = () => {
                                                 </Grid>
                                             </Box>
                                             <Box style={{ width: '100%' }}>
-                                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                                 <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
                                             </Box>
                                         </Paper>
