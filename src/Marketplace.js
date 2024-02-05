@@ -62,7 +62,16 @@ const Marketplace = () => {
     return (
         <>
             <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-                <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} gutterBottom>Marketplace</Typography>
+                <Typography
+                variant="h2"
+                style={{
+                    textTransform: 'uppercase',
+                    fontSize: '3rem',
+                }}
+                gutterBottom
+                >
+                Marketplace
+                </Typography>
                 <Typography variant="h5" gutterBottom>Browse through more than 50K NFTs on the BrushBit Marketplace.</Typography>
             </Container>
             

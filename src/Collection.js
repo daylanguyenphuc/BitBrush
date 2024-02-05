@@ -26,7 +26,16 @@ const Collection = () => {
     return (  
         <>
         <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-            <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} gutterBottom>Browse collections</Typography>
+            <Typography
+            variant="h2"
+            style={{
+                textTransform: 'uppercase',
+                fontSize: '3rem',
+            }}
+            gutterBottom
+            >
+            Browse Collections
+            </Typography>
             <Typography variant="h5" gutterBottom>Browse through more than 30k NFT Collections on NFTers.</Typography>
         </Container>
 
