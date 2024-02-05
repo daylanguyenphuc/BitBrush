@@ -4,7 +4,11 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import '@fontsource/montserrat';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/800.css';
+import '@fontsource/montserrat/900.css';
 
 import Header from "./Header";
 import Footer from './Footer';
@@ -33,6 +37,10 @@ const theme = createTheme({
     },
   },
   typography: {
+    h2: {
+      fontWeight: 900,
+      fontSize: "3rem",
+    },
     fontFamily: [
       'Montserrat', 
       'sans-serif',

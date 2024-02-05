@@ -10,7 +10,16 @@ const Create = () => {
                 <Grid item xs={12} sm={12} md={6.5} style={{ padding: '0 5%' }}>
                     <Grid container spacing={10}>
                         <Grid item xs={12} sm={12} md={12} style={{ marginTop: '20vh' }}>
-                            <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase' }} gutterBottom>Create</Typography>
+                            <Typography
+                            variant="h2"
+                            style={{
+                                textTransform: 'uppercase',
+                                fontSize: '3rem',
+                            }}
+                            gutterBottom
+                            >
+                            Create
+                            </Typography>
                             <Typography variant="h5" gutterBottom>Create your items by dropping a collection or minting an NFT</Typography>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} style={{ marginBottom: '20vh', display: 'flex' }}>

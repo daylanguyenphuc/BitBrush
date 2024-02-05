@@ -67,7 +67,7 @@ function Header() {
             </Typography>
           </Link> */}
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', justifyContent: 'flex-end' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -103,7 +103,7 @@ function Header() {
               <Link to='/create' style={{textDecoration:'none', color:'#4a4a4a'}}><MenuItem><Typography textAlign="center">Create</Typography></MenuItem></Link>
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'flex-start'  } }}>
             <Link to='/marketplace' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Marketplace</Button></Link>
             <Link to='/collection' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Collection</Button></Link>
             <Link to='/ranking' style={{textDecoration:'none'}}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Ranking</Button></Link>

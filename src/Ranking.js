@@ -19,7 +19,16 @@ const Ranking = () => {
   return (
     <>
     <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-      <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} >Rankings</Typography>
+      <Typography
+      variant="h2"
+      style={{
+          textTransform: 'uppercase',
+          fontSize: '3rem',
+      }}
+      gutterBottom
+      >
+      Rankings
+      </Typography>
       <Typography variant="h5" gutterBottom>Check out top ranking NFT artists on the NFT Marketplace updated in real-time.</Typography>
     </Container>
 
