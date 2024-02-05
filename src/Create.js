@@ -7,7 +7,7 @@ const Create = () => {
     return (
         <Container maxWidth="xl" style={{ padding: '0' }} >
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={6.5} style={{ padding: '0 5%' }}>
+                <Grid item xs={12} sm={12} md={6} style={{ padding: '0 5%' }}>
                     <Grid container spacing={10}>
                         <Grid item xs={12} sm={12} md={12} style={{ marginTop: '20vh' }}>
                             <Typography
@@ -54,7 +54,7 @@ const Create = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sm={12} md={5.5}>
+                <Grid item xs={12} sm={12} md={6}>
                     <Box style={{ backgroundImage: `url(${'./createimg.png'})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100%' }}></Box>
                 </Grid>
             </Grid>
