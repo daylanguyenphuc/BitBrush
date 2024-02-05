@@ -87,9 +87,7 @@ const Collection = () => {
                             <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
                         </CardContent>
                         <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
+                            <Link to='/collectiondetail'><Button size="small" color="primary">Discover collection</Button></Link>
                         </CardActions>
                     </Card>
                 </Grid>

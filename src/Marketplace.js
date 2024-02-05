@@ -222,7 +222,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -246,7 +246,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -270,7 +270,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -294,7 +294,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -318,7 +318,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -342,7 +342,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -366,7 +366,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
@@ -390,7 +390,7 @@ const Marketplace = () => {
                                 </Grid>
                             </Box>
                             <Box style={{ width: '100%' }}>
-                                <Button variant="contained">Buy now</Button>
+                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
                                 <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
                             </Box>
                         </Paper>
