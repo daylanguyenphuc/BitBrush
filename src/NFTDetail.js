@@ -49,6 +49,8 @@ const NFTDetail = () => {
                         <Typography variant="h4" color='primary' gutterBottom style={{ fontWeight: 'bold', margin: '30px 0' }}>0.007 ETH</Typography>
                         <Typography variant="h6">Description</Typography>
                         <Typography variant="body1" gutterBottom >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac tellus id risus gravida elementum eu nec ipsum. Maecenas dignissim sem scelerisque, finibus elit ac, consectetur eros. Pellentesque metus nibh, consequat at sodales fermentum, bibendum ut ante.</Typography>
+                        <Typography variant="h6">Collection</Typography>
+                        <Typography variant="body1" gutterBottom >Collection name here</Typography>
                         <Typography variant="h6">Tags</Typography>
                         <Chip key={1} label={'Vector art'} color="primary" style={{ margin: '4px' }} />
                         <Chip key={2} label={'2D animation'} color="primary" style={{ margin: '4px' }} />

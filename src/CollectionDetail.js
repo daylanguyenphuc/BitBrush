@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Grid, Typography, TextField, InputAdornment, IconButton, Chip, Select, MenuItem, InputLabel, Box, FormControl, Slider, Pagination, Paper, Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-const Marketplace = () => {
+const CollectionDetail = () => {
 
     // Search by name function
     const [searchTerm, setSearchTerm] = useState('');
@@ -62,8 +62,8 @@ const Marketplace = () => {
     return (
         <>
             <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-                <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} gutterBottom>Marketplace</Typography>
-                <Typography variant="h5" gutterBottom>Browse through more than 50K NFTs on the BrushBit Marketplace.</Typography>
+                <Typography variant="h3" style={{ fontWeight: 'bold', textTransform: 'uppercase'}} gutterBottom>Collection name here</Typography>
+                <Typography variant="body1" gutterBottom>Descreption: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac tellus id risus gravida elementum eu nec ipsum. Maecenas dignissim sem scelerisque, finibus elit ac, consectetur eros. Pellentesque metus nibh, consequat at sodales fermentum, bibendum ut ante. Sed viverra imperdiet diam, quis ullamcorper ligula pharetra eget. Vestibulum tempus risus a urna dictum sollicitudin. Maecenas sagittis erat sed eros rutrum tempus.</Typography>
             </Container>
             
             <Container
@@ -390,4 +390,4 @@ const Marketplace = () => {
     );
 }
 
-export default Marketplace;
+export default CollectionDetail;
