@@ -135,7 +135,7 @@ function Header() {
               <MenuItem><Link to='/wallet' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Wallet</Typography></Link></MenuItem>
               <MenuItem><Link to='/user' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Profile</Typography></Link></MenuItem>
               <MenuItem><Link to='/accountsetting' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Account settings</Typography></Link></MenuItem>
-              <MenuItem><Typography textAlign="center">Logout</Typography></MenuItem>
+              <MenuItem><Link to='/signup' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Log out</Typography></Link></MenuItem>
             </Menu>
           </Box>
         </Toolbar>
