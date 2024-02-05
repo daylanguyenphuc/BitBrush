@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Container, Typography, Button } from "@mui/material";
 
 const ConfirmPurchase = () => {
@@ -15,7 +16,7 @@ const ConfirmPurchase = () => {
                 </defs>
             </svg>
             <Typography variant="h5" gutterBottom style={{ margin: '50px 0' }}>Transaction ID: 1345654</Typography>
-            <Button variant="contained">View my item</Button>
+            <Button variant="contained"><Link to='/nftdetail' style={{ textDecoration: 'none', color: 'white' }}>View my item</Link></Button>
         </Container>
     );
 }
