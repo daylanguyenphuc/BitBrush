@@ -44,7 +44,7 @@ const Wallet = () => {
                     </Button>
                 </Grid>
                 <Grid item xs={12} sm={12} md={5.5}>
-                    <Box style={{ backgroundImage: `url(${'./walletimg.png'})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100%' }}></Box>
+                    <Box style={{ backgroundImage: `url(${'./createimg.png'})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100%' }}></Box>
                 </Grid>
             </Grid>
         </Container>
