@@ -55,14 +55,29 @@ const SignUpPage = () => {
       setSignupFirstNameError(!validateAlphabetic(signupFirstName.trim()));
       setSignupLastNameError(!validateAlphabetic(signupLastName.trim()));
       setGenderError(!gender);
-      setBirthdateError(!birthdate || birthdate=='00/00/0000');
-      setPhoneNumberError(!phoneNumber || !/^\d+$/.test(phoneNumber) || phoneNumber.trim().length !== 10);
+
+      // Check for valid birthdate format and not equal to '00/00/0000'
+      setBirthdateError(!birthdate || birthdate === '00/00/0000');
+
+      // Check for valid phone number format and not blank
+      setPhoneNumberError(
+        !phoneNumber ||
+        !/^\d+$/.test(phoneNumber) ||
+        phoneNumber.trim().length < 9
+      );
     }
 
     // Check if any errors are present
     if (
-      (activeStep === 0 && validateEmail(signupEmail) && validatePassword(signupPassword)) ||
-      (activeStep === 1 && validateAlphabetic(signupFirstName.trim()) && validateAlphabetic(signupLastName.trim()) && gender && birthdate && (!phoneNumber || /^\d*$/.test(phoneNumber)))
+      (activeStep === 0 &&
+        validateEmail(signupEmail) &&
+        validatePassword(signupPassword)) ||
+      (activeStep === 1 &&
+        validateAlphabetic(signupFirstName.trim()) &&
+        validateAlphabetic(signupLastName.trim()) &&
+        gender &&
+        !birthdate &&
+        !phoneNumber)
     ) {
       setSignupEmailError(false);
       setSignupPasswordError(false);
@@ -71,7 +86,11 @@ const SignUpPage = () => {
       setGenderError(false);
       setBirthdateError(false);
       setPhoneNumberError(false);
-      setActiveStep((prevStep) => prevStep + 1);
+
+      // Move to the next step only if it's not the last step
+      if (activeStep !== 2) {
+        setActiveStep((prevStep) => prevStep + 1);
+      }
     }
   };
 
@@ -81,10 +100,6 @@ const SignUpPage = () => {
   const handleConnectWallet = (walletNumber) => {
     // Logic to connect wallet
     setWalletConnected(true);
-  };
-  const handleConnectLater = () => {
-    // Logic to skip wallet connection
-    handleNext();
   };
 
   // Login function
@@ -265,18 +280,8 @@ const SignUpPage = () => {
                     style={{ flex: 1 }}
                   >Sign up</Button>
                 </div>
-                {isWalletConnected ? null : (
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                    onClick={handleConnectLater}
-                    style={{ width: '100%', flex: 1, marginTop: '1rem' }}
-                  >Skip this step</Button>
-                )}
               </div>
             )}
-
 
 
           </Grid>
