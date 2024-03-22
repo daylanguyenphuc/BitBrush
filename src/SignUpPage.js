@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stepper, Step, StepLabel, Button, Typography, Container, TextField, InputAdornment, Grid, MenuItem, Select, FormControl, InputLabel, } from '@mui/material';
+import { Stepper, Step, StepLabel, Button, Typography, Container, TextField, InputAdornment, Grid, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -29,32 +29,31 @@ const SignUpPage = () => {
   // Sign up function
   const [activeStep, setActiveStep] = useState(0);
 
-  const [gender, setGender] = useState('');
-  const [birthdate, setBirthdate] = useState('00/00/0000');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [username, setUsername] = useState('');
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [signupFirstName, setSignupFirstName] = useState('');
   const [signupLastName, setSignupLastName] = useState('');
+  const [gender, setGender] = useState(''); // Define gender state
+  const [birthdate, setBirthdate] = useState(''); // Define birthdate state
+  const [phoneNumber, setPhoneNumber] = useState(''); // Define phoneNumber state
 
+  const [usernameError, setUsernameError] = useState(false);
   const [signupEmailError, setSignupEmailError] = useState(false);
   const [signupPasswordError, setSignupPasswordError] = useState(false);
   const [signupFirstNameError, setSignupFirstNameError] = useState(false);
   const [signupLastNameError, setSignupLastNameError] = useState(false);
   const [signupGenderError, setGenderError] = useState(false);
-  const [signuBirthdateError, setBirthdateError] = useState(false);
+  const [signupBirthdateError, setBirthdateError] = useState(false);
   const [signupPhoneNumberError, setPhoneNumberError] = useState(false);
 
   const [isWalletConnected, setWalletConnected] = useState(false);
 
   const handleNext = () => {
     if (activeStep === 0) {
-      setSignupEmailError(!validateEmail(signupEmail));
-      setSignupPasswordError(!validatePassword(signupPassword));
-    } else if (activeStep === 1) {
       setSignupFirstNameError(!validateAlphabetic(signupFirstName.trim()));
       setSignupLastNameError(!validateAlphabetic(signupLastName.trim()));
-      setGenderError(!gender);
+      setGenderError(!gender); // Add gender validation
 
       // Check for valid birthdate format and not equal to '00/00/0000'
       setBirthdateError(!birthdate || birthdate === '00/00/0000');
@@ -65,30 +64,24 @@ const SignUpPage = () => {
         !/^\d+$/.test(phoneNumber) ||
         phoneNumber.trim().length < 9
       );
-    }
 
-    // Check if any errors are present
-    if (
-      (activeStep === 0 &&
-        validateEmail(signupEmail) &&
-        validatePassword(signupPassword)) ||
-      (activeStep === 1 &&
+      // Validate email
+      setSignupEmailError(!validateEmail(signupEmail));
+
+      if (
         validateAlphabetic(signupFirstName.trim()) &&
         validateAlphabetic(signupLastName.trim()) &&
         gender &&
-        !birthdate &&
-        !phoneNumber)
-    ) {
-      setSignupEmailError(false);
-      setSignupPasswordError(false);
-      setSignupFirstNameError(false);
-      setSignupLastNameError(false);
-      setGenderError(false);
-      setBirthdateError(false);
-      setPhoneNumberError(false);
-
-      // Move to the next step only if it's not the last step
-      if (activeStep !== 2) {
+        validateEmail(signupEmail) &&
+        !signupBirthdateError && // Check if birthdate is valid
+        !signupPhoneNumberError // Check if phone number is valid
+      ) {
+        setActiveStep((prevStep) => prevStep + 1);
+      }
+    } else if (activeStep === 1) {
+      setUsernameError(!username.trim());
+      setSignupPasswordError(!validatePassword(signupPassword));
+      if (username.trim() && validatePassword(signupPassword)) {
         setActiveStep((prevStep) => prevStep + 1);
       }
     }
@@ -103,17 +96,17 @@ const SignUpPage = () => {
   };
 
   // Login function
-  const [loginEmail, setloginEmail] = useState('');
+  const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
-  const [loginEmailError, setLoginEmailError] = useState(false);
+  const [loginUsernameError, setLoginUsernameError] = useState(false);
   const [loginPasswordError, setLoginPasswordError] = useState(false);
 
   const handleLogin = () => {
-    setLoginEmailError(!validateEmail(loginEmail));
+    setLoginUsernameError(!loginUsername.trim());
     setLoginPasswordError(!validatePassword(loginPassword));
 
-    if (validateEmail(loginEmail) && validatePassword(loginPassword)) {
+    if (loginUsername.trim() && validatePassword(loginPassword)) {
       // Logic for handling login
       console.log('Logging in...');
     }
@@ -130,8 +123,8 @@ const SignUpPage = () => {
         {!isLogin && (
           <Grid item xs={12} sx={{ marginRight: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }, marginLeft: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' } }}>
             <Stepper activeStep={activeStep} alternativeLabel style={{ marginBottom: '3rem' }}>
-              <Step><StepLabel>Account Information</StepLabel></Step>
               <Step><StepLabel>Personal Information</StepLabel></Step>
+              <Step><StepLabel>Account Information</StepLabel></Step>
               <Step><StepLabel>Connect Wallet</StepLabel></Step>
             </Stepper>
           </Grid>
@@ -141,7 +134,35 @@ const SignUpPage = () => {
           <Grid item xs={12} sx={{ marginRight: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' }, marginLeft: { xs: '3rem', sm: '6rem', md: '12rem', lg: '20rem' } }}>
             {activeStep === 0 && (
               <div>
-                <Typography variant="h6">Step 1: Account Information</Typography>
+                <Typography variant="h6">Step 1: Personal Information</Typography>
+                <TextField
+                  label="First Name *"
+                  value={signupFirstName}
+                  onChange={(e) => setSignupFirstName(e.target.value)}
+                  margin="normal"
+                  fullWidth
+                  error={signupFirstNameError}
+                  helperText={signupFirstNameError && 'Please enter a valid first name'}
+                />
+                <TextField
+                  label="Last Name *"
+                  value={signupLastName}
+                  onChange={(e) => setSignupLastName(e.target.value)}
+                  margin="normal"
+                  fullWidth
+                  error={signupLastNameError}
+                  helperText={signupLastNameError && 'Please enter a valid last name'}
+                />
+
+                <FormControl fullWidth margin="normal" error={signupGenderError}>
+                  <InputLabel>Gender *</InputLabel>
+                  <Select label="Gender" value={gender} onChange={(e) => setGender(e.target.value)} required>
+                    <MenuItem value="M">Male</MenuItem>
+                    <MenuItem value="F">Female</MenuItem>
+                  </Select>
+                  {signupGenderError && <Typography variant="caption" color="error">Gender is required</Typography>}
+                </FormControl>
+
                 <TextField
                   label="Email *"
                   value={signupEmail}
@@ -150,6 +171,55 @@ const SignUpPage = () => {
                   fullWidth
                   error={signupEmailError}
                   helperText={signupEmailError && 'Please enter a valid email address'}
+                />
+
+                <TextField
+                  label="Birthdate"
+                  type="date"
+                  value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                  required
+                  error={signupBirthdateError}
+                  helperText={signupBirthdateError && 'Birthdate is required'}
+                />
+
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  required
+                  fullWidth
+                  margin="normal"
+                  error={signupPhoneNumberError}
+                  helperText={signupPhoneNumberError && 'Use correct phone number format'}
+                />
+
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                  <Button color="primary" onClick={handleBack} size='large' style={{ flex: 1 }}>
+                    Back
+                  </Button>
+                  <Button variant="contained" color="primary" size='large' onClick={handleNext} style={{ flex: 1 }}>
+                    Next
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {activeStep === 1 && (
+              <div>
+                <Typography variant="h6">Step 2: Account Information</Typography>
+                <TextField
+                  label="Username *"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  margin="normal"
+                  fullWidth
+                  error={usernameError}
+                  helperText={usernameError && 'Username is required'}
                 />
                 <TextField
                   label="Password *"
@@ -180,73 +250,6 @@ const SignUpPage = () => {
                     </Button>
                   )}
                 </Typography>
-              </div>
-            )}
-            {activeStep === 1 && (
-              <div>
-                <Typography variant="h6">Step 2: Personal Information</Typography>
-                <TextField
-                  label="First Name *"
-                  value={signupFirstName}
-                  onChange={(e) => setSignupFirstName(e.target.value)}
-                  margin="normal"
-                  fullWidth
-                  error={signupFirstNameError}
-                  helperText={signupFirstNameError && 'Please enter a valid first name'}
-                />
-                <TextField
-                  label="Last Name *"
-                  value={signupLastName}
-                  onChange={(e) => setSignupLastName(e.target.value)}
-                  margin="normal"
-                  fullWidth
-                  error={signupLastNameError}
-                  helperText={signupLastNameError && 'Please enter a valid last name'}
-                />
-
-                <FormControl fullWidth margin="normal" error={signupGenderError}>
-                  <InputLabel>Gender *</InputLabel>
-                  <Select label="Gender" value={gender} onChange={(e) => setGender(e.target.value)} required>
-                    <MenuItem value="M">Male</MenuItem>
-                    <MenuItem value="F">Female</MenuItem>
-                  </Select>
-                  {signupGenderError && <Typography variant="caption" color="error">Gender is required</Typography>}
-                </FormControl>
-
-                <TextField
-                  label="Birthdate"
-                  name="bdate"
-                  type="date"
-                  value={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
-                  fullWidth
-                  margin="normal"
-                  required
-                  error={signuBirthdateError}
-                  helperText={signuBirthdateError && 'Birthdate is required'}
-                />
-
-                <TextField
-                  label="Phone"
-                  name="phone"
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  required
-                  fullWidth
-                  margin="normal"
-                  error={signupPhoneNumberError}
-                  helperText={signupPhoneNumberError && 'Use correct phone number format'}
-                />
-
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <Button color="primary" onClick={handleBack} size='large' style={{ flex: 1 }}>
-                    Back
-                  </Button>
-                  <Button variant="contained" color="primary" size='large' onClick={handleNext} style={{ flex: 1 }}>
-                    Next
-                  </Button>
-                </div>
               </div>
             )}
 
@@ -283,7 +286,6 @@ const SignUpPage = () => {
               </div>
             )}
 
-
           </Grid>
         ) :
           (
@@ -295,17 +297,17 @@ const SignUpPage = () => {
               }}>
               <div>
                 <TextField
-                  label="Email"
-                  value={loginEmail}
-                  onChange={(e) => setloginEmail(e.target.value)}
+                  label="Username *"
+                  value={loginUsername}
+                  onChange={(e) => setLoginUsername(e.target.value)}
                   margin="normal"
                   fullWidth
-                  error={loginEmailError}
-                  helperText={loginEmailError && 'Please enter a valid email address'}
+                  error={loginUsernameError}
+                  helperText={loginUsernameError && 'Username is required'}
                 />
 
                 <TextField
-                  label="Password"
+                  label="Password *"
                   type={showPassword ? 'text' : 'password'}
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
