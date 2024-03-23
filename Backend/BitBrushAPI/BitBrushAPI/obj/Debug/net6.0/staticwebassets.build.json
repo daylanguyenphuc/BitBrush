@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "24SWQNF0iX7rW81YhEp5MfEwoizlV21Y0wvLtpHTWLs=",
+  "Source": "BitBrushAPI",
+  "BasePath": "_content/BitBrushAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
