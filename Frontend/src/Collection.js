@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -10,6 +10,8 @@ import { Button, InputAdornment, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Pagination from '@mui/material/Pagination';
 import { Link } from 'react-router-dom';
+import useFetch from './useFetch';
+import useFetchParam from './useFetchParam';
 
 const Collection = () => {
 
@@ -19,6 +21,15 @@ const Collection = () => {
         setSearchTerm(event.target.value);
         // Add your search logic here
     };
+
+    // Get data
+    const [filterParam, setFilterParam] = useState({});
+    useEffect(() => {
+        setFilterParam({
+            name: searchTerm,
+        });
+    }, [searchTerm]);
+    const {data: collections, isLoading, error} = useFetchParam('https://localhost:7145/Collection', filterParam);
 
     // Pagination
     const [page, setPage] = useState(1);
@@ -70,220 +81,33 @@ const Collection = () => {
             />
         </Container>
             
-        <Container  maxWidth="xl">
+        <Container  maxWidth="xl" style = {{ marginBottom: '50px' }}>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-01.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'><Button size="small" color="primary">Discover collection</Button></Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-02.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-03.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-04.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-05.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-06.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-07.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-08.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-09.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="collection-10.jpg"
-                            alt="test image"        
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">Collection</Typography>
-                            <Typography variant="body2" color="text.secondary">Collection description here</Typography>
-                            <Typography variant="body2" color="text.secondary">54 items</Typography>
-                            <Typography variant="body2" color="text.secondary">by Nguyen Phuc</Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Link to='/collectiondetail'>
-                            <Button size="small" color="primary">Discover collection</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
-                </Grid>
+                { collections && collections.map( collection => (
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Card>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image="https://i.pinimg.com/564x/02/ff/1f/02ff1feafd330a5e3e7010554c8f0941.jpg"
+                                alt="test image"        
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">{collection.name}</Typography>
+                                <Typography variant="body2" color="text.secondary">{collection.description}</Typography>
+                                {/* <Typography variant="body2" color="text.secondary">5 items</Typography> */}
+                                <Typography variant="body2" color="text.secondary">by {collection.creator.firstName} {collection.creator.lastName}</Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Link to={`/collectiondetail/${collection.id}`}><Button size="small" color="primary">Discover collection</Button></Link>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                ))}
             </Grid>
         </Container>
 
-        <Container
+        {/* <Container
             maxWidth="xl"
             style={{
                 display: 'flex',
@@ -294,7 +118,7 @@ const Collection = () => {
             }}
         >
             <Pagination count={10} page={page} onChange={handlePageChange} />
-        </Container>
+        </Container> */}
         </>
     );
 }

@@ -2446,11 +2446,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushAPI\\BitBrushAPI\\BitBrushAPI.csproj",
+      "projectUniqueName": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushNFT\\Backend\\BitBrushAPI\\BitBrushAPI\\BitBrushAPI.csproj",
       "projectName": "BitBrushAPI",
-      "projectPath": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushAPI\\BitBrushAPI\\BitBrushAPI.csproj",
+      "projectPath": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushNFT\\Backend\\BitBrushAPI\\BitBrushAPI\\BitBrushAPI.csproj",
       "packagesPath": "C:\\Users\\ngphu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushAPI\\BitBrushAPI\\obj\\",
+      "outputPath": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushNFT\\Backend\\BitBrushAPI\\BitBrushAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

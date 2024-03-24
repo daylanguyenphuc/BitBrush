@@ -51,6 +51,7 @@ namespace BitBrushAPI.Service
                                             firstName = p.creator.firstName,
                                             lastName = p.creator.lastName,
                                         },
+                                        //date = p.date,
                                         sellingStatus = p.sellingStatus,
                                         price = p.price
                                     }).ToList();
@@ -87,6 +88,7 @@ namespace BitBrushAPI.Service
                                             firstName = p.creator.firstName,
                                             lastName = p.creator.lastName,
                                         },
+                                        //date = p.date,
                                         sellingStatus = p.sellingStatus,
                                         price = p.price
                                     }).FirstOrDefault();
@@ -103,6 +105,7 @@ namespace BitBrushAPI.Service
                 thumbnailUrl = newProduct.thumbnailUrl,
                 ownerId = newProduct.ownerId,
                 creatorId = newProduct.creatorId,
+                //date = newProduct.date,
                 sellingStatus = newProduct.sellingStatus,
                 price = newProduct.price
             };
@@ -133,6 +136,7 @@ namespace BitBrushAPI.Service
                     firstName = _dbContext.Users.SingleOrDefault(u => u.id == product.creatorId).firstName,
                     lastName = _dbContext.Users.SingleOrDefault(u => u.id == product.creatorId).lastName,
                 },
+                //date = product.date,
                 sellingStatus = product.sellingStatus,
                 price = product.price
             };
@@ -145,6 +149,7 @@ namespace BitBrushAPI.Service
             product.description = updateProduct.description;
             product.collectionId = updateProduct.collectionId;
             product.creatorId = updateProduct.creatorId;
+            //product.date = updateProduct.date;
             product.sellingStatus = updateProduct.sellingStatus;
             product.price = updateProduct.price;
             _dbContext.Update(product);

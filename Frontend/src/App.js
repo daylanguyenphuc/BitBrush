@@ -65,10 +65,10 @@ function App() {
               <Route exact path="/create/createNFT" element={<CreateNFT />} />
               <Route exact path="/create/createCollection" element={<CreateCollection />} />
               <Route exact path="/accountsetting" element={<AccountSetting />} />
-              <Route exact path="/user" element={<User />} />
+              <Route exact path="/user/:id" element={<User />} />
               <Route exact path="/wallet" element={<Wallet />} />
-              <Route exact path="/nftdetail" element={<NFTDetail />} />
-              <Route exact path="/collectiondetail" element={<CollectionDetail />} />
+              <Route exact path="/nftdetail/:id" element={<NFTDetail />} />
+              <Route exact path="/collectiondetail/:id" element={<CollectionDetail />} />
               <Route exact path="/purchasecompleted" element={<ConfirmPurchase />} />
             </Routes>
           </div>

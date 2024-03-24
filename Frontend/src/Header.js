@@ -133,7 +133,7 @@ function Header() {
               onClose={handleCloseUserMenu}
             >   
               <MenuItem><Link to='/wallet' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Wallet</Typography></Link></MenuItem>
-              <MenuItem><Link to='/user' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Profile</Typography></Link></MenuItem>
+              <MenuItem><Link to='/user/b4606ec1-2899-4416-45b9-08dc4b9ca01d' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Profile</Typography></Link></MenuItem>
               <MenuItem><Link to='/accountsetting' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Account settings</Typography></Link></MenuItem>
               <MenuItem><Link to='/' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Log out</Typography></Link></MenuItem>
             </Menu>

@@ -31,7 +31,15 @@ namespace BitBrushAPI
             builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
 
             // CORS
-            builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             var app = builder.Build();
 
@@ -49,10 +57,12 @@ namespace BitBrushAPI
 
             app.UseAuthorization();
 
+            app.UseCors("AllowAll"); // Apply the CORS policy globally
 
             app.MapControllers();
 
             app.Run();
+
         }
     }
 }

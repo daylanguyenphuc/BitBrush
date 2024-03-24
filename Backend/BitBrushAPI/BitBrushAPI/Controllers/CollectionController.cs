@@ -18,7 +18,7 @@ namespace BitBrushAPI.Controllers
 
         // Controller
         [HttpGet]
-        public IActionResult GetAllCollection (string? name)
+        public IActionResult GetAllCollection (string? name, Guid? creatorId)
         {
             try
             {
@@ -26,6 +26,10 @@ namespace BitBrushAPI.Controllers
                 if (name != null)
                 {
                     byElements = byElements.Where(c => c.name != null && c.name.Contains(name)).ToList();
+                }
+                if (creatorId != null)
+                {
+                    byElements = byElements.Where(c => c.creator.id == creatorId).ToList();
                 }
                 return Ok(byElements);
             }

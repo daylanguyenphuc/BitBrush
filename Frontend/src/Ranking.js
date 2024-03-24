@@ -2,16 +2,11 @@ import * as React from 'react';
 import { Grid, Container, Typography, Table, TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Avatar } from '@mui/material';
 
 const data = [
-  { rank: 1, artist: 'Artist 1', sales: 50, volume: '100 ETH' },
-  { rank: 2, artist: 'Artist 2', sales: 40, volume: '80 ETH' },
-  { rank: 3, artist: 'Artist 3', sales: 30, volume: '60 ETH' },
-  { rank: 4, artist: 'Artist 4', sales: 20, volume: '40 ETH' },
-  { rank: 5, artist: 'Artist 5', sales: 10, volume: '30 ETH' },
-  { rank: 6, artist: 'Artist 6', sales: 13, volume: '12 ETH' },
-  { rank: 7, artist: 'Artist 7', sales: 19, volume: '60 ETH' },
-  { rank: 8, artist: 'Artist 8', sales: 100, volume: '203 ETH' },
-  { rank: 9, artist: 'Artist 9', sales: 80, volume: '168 ETH' },
-  { rank: 10, artist: 'Artist 10', sales: 68, volume: '98 ETH' },
+  { rank: 1, artist: 'Nguyen Ngoc Phuc', sales: 50, volume: '100 ETH' },
+  { rank: 2, artist: 'Hau Linh Chi', sales: 40, volume: '80 ETH' },
+  { rank: 3, artist: 'Nguyen Pham Duy', sales: 30, volume: '60 ETH' },
+  { rank: 4, artist: 'Dao Khanh Nga Thi', sales: 20, volume: '40 ETH' },
+  { rank: 5, artist: 'Nguyen Vu Duy Minh', sales: 10, volume: '30 ETH' },
 ];
 
 const Ranking = () => {

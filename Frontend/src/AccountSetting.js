@@ -13,16 +13,18 @@ const AccountSetting = () => {
   };
 
   // Update information function
+  const [isUpdated, setIsUpdated] = useState(false)
   const [userId, setUserId] =  useState('564a3c5f-784c-40ed-b46d-6a1f5ef0f1cd');
-  const [userEmail, setUserEmail] =  useState('johndoe@gmail.com');
-  const [userFirstName, setUserFirstName] =  useState('John');
-  const [userLastName, setUserLastName] =  useState('Doe');
-  const [userBirthdate, setUserBirthdate] =  useState('1990-01-01');
+  const [userEmail, setUserEmail] =  useState('phucn3463@gmail.com');
+  const [userFirstName, setUserFirstName] =  useState('Nguyen');
+  const [userLastName, setUserLastName] =  useState('Ngoc Phuc');
+  const [userBirthdate, setUserBirthdate] =  useState('2004-03-14');
   const [userSex, setUserSex] =  useState('M');
-  const [userPhone, setUserPhone] =  useState('1234567890');
-  const [userJoinDate, setUserJoinDate] =  useState('2020-01-01');
+  const [userPhone, setUserPhone] =  useState('0943445867');
+  const [userJoinDate, setUserJoinDate] =  useState('2024-03-24');
   const handleUpdateUserInfo = (e) => {
     e.preventDefault();
+    setIsUpdated(true);
     console.log('Updated user info');
     // Add logic to handle form submission (e.g., API call to update user info)
   };
@@ -132,7 +134,7 @@ const AccountSetting = () => {
                         }}
                         style={{ marginBottom: '20px' }}
                       />
-                      <Button type="submit" variant="contained" color="primary" fullWidth>Save Changes</Button>
+                      <Button type="submit" variant="contained" color={isUpdated ? 'success' : 'primary'} fullWidth>Save Changes</Button>
                     </form>
                   </Box>
                 </TabPanel>

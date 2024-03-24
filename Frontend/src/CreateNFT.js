@@ -2,12 +2,28 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Container, Typography, Grid, Paper, FormControl, InputLabel, InputAdornment, OutlinedInput, Select, MenuItem, Accordion, AccordionSummary, AccordionDetails, TextField, Chip, Button, Box } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import { useNavigate } from 'react-router-dom';
+import useFetch from './useFetch';
+//import AWS from 'aws-sdk';
 
 
 const CreateNFT = () => {
+    const navigate = useNavigate(); // Initialize useNavigate
     
     // Upload artwork function
+    // const S3_BUCKET = 'bucketgroup1.4';
+    // const REGION = 'ap-southeast-2';
+    // const ACCESS_KEY = 'AKIAZQ3DN5QB5V4P5UHJ';
+    // const SECRET_ACCESS_KEY = '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';
+    
+    // AWS.config.update({
+    //   accessKeyId: ACCESS_KEY,
+    //   secretAccessKey: SECRET_ACCESS_KEY,
+    //   region: REGION,
+    // });
+    
+    // const s3 = new AWS.S3();
+
     const [uploadedFile, setUploadedFile] = useState(null);
     const onDrop = (acceptedFiles) => {
         setUploadedFile(acceptedFiles[0]);
@@ -18,12 +34,7 @@ const CreateNFT = () => {
         maxFiles: 1,
     });
 
-    // Artwork properties function
-    const [ownedNFT, setOwnedNFT] = useState('');
-    const handleChangeSellOwnedNFT = (event) => {
-        setOwnedNFT(event.target.value);
-        // fill in all info and disable inputs exepts for price
-    };
+    console.log(uploadedFile);
 
     // New artwork name
     const [name, setName] = useState('');
@@ -50,19 +61,20 @@ const CreateNFT = () => {
     };
 
     // New artwork collection
+    const {data: collections, isCollectionLoading, errorCollection} = useFetch('https://localhost:7145/Collection');
     const [collection, setCollection] = useState('');
     const handleChangeCollection = (event) => {
         setCollection(event.target.value);
         // fill in all info and disable inputs exepts for price
     };
-    const [collectionName, setCollectionName] = useState('');
-    const handleCollectionNameChange = (event) => {
-        setCollectionName(event.target.value);
-    };
-    const [collectionDescription, setCollectionDescription] = useState('');
-    const handleCollectionDescriptionChange = (event) => {
-        setCollectionDescription(event.target.value);
-    };
+    // const [collectionName, setCollectionName] = useState('');
+    // const handleCollectionNameChange = (event) => {
+    //     setCollectionName(event.target.value);
+    // };
+    // const [collectionDescription, setCollectionDescription] = useState('');
+    // const handleCollectionDescriptionChange = (event) => {
+    //     setCollectionDescription(event.target.value);
+    // };
 
     // New artwork price
     const [price, setPrice] = useState('');
@@ -71,6 +83,63 @@ const CreateNFT = () => {
     if (/^\d*\.?\d*$/.test(inputValue)) {
         setPrice(inputValue);
     }};
+
+    // // Artwork properties function
+    // const [ownedNFT, setOwnedNFT] = useState('');
+    // const handleChangeSellOwnedNFT = (event) => {
+    //     setOwnedNFT(event.target.value);
+    //     // fill in all info and disable inputs exepts for price
+    // };
+
+    // Handle submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // const params = {
+        //     Bucket: S3_BUCKET,
+        //     Key: uploadedFile.name,
+        //     Body: uploadedFile,
+        // };
+        // s3.upload(params, (err, data) => {
+        //     if (err) {
+        //       console.error(err);
+        //       return;
+        //     }
+        //     setLink(data.location);
+        // });
+        const nft = {
+            "name": name,
+            "description": descreption,
+            "collectionId": collection,
+            "thumbnailUrl": 'https://s3.ap-southeast-2.amazonaws.com/bucketgroup1.4/collection-02.jpg',
+            "ownerId": "b4606ec1-2899-4416-45b9-08dc4b9ca01d",
+            "creatorId": "b4606ec1-2899-4416-45b9-08dc4b9ca01d",
+            "sellingStatus": true,
+            "price": price
+        }
+        fetch('https://localhost:7145/Product', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(nft),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to mint NFT');
+            }
+            return response.json();
+        })
+        .then((createdNFT) => {
+            // Handle success (e.g., show success message)
+            // Navigate to CollectionDetail page with the newly created collection id
+            navigate(`/NFTDetail/${createdNFT.id}`);
+        })
+        .catch(error => {
+            console.error('Error creating collection:', error);
+            // Handle error (e.g., show error message)
+        })
+        .finally(() => {
+
+        });
+    }
 
     return (  
         <>
@@ -95,7 +164,7 @@ const CreateNFT = () => {
                 <Grid item xs={12} sm={6} md={6}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={12}>
-                            <Accordion>
+                            {/* <Accordion>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">Resell owned NFT (optional)</Typography></AccordionSummary>
                                 <AccordionDetails>
                                     <FormControl fullWidth>
@@ -114,7 +183,7 @@ const CreateNFT = () => {
                                         </Select>
                                     </FormControl>
                                 </AccordionDetails>
-                            </Accordion>
+                            </Accordion> */}
                             <Accordion defaultExpanded>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">NFT's informations</Typography></AccordionSummary>
                                 <AccordionDetails>
@@ -140,7 +209,7 @@ const CreateNFT = () => {
                                             style={{ marginBottom: '20px' }}
                                         />
                                     </FormControl>
-                                    <Box style={{ marginBottom: '20px' }}>
+                                    {/* <Box style={{ marginBottom: '20px' }}>
                                         <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags (optional): </Typography>
                                         {selectedTags.map((tag, index) => (
                                             <Chip
@@ -159,7 +228,7 @@ const CreateNFT = () => {
                                                 style={{ margin: '4px', cursor: 'pointer' }}
                                             />
                                         ))}
-                                    </Box>
+                                    </Box> */}
                                 </AccordionDetails>
                             </Accordion>
                             <Accordion defaultExpanded>
@@ -175,13 +244,13 @@ const CreateNFT = () => {
                                             onChange={handleChangeCollection}
                                             style={{ marginBottom: '20px' }}
                                         >
-                                            <MenuItem value={''}>No collection</MenuItem>
-                                            <MenuItem value={0}>Create my new collection</MenuItem>
-                                            <MenuItem value={1}>Colllection 1</MenuItem>
-                                            <MenuItem value={2}>Colllection 2</MenuItem>
+                                            { collections && collections.map( collection => (
+                                                <MenuItem value={collection.id}>{collection.name}</MenuItem>
+                                            ))}
+                                            {/* <MenuItem value={0}>Create my new collection</MenuItem> */}
                                         </Select>
                                     </FormControl>
-                                    {collection === 0 && (
+                                    {/* {collection === 0 && (
                                         <FormControl fullWidth>
                                         <TextField
                                             required
@@ -204,7 +273,7 @@ const CreateNFT = () => {
                                             style={{ marginBottom: '20px' }}
                                         />
                                         </FormControl>
-                                    )}
+                                    )} */}
 
                                 </AccordionDetails>
                             </Accordion>
@@ -228,7 +297,7 @@ const CreateNFT = () => {
                             </Accordion>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'right' }}>
-                            <Button variant="contained">Create new NFT</Button>
+                            <Button variant="contained" onClick={handleSubmit}>Create new NFT</Button>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -18,7 +18,7 @@ namespace BitBrushAPI.Controllers
 
         // Controller
         [HttpGet]
-        public IActionResult GetAllProduct (string? name, Guid? collectionId, decimal? minPrice, decimal? maxPrice, bool? sellingStatus)
+        public IActionResult GetAllProduct (string? name, Guid? collectionId, Guid? creatorId, Guid? ownerId, decimal? minPrice, decimal? maxPrice, bool? sellingStatus, string? sort)
         {
             try
             {
@@ -31,6 +31,14 @@ namespace BitBrushAPI.Controllers
                 {
                     byElements = byElements.Where(p => p.collection.id == collectionId).ToList();
                 }
+                if (creatorId != null)
+                {
+                    byElements = byElements.Where(p => p.creator.id == creatorId).ToList();
+                }
+                if (ownerId != null)
+                {
+                    byElements = byElements.Where(p => p.owner.id == ownerId).ToList();
+                }
                 if (minPrice != null)
                 {
                     byElements = byElements.Where(p => p.price >= minPrice).ToList();
@@ -42,6 +50,22 @@ namespace BitBrushAPI.Controllers
                 if (sellingStatus != null)
                 {
                     byElements = byElements.Where(p => p.sellingStatus == sellingStatus).ToList();
+                }
+                //if (minDate != null)
+                //{
+                //    byElements = byElements.Where(p => p.date >= minDate).ToList();
+                //}
+                //if (maxDate != null)
+                //{
+                //    byElements = byElements.Where(p => p.date <= maxDate).ToList();
+                //}
+                if (sort == "priceLow")
+                {
+                    byElements = byElements.OrderBy(p => p.price).ToList();
+                }
+                if (sort == "priceHigh")
+                {
+                    byElements = byElements.OrderByDescending(p => p.price).ToList();
                 }
                 return Ok(byElements);
             }

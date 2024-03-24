@@ -14,6 +14,7 @@ namespace BitBrushAPI.Model
         public string thumbnailUrl { get; set; }
         public Guid ownerId { get; set; }
         public Guid creatorId { get; set; }
+        //public DateTime date { get; set; }
         public bool sellingStatus { get; set; }
         public decimal price { get; set; }
 
@@ -33,6 +34,7 @@ namespace BitBrushAPI.Model
         public string thumbnailUrl { get; set; }
         public UserCompactDTO owner { get; set; }
         public UserCompactDTO creator { get; set; }
+        //public DateTime date { get; set; }
         public bool sellingStatus { get; set; }
         public decimal price { get; set; }
     }
@@ -52,6 +54,7 @@ namespace BitBrushAPI.Model
         public string thumbnailUrl { get; set; }
         public Guid ownerId { get; set; }
         public Guid creatorId { get; set; }
+        //public DateTime date { get; set; }
         public bool sellingStatus { get; set; }
         public decimal price { get; set; }
     }

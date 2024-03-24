@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { Container, Grid, Typography, TextField, InputAdornment, IconButton, Chip, Select, MenuItem, InputLabel, Box, FormControl, Slider, Pagination, Paper, Button, Accordion, AccordionDetails, AccordionSummary, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Dialog, DialogTitle, DialogActions, DialogContent } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import useFetch from "./useFetch";
+import useFetchParam from "./useFetchParam";
 
 const Marketplace = () => {
 
@@ -69,6 +71,19 @@ const Marketplace = () => {
         }
     };
 
+    // Get data
+    const [filterParam, setFilterParam] = useState({});
+    useEffect(() => {
+        setFilterParam({
+            name: searchTerm,
+            sort: sort,
+            minPrice: priceFilterRange[0],
+            maxPrice: priceFilterRange[1],
+            sellingStatus: true
+        });
+    }, [searchTerm, sort, priceFilterRange]);
+    const {data: nfts, isLoading, error} = useFetchParam('https://localhost:7145/Product', filterParam);
+
     // Pagination
     const [page, setPage] = useState(1);
     const handlePageChange = (event, value) => { setPage(value); }
@@ -129,8 +144,8 @@ const Marketplace = () => {
                                     label="Sort by"
                                     onChange={handleSort}
                                 >
-                                    <MenuItem value={'newest'}>Newest</MenuItem>
-                                    <MenuItem value={'oldest'}>Oldest</MenuItem>
+                                    {/* <MenuItem value={'newest'}>Newest</MenuItem>
+                                    <MenuItem value={'oldest'}>Oldest</MenuItem> */}
                                     <MenuItem value={'priceLow'}>Price: Low to high</MenuItem>
                                     <MenuItem value={'priceHigh'}>Price: High to low</MenuItem>
                                 </Select>
@@ -177,227 +192,36 @@ const Marketplace = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" style={{ marginBottom: '50px' }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-01.jpg" alt="image" />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
+                    { nfts && nfts.map (nft => (
+                        <Grid item xs={12} sm={6} md={3}>
+                            <Paper style={{ padding: '5%' }}>
+                                <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                    <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src={nft.thumbnailUrl} alt="image" />
+                                </Box>
+                                <Box style={{ width: '100%', margin: '15px 0' }}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={9} sm={9} md={9}>
+                                            <Typography variant="h5" gutterBottom>{nft.name}</Typography>
+                                        </Grid>
+                                        <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                            <Typography variant="subtitle2" color='primary'>{nft.price} ETH</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={12} md={12}>
+                                            <Typography variant="body2">Created by: {nft.creator.firstName} {nft.creator.lastName}</Typography>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-02.jpg" alt="image" />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-03.jpg" alt="image" />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-04.jpg" alt="image" />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-05.jpg" alt='product' />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-06.jpg" alt='product' />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-07.jpg" alt='product' />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-08.jpg" alt='product' />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Paper style={{ padding: '5%' }}>
-                            <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-09.jpg" alt='product' />
-                            </Box>
-                            <Box style={{ width: '100%', margin: '15px 0' }}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs={9} sm={9} md={9}>
-                                        <Typography variant="h5" gutterBottom>Artwork title</Typography>
-                                    </Grid>
-                                    <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                        <Typography variant="subtitle2" color='primary'>0.5ETH</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2">Created by: Nguyen Phuc</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <Box style={{ width: '100%' }}>
-                                <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                <Link to='/nftdetail' style={{ textDecoration: 'none' }}><Button variant="text"><Typography variant="button" display="block">View details</Typography></Button></Link>
-                            </Box>
-                        </Paper>
-                    </Grid>
+                                </Box>
+                                <Box style={{ width: '100%' }}>
+                                    <Link to={`/nftdetail/${nft.id}`} style={{ textDecoration: 'none' }}><Button variant="contained"><Typography variant="button" display="block">View details</Typography></Button></Link>
+                                </Box>
+                            </Paper>
+                        </Grid>
+                    ))}
                 </Grid>
             </Container>
-            <Container
+            {/* <Container
                 maxWidth="xl"
                 style={{
                     display: 'flex',
@@ -408,9 +232,9 @@ const Marketplace = () => {
                 }}
             >
                 <Pagination count={10} page={page} onChange={handlePageChange} />
-            </Container>
+            </Container> */}
 
-            <Dialog open={confirmPurchase} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            {/* <Dialog open={confirmPurchase} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
                 <DialogTitle id="alert-dialog-title">{"Confirm your purchase"}</DialogTitle>
                 <DialogContent>
                     <Box style={{ margin: '30px' }}>
@@ -478,7 +302,7 @@ const Marketplace = () => {
                     <Button onClick={handleNoConirmPurchase} variant="text">Cancel purchase</Button>
                     <Button onClick={handlePurchase} variant="contained" autoFocus><Link to='/purchasecompleted' style={{ color: 'white', textDecoration: 'none' }}>Confirm purchase</Link></Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
         </>
     );
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+8XI7s5D0RQmd0/xpPXVLFVVGKTF07gulD7r4Do/imptFJebkMlD1wi9pYVOrnBNQdOGJWdYRukTLETt8q0twg==",
+  "dgSpecHash": "t0m1oNltbigfPLwC0A77MnLr1VHF/A44wo6nkE5FSZ/MLnNOzVY0ao4os1cxfzchfT9apgXF2IdBaGAQpQSp5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushAPI\\BitBrushAPI\\BitBrushAPI.csproj",
+  "projectFilePath": "C:\\Users\\ngphu\\Downloads\\Code\\BitBrushNFT\\Backend\\BitBrushAPI\\BitBrushAPI\\BitBrushAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ngphu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ngphu\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

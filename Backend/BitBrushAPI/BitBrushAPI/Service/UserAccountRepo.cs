@@ -29,6 +29,7 @@ namespace BitBrushAPI.Service
                                         username = a.username,
                                         password = a.password,
                                         walletId = a.walletId,
+                                        balance = a.balance,
                                         user = new UserCompactDTO
                                         {
                                             id = a.userId,
@@ -46,7 +47,8 @@ namespace BitBrushAPI.Service
                 userId = newUserAccount.userId,
                 username = newUserAccount.username,
                 password = newUserAccount.password,
-                walletId = newUserAccount.walletId
+                walletId = newUserAccount.walletId,
+                balance = newUserAccount.balance,
             };
 
             _dbContext.UserAccounts.Add(userAccount);
@@ -58,6 +60,7 @@ namespace BitBrushAPI.Service
                 username = userAccount.username,
                 password = userAccount.password,
                 walletId = userAccount.walletId,
+                balance = userAccount.balance,
                 user = new UserCompactDTO
                 {
                     id = userAccount.userId,
@@ -73,6 +76,7 @@ namespace BitBrushAPI.Service
             userAccount.username = updateUserAccount.username;
             userAccount.password = updateUserAccount.password;
             userAccount.walletId = updateUserAccount.walletId;
+            userAccount.balance = updateUserAccount.balance;
             _dbContext.Update(userAccount);
             _dbContext.SaveChanges();
         }
