@@ -120,23 +120,6 @@ namespace BitBrushAPI.Service
                                         id = u.id,
                                         firstName = u.firstName,
                                         lastName = u.lastName,
-                                        transactions = u.transactions.Select(t => new TransactionCompactDTO
-                                        {
-                                            id = t.id,
-                                            seller = new UserCompactDTO
-                                            {
-                                                id = t.seller.id,
-                                                firstName = t.seller.firstName,
-                                                lastName = t.seller.lastName,
-                                            },
-                                            buyer = new UserCompactDTO
-                                            {
-                                                id = t.buyer.id,
-                                                firstName = t.buyer.firstName,
-                                                lastName = t.buyer.lastName,
-                                            },
-                                            price = t.price,
-                                        }).ToList(),
                                         total = u.transactions.Sum(t => t.price),
                                     }).ToList();
 

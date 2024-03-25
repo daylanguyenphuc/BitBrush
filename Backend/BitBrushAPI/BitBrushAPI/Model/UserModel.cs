@@ -55,7 +55,6 @@ namespace BitBrushAPI.Model
         public Guid id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public List<TransactionCompactDTO> transactions { get; set; }
         public decimal total { get; set; }
     }
 }

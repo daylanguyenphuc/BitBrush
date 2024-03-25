@@ -14,8 +14,6 @@ namespace BitBrushAPI.Data
         public string password { get; set; }
         [Required]
         public string walletId { get; set; }
-        [Required]
-        public decimal balance { get; set; }
 
         // Define relationship
         [ForeignKey("userId")]

@@ -10,7 +10,6 @@ namespace BitBrushAPI.Model
         public string username { get; set; }
         public string password { get; set; }
         public string walletId { get; set; }
-        public decimal balance { get; set; }
 
         // Navigation properties
         public UserModel user { get; set; }
@@ -21,7 +20,6 @@ namespace BitBrushAPI.Model
         public string username { get; set; }
         public string password { get; set; }
         public string walletId { get; set; }
-        public decimal balance { get; set; }
         public UserCompactDTO user { get; set; }
     }
 
@@ -31,6 +29,5 @@ namespace BitBrushAPI.Model
         public string username { get; set; }
         public string password { get; set; }
         public string walletId { get; set; }
-        public decimal balance { get; set; }
     }
 }

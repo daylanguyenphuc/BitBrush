@@ -137,16 +137,6 @@ namespace BitBrushAPI.Service
                 price = newTransaction.price,
             };
 
-            // Update balance
-            var sellerUserAccount = _dbContext.UserAccounts.SingleOrDefault(s => s.userId == _dbContext.Products.SingleOrDefault(p => p.id == newTransaction.productId).ownerId);
-            sellerUserAccount.balance = sellerUserAccount.balance + newTransaction.price;
-            _dbContext.Update(sellerUserAccount);
-            _dbContext.SaveChanges();
-            var buyerUserAccount = _dbContext.UserAccounts.SingleOrDefault(s => s.userId == newTransaction.buyerId);
-            buyerUserAccount.balance = buyerUserAccount.balance - newTransaction.price;
-            _dbContext.Update(buyerUserAccount);
-            _dbContext.SaveChanges();
-
             // Update owner Id, sellingStatus
             var product = _dbContext.Products.SingleOrDefault(d => d.id == newTransaction.productId);
             product.sellingStatus = false;

@@ -74,8 +74,8 @@ const WalletConnected = () => {
                             <TableCell style={{ fontSize: '1rem' }}>{accounts.length > 0 ? accounts[0] : 'Not Connected'}</TableCell>
                             </TableRow>
                             <TableRow>
-                            <TableCell style={{ fontSize: '1rem' }}>Wallet Balance (ETH)</TableCell>
-                            <TableCell style={{ fontSize: '1rem' }}>{walletBalance}</TableCell>
+                            <TableCell style={{ fontSize: '1rem' }}>Wallet Balance</TableCell>
+                            <TableCell style={{ fontSize: '1rem' }}>{walletBalance} ETH</TableCell>
                             </TableRow>
                         </TableBody>
                         </Table>
