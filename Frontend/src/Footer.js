@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Container, Grid, Typography, TextField, InputAdornment, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { curentUser } from './Const';
 
 const Footer = () => {
 

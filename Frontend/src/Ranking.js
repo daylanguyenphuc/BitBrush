@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { Grid, Container, Typography, Table, TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Avatar } from '@mui/material';
-
-const data = [
-  { rank: 1, artist: 'Nguyen Ngoc Phuc', sales: 50, volume: '100 ETH' },
-  { rank: 2, artist: 'Hau Linh Chi', sales: 40, volume: '80 ETH' },
-  { rank: 3, artist: 'Nguyen Pham Duy', sales: 30, volume: '60 ETH' },
-  { rank: 4, artist: 'Dao Khanh Nga Thi', sales: 20, volume: '40 ETH' },
-  { rank: 5, artist: 'Nguyen Vu Duy Minh', sales: 10, volume: '30 ETH' },
-];
+import useFetch from './useFetch';
+import { Link } from 'react-router-dom';
+import { curentUser } from './Const';
 
 const Ranking = () => {
+
+  const {data: users, isLoading: isUserLoading, error: userError} = useFetch('https://localhost:7145/User/Ranking');
 
   return (
     <>
@@ -24,7 +21,7 @@ const Ranking = () => {
       >
       Rankings
       </Typography>
-      <Typography variant="h5" gutterBottom>Check out top ranking NFT artists on the NFT Marketplace updated in real-time.</Typography>
+      <Typography variant="h5" gutterBottom>Check out top ranking NFT buyers on the NFT Marketplace updated in real-time.</Typography>
     </Container>
 
     <Container maxWidth="xl" style={{ marginTop: '3rem', marginBottom: '3rem' }}>
@@ -32,22 +29,20 @@ const Ranking = () => {
         <Table>
           <TableHead style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
             <TableRow>
-              <TableCell align="left">#</TableCell>
+              <TableCell align="left">ID</TableCell>
               <TableCell align="left">Artist</TableCell>
-              <TableCell align="left">Sales</TableCell>
-              <TableCell align="left">Volume</TableCell>
+              <TableCell align="left">Buyed</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.rank}>
-                <TableCell>{row.rank}</TableCell>
+            {users && users.map ( user => (
+              <TableRow key={user.id}>
+                <TableCell><Link to={ user && `/user/${user.id}`} style={{color: '#3d00b7 ', textDecoration: 'none'}}>{user.id}</Link></TableCell>
                 <TableCell style={{display: 'flex', alignItems: 'center' }}>
-                  <Avatar alt={row.artist} src={`url_to_artist_avatar_${row.rank}`} />
-                  <Typography variant="body2" gutterBottom style={{marginLeft: '10px' }}>{row.artist}</Typography>
+                  <Avatar alt={user.firstName} />
+                  <Typography variant="body2" gutterBottom style={{marginLeft: '10px' }}>{user.firstName} {user.lastName}</Typography>
                 </TableCell>
-                <TableCell>{row.sales}</TableCell>
-                <TableCell>{row.volume}</TableCell>
+                <TableCell>{user.total} ETH</TableCell>
               </TableRow>
             ))}
           </TableBody>

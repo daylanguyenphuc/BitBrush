@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { Container, Grid, Box, Typography, Stack, Paper, Button } from "@mui/material";
 import AutoAwesomeMosaicIcon from '@mui/icons-material/AutoAwesomeMosaic';
 import PhotoIcon from '@mui/icons-material/Photo';
+import CachedIcon from '@mui/icons-material/Cached';
+import { curentUser } from './Const';
 
 const Create = () => {
     return (
@@ -46,6 +48,19 @@ const Create = () => {
                                             <Grid item xs={9} sm={9} md={9}>
                                                 <Typography variant="h6">Mint an NFT</Typography>
                                                 <Typography variant="subtitle1" gutterBottom>Create a collection and mint NFT directly to your wallet.</Typography>
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
+                                </Link>
+                                <Link to='/create/resellNFT' style={{ textDecoration: 'none' }}>
+                                    <Paper elevation={3}>
+                                        <Grid container spacing={0} alignItems="center" justifyContent="center" style={{ height: '120px' }}>
+                                            <Grid item xs={1} sm={1} md={1} style={{ display: 'flex', alignItems: 'center', display: 'block', margin: 'auto' }}>
+                                                <CachedIcon style={{ fontSize: 40 }} />
+                                            </Grid>
+                                            <Grid item xs={9} sm={9} md={9}>
+                                                <Typography variant="h6">Resell an NFT</Typography>
+                                                <Typography variant="subtitle1" gutterBottom>Get your owned NFT and sell to others.</Typography>
                                             </Grid>
                                         </Grid>
                                     </Paper>

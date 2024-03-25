@@ -70,6 +70,9 @@ namespace BitBrushAPI.Migrations
                     b.Property<Guid>("collectionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("createdDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("creatorId")
                         .HasColumnType("uniqueidentifier");
 

@@ -21,6 +21,7 @@ import Ranking from "./Ranking";
 import Create from "./Create";
 import CreateNFT from "./CreateNFT";
 import CreateCollection from "./CreateCollection";
+import ResellNFT from "./ResellNFT";
 import Wallet from "./Wallet";
 import AccountSetting from "./AccountSetting";
 import User from "./User";
@@ -64,12 +65,13 @@ function App() {
               <Route exact path="/create" element={<Create />} />
               <Route exact path="/create/createNFT" element={<CreateNFT />} />
               <Route exact path="/create/createCollection" element={<CreateCollection />} />
+              <Route exact path="/create/resellNFT" element={<ResellNFT />} />
               <Route exact path="/accountsetting" element={<AccountSetting />} />
               <Route exact path="/user/:id" element={<User />} />
               <Route exact path="/wallet" element={<Wallet />} />
               <Route exact path="/nftdetail/:id" element={<NFTDetail />} />
               <Route exact path="/collectiondetail/:id" element={<CollectionDetail />} />
-              <Route exact path="/purchasecompleted" element={<ConfirmPurchase />} />
+              <Route exact path="/confirmPurchase/:id" element={<ConfirmPurchase />} />
             </Routes>
           </div>
           <Footer />

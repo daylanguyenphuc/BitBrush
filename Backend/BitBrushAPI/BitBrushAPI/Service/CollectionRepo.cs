@@ -37,7 +37,13 @@ namespace BitBrushAPI.Service
                                                 id = c.creator.id,
                                                 firstName = c.creator.firstName,
                                                 lastName = c.creator.lastName,
-                                            }
+                                            },
+                                            products = c.products.Select(p => new ProductCompactDTO
+                                            {
+                                                id = p.id,
+                                                name = p.name,
+                                                thumbnailUrl = p.thumbnailUrl,
+                                            }).ToList()
                                         }).ToList();
             return collections;
         }

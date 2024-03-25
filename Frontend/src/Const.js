@@ -1,0 +1,1 @@
+export const curentUser = '1d14b158-fa8f-4257-4d75-08dc4c251997';

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useParams } from "react-router-dom";
 import useFetch from "./useFetch";
+import { curentUser } from './Const';
 
 const CollectionDetail = () => {
     // Parameter
@@ -31,17 +32,17 @@ const CollectionDetail = () => {
         // Add your search logic here
     };
 
-    // Filter by tags function
-    const [unselectedTags, setUnselectedTags] = useState(['Painting and drawing', 'Vector art', '3D model', 'Pixel art', '2D animation', '3D animation']);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const handleTagClick = (tag) => {
-        setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
-        setSelectedTags((prevTags) => [...prevTags, tag]);
-    };
-    const handleTagDelete = (tag) => {
-        setUnselectedTags((prevTags) => [...prevTags, tag]);
-        setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
-    };
+    // // Filter by tags function
+    // const [unselectedTags, setUnselectedTags] = useState(['Painting and drawing', 'Vector art', '3D model', 'Pixel art', '2D animation', '3D animation']);
+    // const [selectedTags, setSelectedTags] = useState([]);
+    // const handleTagClick = (tag) => {
+    //     setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
+    //     setSelectedTags((prevTags) => [...prevTags, tag]);
+    // };
+    // const handleTagDelete = (tag) => {
+    //     setUnselectedTags((prevTags) => [...prevTags, tag]);
+    //     setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
+    // };
 
     // Sort function
     const [sort, setSort] = useState('');

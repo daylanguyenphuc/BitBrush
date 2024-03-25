@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Container, Grid, Typography, Box, Button, Card, CardContent, CardMedia, CardActionArea } from "@mui/material";
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { curentUser } from './Const';
 
 const scrollToSection = () => {
     const element = document.getElementById('learnMore');

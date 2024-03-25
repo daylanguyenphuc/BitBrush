@@ -12,6 +12,10 @@ namespace BitBrushAPI.Service
         public ProductFullDTO AddProduct(ProductAddDTO newProduct);
         public void UpdateProduct (Guid id, ProductAddDTO updateProduct);
         public void DeleteProduct (Guid id);
+        public void AddTagToProduct(ProductTagAddDTO newProductTag);
+        public void DeleteTagFromProduct(Guid deleteProductId, Guid deleteTagId);
+        public ProductFullDTO ResellOwnedProduct(Guid id, ProductResellDTO resellProduct);
+
     }
     public class ProductRepo : IProductRepo
     {
@@ -28,11 +32,20 @@ namespace BitBrushAPI.Service
                                     .Include(p => p.collection)
                                     .Include(p => p.creator)
                                     .Include(p => p.owner)
+                                    .Include(p => p.tags)
                                     .Select(p => new ProductFullDTO
                                     {
                                         id = p.id,
                                         name = p.name,
                                         description = p.description,
+                                        tags = p.tags.Select(pt => new ProductTagCompactDTOforProduct
+                                        {
+                                            tag = new TagCompactDTO
+                                            {
+                                                id = pt.tag.id,
+                                                name = pt.tag.name,
+                                            }
+                                        }).ToList(),
                                         collection = new CollectionCompactDTO
                                         {
                                             id = p.collection.id,
@@ -51,7 +64,7 @@ namespace BitBrushAPI.Service
                                             firstName = p.creator.firstName,
                                             lastName = p.creator.lastName,
                                         },
-                                        //date = p.date,
+                                        createdDate = p.createdDate,
                                         sellingStatus = p.sellingStatus,
                                         price = p.price
                                     }).ToList();
@@ -88,7 +101,7 @@ namespace BitBrushAPI.Service
                                             firstName = p.creator.firstName,
                                             lastName = p.creator.lastName,
                                         },
-                                        //date = p.date,
+                                        createdDate = p.createdDate,
                                         sellingStatus = p.sellingStatus,
                                         price = p.price
                                     }).FirstOrDefault();
@@ -105,7 +118,7 @@ namespace BitBrushAPI.Service
                 thumbnailUrl = newProduct.thumbnailUrl,
                 ownerId = newProduct.ownerId,
                 creatorId = newProduct.creatorId,
-                //date = newProduct.date,
+                createdDate = DateTime.UtcNow,
                 sellingStatus = newProduct.sellingStatus,
                 price = newProduct.price
             };
@@ -136,7 +149,7 @@ namespace BitBrushAPI.Service
                     firstName = _dbContext.Users.SingleOrDefault(u => u.id == product.creatorId).firstName,
                     lastName = _dbContext.Users.SingleOrDefault(u => u.id == product.creatorId).lastName,
                 },
-                //date = product.date,
+                createdDate = product.createdDate,
                 sellingStatus = product.sellingStatus,
                 price = product.price
             };
@@ -148,8 +161,6 @@ namespace BitBrushAPI.Service
             product.name = updateProduct.name;
             product.description = updateProduct.description;
             product.collectionId = updateProduct.collectionId;
-            product.creatorId = updateProduct.creatorId;
-            //product.date = updateProduct.date;
             product.sellingStatus = updateProduct.sellingStatus;
             product.price = updateProduct.price;
             _dbContext.Update(product);
@@ -164,6 +175,64 @@ namespace BitBrushAPI.Service
                 _dbContext.Remove(product);
                 _dbContext.SaveChanges();
             }
+        }
+
+        public void AddTagToProduct (ProductTagAddDTO newProductTag)
+        {
+            var productTag = new ProductTag
+            {
+                productId = newProductTag.productId,
+                tagId = newProductTag.tagId,
+            };
+
+            _dbContext.ProductTags.Add(productTag);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteTagFromProduct(Guid deleteProductId, Guid deleteTagId)
+        {
+            var productTag = _dbContext.ProductTags.SingleOrDefault(pt => pt.productId == deleteProductId && pt.tagId == deleteTagId);
+            if (productTag != null)
+            {
+                _dbContext.Remove(productTag);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public ProductFullDTO ResellOwnedProduct(Guid id, ProductResellDTO resellProduct)
+        {
+            var product = _dbContext.Products.SingleOrDefault(d => d.id == id);
+            product.sellingStatus = true;
+            product.price = resellProduct.price;
+            _dbContext.Update(product);
+            _dbContext.SaveChanges();
+            return new ProductFullDTO
+            {
+                id = product.id,
+                name = product.name,
+                description = product.description,
+                collection = new CollectionCompactDTO
+                {
+                    id = product.collectionId,
+                    name = _dbContext.Collections.SingleOrDefault(c => c.id == product.collectionId).name
+                },
+                thumbnailUrl = product.thumbnailUrl,
+                owner = new UserCompactDTO
+                {
+                    id = product.ownerId,
+                    firstName = _dbContext.Users.SingleOrDefault(u => u.id == product.ownerId).firstName,
+                    lastName = _dbContext.Users.SingleOrDefault(u => u.id == product.ownerId).lastName,
+                },
+                creator = new UserCompactDTO
+                {
+                    id = product.creatorId,
+                    firstName = _dbContext.Users.SingleOrDefault(u => u.id == product.creatorId).firstName,
+                    lastName = _dbContext.Users.SingleOrDefault(u => u.id == product.creatorId).lastName,
+                },
+                createdDate = product.createdDate,
+                sellingStatus = product.sellingStatus,
+                price = product.price
+            };
         }
     }
 }

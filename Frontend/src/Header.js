@@ -13,6 +13,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import HomeIcon from '@mui/icons-material/Home';
+import { curentUser } from './Const';
+import useFetch from './useFetch';
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -32,6 +34,8 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const {data: user, isLoading: isUserLoading, error: userError} = useFetch(`https://localhost:7145/User/${curentUser}`);
 
   return (
     <AppBar position="static">
@@ -113,7 +117,7 @@ function Header() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={ user && user.firstName} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -133,7 +137,7 @@ function Header() {
               onClose={handleCloseUserMenu}
             >   
               <MenuItem><Link to='/wallet' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Wallet</Typography></Link></MenuItem>
-              <MenuItem><Link to='/user/b4606ec1-2899-4416-45b9-08dc4b9ca01d' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Profile</Typography></Link></MenuItem>
+              <MenuItem><Link to={ user && `/user/${user.id}`} style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">My Profile</Typography></Link></MenuItem>
               <MenuItem><Link to='/accountsetting' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Account settings</Typography></Link></MenuItem>
               <MenuItem><Link to='/' style={{textDecoration:'none' , color:'#4a4a4a'}}><Typography textAlign="center">Log out</Typography></Link></MenuItem>
             </Menu>

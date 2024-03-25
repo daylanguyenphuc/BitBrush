@@ -35,7 +35,7 @@ const User = () => {
 
     // Created by me tab functions
     // Get data
-    const { data: createdNfts, nIsLoading: hehe, nftsEror:hjhj } = useFetch(`https://localhost:7145/Product?creatorId=b4606ec1-2899-4416-45b9-08dc4b9ca01d`);
+    const { data: createdNfts, isLoading: isCreatedNftsLoading, error: createdNftsError } = useFetch(`https://localhost:7145/Product?creatorId=${id}`);
 
     // Search by name function
     const [createSearchTerm, setCreateSearchTerm] = useState('');
@@ -94,7 +94,7 @@ const User = () => {
 
     // Owned by me tab functions
     // Get data
-    const { data: ownedNfts, nftsIsLoading, nftsEror } = useFetch(`https://localhost:7145/Product?ownerId=b4606ec1-2899-4416-45b9-08dc4b9ca01d`);
+    const { data: ownedNfts, isLoading: isOwnedNftsLoading, error: ownedNftsError } = useFetch(`https://localhost:7145/Product?ownerId=${id}`);
 
     // Search by name function
     const [ownedSearchTerm, setOwnedSearchTerm] = useState('');
@@ -150,7 +150,7 @@ const User = () => {
 
     // Collection tab functions
     // Get data
-    const { data: collections, collectionIsLoading, collecctionError } = useFetch(`https://localhost:7145/Collection?creatorId=b4606ec1-2899-4416-45b9-08dc4b9ca01d`);
+    const { data: collections, collectionIsLoading, collecctionError } = useFetch(`https://localhost:7145/Collection?creatorId=${id}`);
 
     // Search by name function
     const [collectionSearchTerm, setCollectionSearchTerm] = useState('');
@@ -164,14 +164,7 @@ const User = () => {
     const handleCollectionPageChange = (event, value) => { setCollectionPage(value); }
 
     // Transaction history tab functions
-    const transactionHistory = [
-        { id: 1, event: 'Buy', itemId: 12, itemName: 'CosmicArt Ephemerals', price: '0.007 ETH', from: '0x173f...4k8df', to: '0x417f...c8883', date: '30/01/2024 14:51:13 PM', transactionId: '0xa3f4...e47c24' },
-        { id: 2, event: 'Buy', itemId: 12381, itemName: 'Quantum Visions', price: '1.27 ETH', from: '0x173f...4k8df', to: '0x417f...c8883', date: '30/01/2024 14:51:13 PM', transactionId: '0xa3f4...e47c24' },
-        { id: 3, event: 'Sell', itemId: 39, itemName: 'NeonDream Synchronicity', price: '0.21 ETH', from: '0x173f...4k8df', to: '0x417f...c8883', date: '30/01/2024 14:51:13 PM', transactionId: '0xa3f4...e47c24' },
-        { id: 4, event: 'Buy', itemId: 13, itemName: 'CelestrialHarmony Creations', price: '0.11 ETH', from: '0x173f...4k8df', to: '0x417f...c8883', date: '30/01/2024 14:51:13 PM', transactionId: '0xa3f4...e47c24' },
-        { id: 5, event: 'Buy', itemId: 107, itemName: 'RetroFuturist Realms', price: '0.02 ETH', from: '0x173f...4k8df', to: '0x417f...c8883', date: '30/01/2024 14:51:13 PM', transactionId: '0xa3f4...e47c24' },
-        { id: 6, event: 'Sell', itemId: 9807, itemName: 'EtherealEcho Explorations', price: '1.39 ETH', from: '0x173f...4k8df', to: '0x417f...c8883', date: '30/01/2024 14:51:13 PM', transactionId: '0xa3f4...e47c24' },
-    ]
+    const { data: transactions, transactionsIsLoading, transactionsError } = useFetch(`https://localhost:7145/Transaction/GetTransactionsByUserId?id=${id}`);
 
     return (
 
@@ -188,7 +181,7 @@ const User = () => {
                 }}
             >
                 <Box style={{ textAlign: 'center' }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" style={{ margin: '0 auto', height: '120px', width: '120px' }} />
+                    <Avatar alt={ user && user.firstName} src="/static/images/avatar/2.jpg" style={{ margin: '0 auto', height: '120px', width: '120px' }} />
                     <Typography variant="h2" gutterBottom style={{ marginTop: '20px' }} >{ user && user.firstName} { user && user.lastName}</Typography>
                     <Typography variant="subtitle1" gutterBottom >User ID: { user && user.id}</Typography>
                 </Box>
@@ -214,92 +207,6 @@ const User = () => {
                             <Typography variant="body1" gutterBottom><b>Join date: </b>{ user && user.joinDate}</Typography>
                         </TabPanel>
                         <TabPanel value="2">
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    marginBottom: '20px'
-                                }}
-                            >
-                                <Grid container spacing={2}>
-                                    <Grid item xs={8} sm={8} md={8}>
-                                        <TextField
-                                            variant="outlined"
-                                            fullWidth
-                                            label="Search for NFTs"
-                                            value={createSearchTerm}
-                                            onChange={handleCreateSearchChange}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton>
-                                                            <SearchIcon />
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4} sm={4} md={4}>
-                                        <Box sx={{ minWidth: 120 }}>
-                                            <FormControl fullWidth>
-                                                <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    value={createSort}
-                                                    label="Sort by"
-                                                    onChange={handleCreateSort}
-                                                >
-                                                    <MenuItem value={'newest'}>Newest</MenuItem>
-                                                    <MenuItem value={'oldest'}>Oldest</MenuItem>
-                                                    <MenuItem value={'priceLow'}>Price: Low to high</MenuItem>
-                                                    <MenuItem value={'priceHigh'}>Price: High to low</MenuItem>
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags: </Typography>
-                                        {selectedCreateTags.map((tag, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={tag}
-                                                onDelete={() => handleCreateTagDelete(tag)}
-                                                color="primary"
-                                                style={{ margin: '4px' }}
-                                            />
-                                        ))}
-                                        {unselectedCreateTags.map((tag, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={tag}
-                                                onClick={() => handleCreateTagClick(tag)}
-                                                style={{ margin: '4px', cursor: 'pointer' }}
-                                            />
-                                        ))}
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12} sx={{ marginBottom: '16px' }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <Typography variant="body2" sx={{ marginRight: '16px' }}>Price range: from {valuetext(createPriceFilterRange[0])}</Typography>
-                                            <Slider
-                                                getAriaLabel={() => 'Minimum distance shift'}
-                                                value={createPriceFilterRange}
-                                                onChange={handleChangeCreatePriceRange}
-                                                valueLabelDisplay="auto"
-                                                getAriaValueText={valuetext}
-                                                min={0}
-                                                max={maxCreatePrice}
-                                                step={0.01}
-                                                disableSwap
-                                                sx={{ width: '300px' }}
-                                            />
-                                            <Typography variant="body2" sx={{ marginLeft: '16px' }}>to {valuetext(createPriceFilterRange[1])}</Typography>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </Box>
                             <Box>
                                 <Grid container spacing={2}>
                                     { createdNfts && createdNfts.map( nft => (
@@ -322,93 +229,15 @@ const User = () => {
                                                     </Grid>
                                                 </Box>
                                                 <Box style={{ width: '100%' }}>
-                                                    <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                                    <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                    <Link to={`/nftdetail/${nft.id}`}><Button variant="contained">View details</Button></Link>
                                                 </Box>
                                             </Paper>
                                         </Grid>
                                     ))}
                                 </Grid>
                             </Box>
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '20vh',
-                                }}
-                            >
-                                <Pagination count={10} page={createPage} onChange={handleCreatePageChange} />
-                            </Box>
                         </TabPanel>
                         <TabPanel value="3">
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    marginBottom: '20px'
-                                }}
-                            >
-                                <Grid container spacing={2}>
-                                    <Grid item xs={8} sm={8} md={8}>
-                                        <TextField
-                                            variant="outlined"
-                                            fullWidth
-                                            label="Search for NFTs"
-                                            value={ownedSearchTerm}
-                                            onChange={handleOwnedSearchChange}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton>
-                                                            <SearchIcon />
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4} sm={4} md={4}>
-                                        <Box sx={{ minWidth: 120 }}>
-                                            <FormControl fullWidth>
-                                                <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    value={ownedSort}
-                                                    label="Sort by"
-                                                    onChange={handleOwnedSort}
-                                                >
-                                                    <MenuItem value={'newest'}>Newest</MenuItem>
-                                                    <MenuItem value={'oldest'}>Oldest</MenuItem>
-                                                </Select>
-                                            </FormControl>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={12}>
-                                        <Typography variant="body2" style={{ display: 'inline' }} gutterBottom>Tags: </Typography>
-                                        {selectedOwnedTags.map((tag, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={tag}
-                                                onDelete={() => handleOwnedTagDelete(tag)}
-                                                color="primary"
-                                                style={{ margin: '4px' }}
-                                            />
-                                        ))}
-                                        {unselectedOwnedTags.map((tag, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={tag}
-                                                onClick={() => handleOwnedTagClick(tag)}
-                                                style={{ margin: '4px', cursor: 'pointer' }}
-                                            />
-                                        ))}
-                                    </Grid>
-                                </Grid>
-                            </Box>
                             <Box>
                                 <Grid container spacing={2}>
                                     { ownedNfts && ownedNfts.map( nft => (
@@ -431,52 +260,15 @@ const User = () => {
                                                     </Grid>
                                                 </Box>
                                                 <Box style={{ width: '100%' }}>
-                                                    <Button variant="contained" onClick={handleConfirmPurchase}>Buy now</Button>
-                                                    <Link to='/nftdetail'><Button variant="text">View details</Button></Link>
+                                                    <Link to={`/nftdetail/${nft.id}`}><Button variant="contained">View details</Button></Link>
                                                 </Box>
                                             </Paper>
                                         </Grid>
                                     ))}
                                 </Grid>
                             </Box>
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '20vh',
-                                }}
-                            >
-                                <Pagination count={10} page={ownedPage} onChange={handleOwnedPageChange} />
-                            </Box>
                         </TabPanel>
                         <TabPanel value="4">
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    marginBottom: '20px'
-                                }}
-                            >
-                                <TextField
-                                    variant="outlined"
-                                    fullWidth
-                                    label="Search for collections"
-                                    value={collectionSearchTerm}
-                                    onChange={handleCollectionSearchChange}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton>
-                                                    <SearchIcon />
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </Box>
                             <Box>
                                 <Grid container spacing={2}>
                                     {collections && collections.map( collection => (
@@ -495,23 +287,12 @@ const User = () => {
                                                     <Typography variant="body2" color="text.secondary">by {collection.creator.firstName} {collection.creator.lastName}</Typography>
                                                 </CardContent>
                                                 <CardActions>
-                                                    <Link to='/collectiondetail'><Button size="small" color="primary">Discover collection</Button></Link>
+                                                    <Link to={`/collectiondetail/${collection.id}`}><Button size="small" color="primary">Discover collection</Button></Link>
                                                 </CardActions>
                                             </Card>
                                         </Grid>
                                     ))}
                                 </Grid>
-                            </Box>
-                            <Box
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '20vh',
-                                }}
-                            >
-                                <Pagination count={10} page={collectionPage} onChange={handleCollectionPageChange} />
                             </Box>
                         </TabPanel>
                         <TabPanel value="5">
@@ -519,27 +300,25 @@ const User = () => {
                                 <Table>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell align="left">Event</TableCell>
-                                            <TableCell align="left">Item ID</TableCell>
+                                            <TableCell align="left">Transaction ID</TableCell>
+                                            <TableCell align="left">NFT ID</TableCell>
                                             <TableCell align="left">Asset name</TableCell>
                                             <TableCell align="left">Price</TableCell>
                                             <TableCell align="left">From</TableCell>
                                             <TableCell align="left">To</TableCell>
                                             <TableCell align="left">Date</TableCell>
-                                            <TableCell align="left">Transaction ID</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {transactionHistory.map((row) => (
-                                            <TableRow key={row.id}>
-                                                <TableCell>{row.event}</TableCell>
-                                                <TableCell>{row.itemId}</TableCell>
-                                                <TableCell>{row.itemName}</TableCell>
-                                                <TableCell>{row.price}</TableCell>
-                                                <TableCell>{row.from}</TableCell>
-                                                <TableCell>{row.to}</TableCell>
-                                                <TableCell>{row.date}</TableCell>
-                                                <TableCell>{row.transactionId}</TableCell>
+                                        {transactions && transactions.map((transaction) => (
+                                            <TableRow key={transaction.id}>
+                                                <TableCell>{transaction.id}</TableCell>
+                                                <TableCell>{transaction.product.id}</TableCell>
+                                                <TableCell>{transaction.product.name}</TableCell>
+                                                <TableCell>{transaction.price} ETH</TableCell>
+                                                <TableCell>{transaction.seller.id}</TableCell>
+                                                <TableCell>{transaction.buyer.id}</TableCell>
+                                                <TableCell>{transaction.time}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -549,76 +328,6 @@ const User = () => {
                     </TabContext>
                 </Box>
             </Container>
-
-            <Dialog open={confirmPurchase} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                <DialogTitle id="alert-dialog-title">{"Confirm your purchase"}</DialogTitle>
-                <DialogContent>
-                    <Box style={{ margin: '30px' }}>
-                        <Accordion defaultExpanded>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">NFT's information</Typography></AccordionSummary>
-                            <AccordionDetails>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={3} md={3}>
-                                        <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src="img-03.jpg" alt='product' />
-                                    </Grid>
-                                    <Grid item xs={8} sm={6} md={6} >
-                                        <Typography variant="subtitle1">NFT's name here</Typography>
-                                        <Typography variant="body1">Created by: Nguyen Phuc</Typography>
-                                        <Typography variant="body2" gutterBottom >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac tellus id risus gravida elementum eu nec ipsum. Maecenas dignissim sem scelerisque, finibus elit ac, consectetur eros. Pellentesque metus nibh, consequat at sodales fermentum, bibendum ut ante.</Typography>
-                                    </Grid>
-                                    <Grid item xs={4} sm={3} md={3} style={{ textAlign: 'center' }}>
-                                        <Typography variant="body1" color='primary' >0.007 ETH</Typography>
-                                    </Grid>
-                                </Grid>
-                            </AccordionDetails>
-                        </Accordion>
-                        <Accordion defaultExpanded>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">Purchase information</Typography></AccordionSummary>
-                            <AccordionDetails>
-                                <TableContainer>
-                                    <Table size="small" aria-label="table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="left">Category</TableCell>
-                                                <TableCell align="right">Price</TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                                <TableCell align="left">NFT's name here</TableCell>
-                                                <TableCell align="right">0.007 ETH</TableCell>
-                                            </TableRow>
-                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                                <TableCell align="left">Network fee</TableCell>
-                                                <TableCell align="right">+ 0.02 ETH</TableCell>
-                                            </TableRow>
-                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                                <TableCell align="left">Processing fee</TableCell>
-                                                <TableCell align="right">+ 0.005 ETH</TableCell>
-                                            </TableRow>
-                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                                <TableCell align="left">Total:</TableCell>
-                                                <TableCell align="right">0.212 ETH</TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </AccordionDetails>
-                        </Accordion>
-                        <Accordion defaultExpanded>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header"><Typography variant="subtitle1">Address information</Typography></AccordionSummary>
-                            <AccordionDetails>
-                                <Typography variant="body1" gutterBottom><b>From: </b>564a3c...f0f1cd</Typography>
-                                <Typography variant="body1" gutterBottom><b>To: </b>4c40ed...f0f1cd</Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Box>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleNoConirmPurchase} variant="text">Cancel purchase</Button>
-                    <Button onClick={handlePurchase} variant="contained" autoFocus><Link to='/purchasecompleted' style={{ color: 'white', textDecoration: 'none' }}>Confirm purchase</Link></Button>
-                </DialogActions>
-            </Dialog>
         </>
     );
 }

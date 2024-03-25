@@ -18,6 +18,7 @@ namespace BitBrushAPI.Model
         public UserAccountModel userAccount { get; set; }
         public List<ProductModel> createdProduct {  get; set; }
         public List<ProductModel> ownedProduct { get; set; }
+        public List<TransactionModel> transactions { get; set; }
     }
 
     public class UserFullDTO
@@ -47,6 +48,14 @@ namespace BitBrushAPI.Model
         public string phone { get; set; }
         public string gender { get; set; }
         public DateTime birthdate { get; set; }
-        public DateTime joinDate { get; set; }
+    }
+
+    public class RankingDTO
+    {
+        public Guid id { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public List<TransactionCompactDTO> transactions { get; set; }
+        public decimal total { get; set; }
     }
 }

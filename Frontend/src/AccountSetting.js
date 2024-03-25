@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
-import { Container, Typography, Box, Tab, TextField, Button, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Container, Typography, Box, Tab, TextField, Button, Select, Alert, MenuItem, InputLabel, FormControl } from '@mui/material';
+import AlertTitle from '@mui/material/AlertTitle';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import useFetch from './useFetch';
+import { curentUser } from './Const';
 
 const AccountSetting = () => {
+
+  // Format date
+  const formatDate = (datetimeString) => {
+    const date = new Date(datetimeString);
+    // Extract year, month, and day components
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based, so add 1
+    const day = String(date.getDate()).padStart(2, '0');
+    // Construct the desired format "YYYY-MM-DD"
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  }
 
   // Change tab function
   const [tab, setTab] = useState('1');
@@ -12,31 +27,122 @@ const AccountSetting = () => {
       setTab(newTab);
   };
 
+  // Get data
+  const { data: user, userIsLoading, usetError } = useFetch(`https://localhost:7145/User/${curentUser}`);
+
+  console.log(user);
+
   // Update information function
-  const [isUpdated, setIsUpdated] = useState(false)
-  const [userId, setUserId] =  useState('564a3c5f-784c-40ed-b46d-6a1f5ef0f1cd');
-  const [userEmail, setUserEmail] =  useState('phucn3463@gmail.com');
-  const [userFirstName, setUserFirstName] =  useState('Nguyen');
-  const [userLastName, setUserLastName] =  useState('Ngoc Phuc');
-  const [userBirthdate, setUserBirthdate] =  useState('2004-03-14');
-  const [userSex, setUserSex] =  useState('M');
-  const [userPhone, setUserPhone] =  useState('0943445867');
-  const [userJoinDate, setUserJoinDate] =  useState('2024-03-24');
+  const [userId, setUserId] =  useState('');
+  const [userEmail, setUserEmail] =  useState('');
+  const [userFirstName, setUserFirstName] =  useState('');
+  const [userLastName, setUserLastName] =  useState('');
+  const [userBirthdate, setUserBirthdate] =  useState('');
+  const [userSex, setUserSex] =  useState('');
+  const [userPhone, setUserPhone] =  useState('');
+  const [userJoinDate, setUserJoinDate] =  useState('');
+
+  useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+      setUserEmail(user.mail);
+      setUserFirstName(user.firstName);
+      setUserLastName(user.lastName);
+      setUserBirthdate(formatDate(user.birthdate));
+      setUserSex(user.gender);
+      setUserPhone(user.phone);
+      setUserJoinDate(formatDate(user.joinDate));
+    }
+  }, [user]);
+
   const handleUpdateUserInfo = (e) => {
     e.preventDefault();
-    setIsUpdated(true);
     console.log('Updated user info');
     // Add logic to handle form submission (e.g., API call to update user info)
+    const account = {
+      "firstName": userFirstName,
+      "lastName": userLastName,
+      "mail": userEmail,
+      "phone": userPhone,
+      "gender": userSex,
+      "birthdate": userBirthdate,
+    }
+    fetch(`https://localhost:7145/User/${curentUser}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(account),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to update account info');
+      }
+      return response.json();
+    })
+    .then((createdNFT) => {
+      // Handle success (e.g., show success message)
+    })
+    .catch(error => {
+      console.error('Error update account info:', error);
+      // Handle error (e.g., show error message)
+    })
+    .finally(() => {
+
+    });
   };
 
   // Update password function
+  const [passwordError, setPasswordError] =  useState(null);
+
   const [userOldPassword, setUserOldPassword] =  useState('');
   const [userNewPassword, setUserNewPassword] =  useState('');
   const [userRetypeNewPassword, setUserRetypeNewPassword] =  useState('');
+
+  const { data: account, IsLoading: accountIsLoading, error: accountError} = useFetch(`https://localhost:7145/UserAccount/${curentUser}`);
+
   const handleUpdateUserPassword = (e) => {
+    setPasswordError(null);
     e.preventDefault();
-    console.log('Updated user password');
-    // Add logic to handle form submission (e.g., API call to update user info)
+    console.log('Update user password function called');
+    
+    if (account.password === userOldPassword) {
+      if (userNewPassword === userRetypeNewPassword) {
+        console.log('Updated account info');
+        // Add logic to handle form submission (e.g., API call to update user info)
+        const password = {
+          "userId": curentUser,
+          "username": account.username,
+          "password": userNewPassword,
+          "walletId": account.walletId,
+          "balance": account.balance,
+        }
+        fetch(`https://localhost:7145/UserAccount/${curentUser}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(password),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update account password');
+          }
+          return response.json();
+        })
+        .then(() => {
+          // Handle success (e.g., show success message)
+        })
+        .catch(error => {
+          console.error('Error update account password:', error);
+          // Handle error (e.g., show error message)
+        })
+        .finally(() => {
+        });
+      }
+      else {
+        setPasswordError("Passwords does not match");
+      }
+    }
+    else {
+      setPasswordError("Incorrect old password");
+    }
   };
 
   return (
@@ -61,7 +167,7 @@ const AccountSetting = () => {
                       <TextField
                         label="User ID"
                         name="id"
-                        defaultValue={userId}
+                        value={userId}
                         fullWidth
                         margin="normal"
                         InputProps={{
@@ -71,12 +177,10 @@ const AccountSetting = () => {
                       <TextField
                         label="Email"
                         name="email"
-                        defaultValue={userEmail}
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)}
                         fullWidth
                         margin="normal"
-                        InputProps={{
-                          readOnly: true,
-                        }}
                       />
                       <TextField
                         label="First Name"
@@ -109,8 +213,8 @@ const AccountSetting = () => {
                       <FormControl fullWidth margin="normal">
                         <InputLabel>Sex *</InputLabel>
                         <Select name="sex" label="Sex" value={userSex} onChange={(e) => setUserSex(e.target.value)} required >
-                          <MenuItem value="M">Male</MenuItem>
-                          <MenuItem value="F">Female</MenuItem>
+                          <MenuItem value="m">Male</MenuItem>
+                          <MenuItem value="f">Female</MenuItem>
                         </Select>
                       </FormControl>
                       <TextField
@@ -126,7 +230,7 @@ const AccountSetting = () => {
                       <TextField
                         label="Join date"
                         name="joinDate"
-                        defaultValue={userJoinDate}
+                        value={userJoinDate}
                         fullWidth
                         margin="normal"
                         InputProps={{
@@ -134,11 +238,17 @@ const AccountSetting = () => {
                         }}
                         style={{ marginBottom: '20px' }}
                       />
-                      <Button type="submit" variant="contained" color={isUpdated ? 'success' : 'primary'} fullWidth>Save Changes</Button>
+                      <Button type="submit" variant="contained" color="primary" fullWidth>Save Changes</Button>
                     </form>
                   </Box>
                 </TabPanel>
                 <TabPanel value="2">
+                  { passwordError &&
+                    <Alert severity="error">
+                      <AlertTitle>Error</AlertTitle>
+                      { passwordError }
+                    </Alert>
+                  }
                   <Box>
                     <form onSubmit={handleUpdateUserPassword}>
                       <TextField
@@ -149,6 +259,7 @@ const AccountSetting = () => {
                         required
                         fullWidth
                         margin="normal"
+                        type="password"
                       />
                       <TextField
                         label="New password"
@@ -158,6 +269,7 @@ const AccountSetting = () => {
                         required
                         fullWidth
                         margin="normal"
+                        type="password"
                       />
                       <TextField
                         label="New password retype"
@@ -167,6 +279,7 @@ const AccountSetting = () => {
                         required
                         fullWidth
                         margin="normal"
+                        type="password"
                         style={{ marginBottom: '20px' }}
                       />
                       <Button type="submit" variant="contained" color="primary" fullWidth>Update Password</Button>

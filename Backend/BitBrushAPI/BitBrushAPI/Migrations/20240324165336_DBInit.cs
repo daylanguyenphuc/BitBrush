@@ -103,6 +103,7 @@ namespace BitBrushAPI.Migrations
                     thumbnailUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ownerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     creatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     sellingStatus = table.Column<bool>(type: "bit", nullable: false),
                     price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },

@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import { Container, Typography, Button } from "@mui/material";
+import { useParams } from "react-router-dom";
+import useFetch from "./useFetch";
+import { curentUser } from './Const';
 
 const ConfirmPurchase = () => {
+    const {id} = useParams();
+    const {data: transaction, isLoading: isTransactionLoading, error: transactionError} = useFetch(`https://localhost:7145/Transaction/${id}`);
+
     return (  
         <Container maxWidth="xl" style={{ textAlign: 'center', display: 'block', margin: '50px auto' }}>
             <Typography variant="h1" gutterBottom style={{ margin: '50px 0' }}>Your purchase is completed!</Typography>
@@ -15,8 +21,12 @@ const ConfirmPurchase = () => {
                     </clipPath>
                 </defs>
             </svg>
-            <Typography variant="h5" gutterBottom style={{ margin: '50px 0' }}>Transaction ID: 1345654</Typography>
-            <Button variant="contained"><Link to='/nftdetail' style={{ textDecoration: 'none', color: 'white' }}>View my item</Link></Button>
+            <Typography variant="h5" gutterBottom style={{ margin: '50px 0' }}>Transaction ID: { transaction && transaction.id }</Typography>
+            <Button variant="contained">
+                <Link to={`/nftdetail/${transaction && transaction.product.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+                    View my item
+                </Link>
+            </Button>
         </Container>
     );
 }

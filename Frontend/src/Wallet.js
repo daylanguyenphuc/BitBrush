@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { Container, Grid, Typography, Box, TableContainer, Table, TableBody, TableRow, TableCell } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
-const NFTImagesContract = require('./contracts/NFTImages.json');
+import { curentUser } from './Const';
 
 const WalletConnected = () => {
 
-    const [web3, setWeb3] = useState(null);
+  const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');

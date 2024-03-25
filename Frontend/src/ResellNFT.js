@@ -5,121 +5,91 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch';
 import { curentUser } from './Const';
-import AWS from 'aws-sdk';
 
-// Upload artwork function
-const S3_BUCKET = 'bucketgroup1.4';
-const REGION = 'ap-southeast-2';
-const ACCESS_KEY = 'AKIAZQ3DN5QB5V4P5UHJ';
-const SECRET_ACCESS_KEY = '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';
 
-AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY,
-  region: REGION,
-});
-
-const s3 = new AWS.S3();
-const CreateNFT = () => {
+const ResellNFT = () => {
     const navigate = useNavigate(); // Initialize useNavigate
-
+    // image URL
     const [uploadedFile, setUploadedFile] = useState(null);
-    const onDrop = (acceptedFiles) => {
-        setUploadedFile(acceptedFiles[0]);
-    };
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop,
-        accept: 'image/*',
-        maxFiles: 1,
-    });
 
     // New artwork name
     const [name, setName] = useState('');
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-    };
 
     // New artwork descreption
     const [descreption, setDescreption] = useState('');
-    const handleDescreptionChange = (event) => {
-        setDescreption(event.target.value);
-    };
 
     // New artwork tags
-    const [unselectedTags, setUnselectedTags] = useState(['Painting and drawing','Vector art','3D model','Pixel art','2D animation','3D animation']);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const handleTagClick = (tag) => {
-        setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
-        setSelectedTags((prevTags) => [...prevTags, tag]);
-    };
-    const handleTagDelete = (tag) => {
-        setUnselectedTags((prevTags) => [...prevTags, tag]);
-        setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
-    };
+    // const [unselectedTags, setUnselectedTags] = useState(['Painting and drawing','Vector art','3D model','Pixel art','2D animation','3D animation']);
+    // const [selectedTags, setSelectedTags] = useState([]);
+    // const handleTagClick = (tag) => {
+    //     setUnselectedTags((prevTags) => prevTags.filter((t) => t !== tag));
+    //     setSelectedTags((prevTags) => [...prevTags, tag]);
+    // };
+    // const handleTagDelete = (tag) => {
+    //     setUnselectedTags((prevTags) => [...prevTags, tag]);
+    //     setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
+    // };
 
     // New artwork collection
     const {data: collections, isCollectionLoading, errorCollection} = useFetch('https://localhost:7145/Collection');
     const [collection, setCollection] = useState('');
-    const handleChangeCollection = (event) => {
-        setCollection(event.target.value);
-    };
 
     // New artwork price
     const [price, setPrice] = useState('');
     const handlePriceChange = (event) => {
-    const inputValue = event.target.value;
-    if (/^\d*\.?\d*$/.test(inputValue)) {
-        setPrice(inputValue);
-    }};
+        const inputValue = event.target.value;
+        if (/^\d*\.?\d*$/.test(inputValue)) {
+            setPrice(inputValue);
+        }
+    };
+
+    // Artwork properties function
+    const { data: ownedNFTList, isLoading: ownedNFTListIsLoading, error: ownedNFTListError } = useFetch(`https://localhost:7145/Product?ownerId=${curentUser}&sellingStatus=false`);
+    const [selectedOwnedNFT, setSelectedOwnedNFT] = useState({});
+    
+    const handleChangeSellOwnedNFT = (event) => {
+        setSelectedOwnedNFT(event.target.value);
+    };
+    
+    // Update details based on NFT options
+    React.useEffect(() => {
+        if (selectedOwnedNFT) {
+            setUploadedFile(selectedOwnedNFT.thumbnailUrl);
+            setName(selectedOwnedNFT.name);
+            setDescreption(selectedOwnedNFT.description);
+            { selectedOwnedNFT.collection && setCollection(selectedOwnedNFT.collection.id); }
+            console.log(selectedOwnedNFT);
+        }
+    }, [selectedOwnedNFT]);
 
     // Handle submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        const params = {
-            Bucket: S3_BUCKET,
-            Key: uploadedFile.name,
-            Body: uploadedFile,
-        };
-        s3.upload(params, (err, data) => {
-            if (err) {
-              console.error(err);
-              return;
+        const nftBody = {
+            "price": price
+        }
+        fetch(`https://localhost:7145/Product/ResellProduct?id=${selectedOwnedNFT.id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(nftBody),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to resell NFT');
             }
-            console.log(data.Location);
-            const nft = {
-                "name": name,
-                "description": descreption,
-                "collectionId": collection,
-                "thumbnailUrl": data.Location,
-                "ownerId": curentUser,
-                "creatorId": curentUser,
-                "sellingStatus": true,
-                "price": price
-            }
-            console.log(nft);
-            fetch('https://localhost:7145/Product', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(nft),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to mint NFT');
-                }
-                return response.json();
-            })
-            .then((createdNFT) => {
-                // Handle success (e.g., show success message)
-                // Navigate to CollectionDetail page with the newly created collection id
-                navigate(`/NFTDetail/${createdNFT.id}`);
-            })
-            .catch(error => {
-                console.error('Error creating collection:', error);
-                // Handle error (e.g., show error message)
-            })
-            .finally(() => {
-    
-            });
+            return response.json();
+        })
+        .then((createdNFT) => {
+            // Handle success (e.g., show success message)
+            // Navigate to CollectionDetail page with the newly created collection id
+            navigate(`/NFTDetail/${createdNFT.id}`);
+        })
+        .catch(error => {
+            console.error('Error creating collection:', error);
+            // Handle error (e.g., show error message)
+        })
+        .finally(() => {
+
         });
     }
 
@@ -127,21 +97,55 @@ const CreateNFT = () => {
         <>
 
         <Container maxWidth="xl" style={{ marginTop: '50px', marginBottom: '20px' }}>
-            <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase' }} >Create an NFT</Typography>
-            <Typography variant="h5" gutterBottom>Create a collection and mint NFT directly to your wallet.</Typography>
+            <Typography variant="h2" style={{ fontWeight: 'bold', textTransform: 'uppercase' }} >Resell a NFT</Typography>
+            <Typography variant="h5" gutterBottom>Resell your owned NFT for others to buy.</Typography>
         </Container>
         <Container maxWidth="xl" style={{ marginTop: '3rem', marginBottom: '3rem' }}>
             <Grid container spacing={4}>
+                <Grid item xs={12} sm={12} md={12}>
+                <FormControl fullWidth>
+                    <InputLabel id="ownedNFT">Select your owned NFT</InputLabel>
+                    <Select
+                        labelId="ownedNFT"
+                        id="demo-simple-select"
+                        value={selectedOwnedNFT}
+                        label="Select your owned NFT"
+                        onChange={handleChangeSellOwnedNFT} // Corrected onChange handler
+                        style={{ marginBottom: '20px' }}
+                    >
+                        {ownedNFTList && ownedNFTList.map(nft => (
+                            <MenuItem key={nft.id} value={nft}>
+                                {nft.name}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                    <Paper elevation={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', border: '2px dashed #ccc', cursor: 'pointer', aspectRatio: '1 / 1', textAlign: 'center', color: '#abaaa9'}} {...getRootProps()}>
-                        <input {...getInputProps()} />
+                    <Paper
+                        elevation={3}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            border: '2px dashed #ccc',
+                            cursor: 'pointer',
+                            aspectRatio: '1 / 1',
+                            textAlign: 'center',
+                            color: '#abaaa9'
+                        }}
+                    >
                         {uploadedFile ? (
-                            <img src={URL.createObjectURL(uploadedFile)} alt="uploaded" style={{ width: '100%', height: '100%', objectFit: 'cover',}} />
+                            <img
+                            src={uploadedFile}
+                            alt="uploaded"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
                         ) : (
-                            <Typography variant="subtitle1">Drag & drop an image here, or click to select an image</Typography>
+                            <Typography variant="subtitle1">Image here</Typography>
                         )}
                     </Paper>
-                    <Typography variant="body2" style={{ color: 'gray', marginTop: '25px'}}>* Once your item is minted you will not be able to change any of its information</Typography>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
                     <Grid container spacing={2}>
@@ -156,7 +160,8 @@ const CreateNFT = () => {
                                             label="Name"
                                             fullWidth
                                             value={name}
-                                            onChange={handleNameChange}
+                                            disabled
+                                            // onChange={handleNameChange}
                                             style={{ marginBottom: '20px' }}
                                         />
                                         <TextField
@@ -167,7 +172,8 @@ const CreateNFT = () => {
                                             rows={3}
                                             fullWidth
                                             value={descreption}
-                                            onChange={handleDescreptionChange}
+                                            disabled
+                                            // onChange={handleDescreptionChange}
                                             style={{ marginBottom: '20px' }}
                                         />
                                     </FormControl>
@@ -203,14 +209,18 @@ const CreateNFT = () => {
                                             id="demo-simple-select"
                                             value={collection}
                                             label="Collection"
-                                            onChange={handleChangeCollection}
+                                            disabled
+                                            // onChange={handleChangeCollection}
                                             style={{ marginBottom: '20px' }}
                                         >
-                                            { collections && collections.map( collection => (
-                                                <MenuItem value={collection.id}>{collection.name}</MenuItem>
+                                            {collections && collections.map(collection => (
+                                                <MenuItem key={collection.id} value={collection.id}>
+                                                    {collection.name}
+                                                </MenuItem>
                                             ))}
                                         </Select>
                                     </FormControl>
+
                                 </AccordionDetails>
                             </Accordion>
                             <Accordion defaultExpanded>
@@ -233,7 +243,7 @@ const CreateNFT = () => {
                             </Accordion>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'right' }}>
-                            <Button variant="contained" onClick={handleSubmit}>Create new NFT</Button>
+                            <Button variant="contained" onClick={handleSubmit}>Resell my NFT</Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -244,4 +254,4 @@ const CreateNFT = () => {
     );
 }
  
-export default CreateNFT;
+export default ResellNFT;

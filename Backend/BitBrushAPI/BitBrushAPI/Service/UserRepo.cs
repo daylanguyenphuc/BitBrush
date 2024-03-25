@@ -12,6 +12,7 @@ namespace BitBrushAPI.Service
         public UserFullDTO AddUser(UserAddDTO user);
         public void UpdateUser(Guid id, UserAddDTO updateUser);
         public void DeleteUser(Guid id);
+        public List<RankingDTO> Ranking();
     }
     public class UserRepo : IUserRepo
     {
@@ -67,7 +68,7 @@ namespace BitBrushAPI.Service
                 phone = newUser.phone,
                 gender = newUser.gender,
                 birthdate = newUser.birthdate,
-                joinDate = newUser.joinDate,
+                joinDate = DateTime.UtcNow,
             };
 
             _dbContext.Users.Add(user);
@@ -108,5 +109,39 @@ namespace BitBrushAPI.Service
                 _dbContext.SaveChanges();
             }
         }
+
+        public List<RankingDTO> Ranking()
+        {
+            var users = _dbContext.Users
+                                    .OrderByDescending(u => u.transactions.Sum(t => t.price))
+                                    .Take(10)
+                                    .Select(u => new RankingDTO
+                                    {
+                                        id = u.id,
+                                        firstName = u.firstName,
+                                        lastName = u.lastName,
+                                        transactions = u.transactions.Select(t => new TransactionCompactDTO
+                                        {
+                                            id = t.id,
+                                            seller = new UserCompactDTO
+                                            {
+                                                id = t.seller.id,
+                                                firstName = t.seller.firstName,
+                                                lastName = t.seller.lastName,
+                                            },
+                                            buyer = new UserCompactDTO
+                                            {
+                                                id = t.buyer.id,
+                                                firstName = t.buyer.firstName,
+                                                lastName = t.buyer.lastName,
+                                            },
+                                            price = t.price,
+                                        }).ToList(),
+                                        total = u.transactions.Sum(t => t.price),
+                                    }).ToList();
+
+            return users;
+        }
+
     }
 }

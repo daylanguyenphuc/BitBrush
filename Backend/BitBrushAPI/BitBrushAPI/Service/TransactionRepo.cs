@@ -131,12 +131,30 @@ namespace BitBrushAPI.Service
             var transaction = new Transaction
             {
                 productId = newTransaction.productId,
-                sellerId = newTransaction.sellerId,
+                sellerId = _dbContext.Products.SingleOrDefault(p => p.id == newTransaction.productId).ownerId,
                 buyerId = newTransaction.buyerId,
-                time = newTransaction.time,
+                time = DateTime.UtcNow,
                 price = newTransaction.price,
             };
 
+            // Update balance
+            var sellerUserAccount = _dbContext.UserAccounts.SingleOrDefault(s => s.userId == _dbContext.Products.SingleOrDefault(p => p.id == newTransaction.productId).ownerId);
+            sellerUserAccount.balance = sellerUserAccount.balance + newTransaction.price;
+            _dbContext.Update(sellerUserAccount);
+            _dbContext.SaveChanges();
+            var buyerUserAccount = _dbContext.UserAccounts.SingleOrDefault(s => s.userId == newTransaction.buyerId);
+            buyerUserAccount.balance = buyerUserAccount.balance - newTransaction.price;
+            _dbContext.Update(buyerUserAccount);
+            _dbContext.SaveChanges();
+
+            // Update owner Id, sellingStatus
+            var product = _dbContext.Products.SingleOrDefault(d => d.id == newTransaction.productId);
+            product.sellingStatus = false;
+            product.ownerId = newTransaction.buyerId;
+            _dbContext.Update(product);
+            _dbContext.SaveChanges();
+
+            // Add transaction row to DB
             _dbContext.Transactions.Add(transaction);
             _dbContext.SaveChanges();
 
@@ -157,8 +175,8 @@ namespace BitBrushAPI.Service
                 buyer = new UserCompactDTO
                 {
                     id = transaction.buyerId,
-                    firstName = _dbContext.Users.SingleOrDefault(u => u.id == transaction.sellerId).firstName,
-                    lastName = _dbContext.Users.SingleOrDefault(u => u.id == transaction.sellerId).lastName,
+                    firstName = _dbContext.Users.SingleOrDefault(u => u.id == transaction.buyerId).firstName,
+                    lastName = _dbContext.Users.SingleOrDefault(u => u.id == transaction.buyerId).lastName,
                 },
                 time = transaction.time,
                 price = transaction.price

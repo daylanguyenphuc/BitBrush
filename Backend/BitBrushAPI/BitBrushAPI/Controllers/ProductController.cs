@@ -1,6 +1,8 @@
-﻿using BitBrushAPI.Model;
+﻿using BitBrushAPI.Data;
+using BitBrushAPI.Model;
 using BitBrushAPI.Service;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace BitBrushAPI.Controllers
@@ -51,14 +53,6 @@ namespace BitBrushAPI.Controllers
                 {
                     byElements = byElements.Where(p => p.sellingStatus == sellingStatus).ToList();
                 }
-                //if (minDate != null)
-                //{
-                //    byElements = byElements.Where(p => p.date >= minDate).ToList();
-                //}
-                //if (maxDate != null)
-                //{
-                //    byElements = byElements.Where(p => p.date <= maxDate).ToList();
-                //}
                 if (sort == "priceLow")
                 {
                     byElements = byElements.OrderBy(p => p.price).ToList();
@@ -66,6 +60,14 @@ namespace BitBrushAPI.Controllers
                 if (sort == "priceHigh")
                 {
                     byElements = byElements.OrderByDescending(p => p.price).ToList();
+                }
+                if (sort == "dateOld")
+                {
+                    byElements = byElements.OrderBy(p => p.createdDate).ToList();
+                }
+                if (sort == "dateNew")
+                {
+                    byElements = byElements.OrderByDescending(p => p.createdDate).ToList();
                 }
                 return Ok(byElements);
             }
@@ -130,6 +132,50 @@ namespace BitBrushAPI.Controllers
             {
                 _productRepository.DeleteProduct(id);
                 return NoContent();
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost("AddTagToProduct")]
+        public IActionResult AddTagToProduct(ProductTagAddDTO newProductTag)
+        {
+            try
+            {
+                _productRepository.AddTagToProduct(newProductTag);
+                return Ok();
+
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpDelete("DeleteTagFromProduct")]
+        public IActionResult DeleteTagFromProduct(Guid productId, Guid tagId)
+        {
+            try
+            {
+                _productRepository.DeleteTagFromProduct(productId, tagId);
+                return Ok();
+
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("ResellProduct")]
+        public IActionResult ResellProduct (Guid id, ProductResellDTO resellProduct)
+        {
+            try
+            {
+                return Ok(_productRepository.ResellOwnedProduct(id, resellProduct));
+
             }
             catch
             {

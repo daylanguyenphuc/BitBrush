@@ -21,6 +21,7 @@ namespace BitBrushAPI.Model
         public string name { get; set; }
         public string description { get; set; }
         public UserCompactDTO creator { get; set; }
+        public List<ProductCompactDTO> products { get; set; }
     }
 
     public class CollectionCompactDTO

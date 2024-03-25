@@ -31,9 +31,15 @@ namespace BitBrushAPI.Model
     public class TransactionAddDTO
     {
         public Guid productId { get; set; }
-        public Guid sellerId { get; set; }
         public Guid buyerId { get; set; }
-        public DateTime time { get; set; }
+        public decimal price { get; set; }
+    }
+
+    public class TransactionCompactDTO
+    {
+        public Guid id { get; set; }
+        public UserCompactDTO seller { get; set; }
+        public UserCompactDTO buyer { get; set; }
         public decimal price { get; set; }
     }
 }

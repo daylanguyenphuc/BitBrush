@@ -112,5 +112,18 @@ namespace BitBrushAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpGet("Ranking")]
+        public IActionResult Ranking()
+        {
+            try
+            {
+                return Ok(_userRepository.Ranking());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

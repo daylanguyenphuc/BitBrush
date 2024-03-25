@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BitBrushAPI.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20240323154122_DBInit")]
+    [Migration("20240324165336_DBInit")]
     partial class DBInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,9 @@ namespace BitBrushAPI.Migrations
 
                     b.Property<Guid>("collectionId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("createdDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("creatorId")
                         .HasColumnType("uniqueidentifier");

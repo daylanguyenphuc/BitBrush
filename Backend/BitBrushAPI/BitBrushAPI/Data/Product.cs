@@ -19,8 +19,8 @@ namespace BitBrushAPI.Data
         public Guid ownerId { get; set; }
         [Required]
         public Guid creatorId { get; set; }
-        //[Required]
-        //public DateTime date{ get; set; }
+        [Required]
+        public DateTime createdDate{ get; set; }
         [Required]
         public bool sellingStatus { get; set; }
         public decimal price { get; set; }

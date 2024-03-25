@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Typography, FormControl, TextField, Button } from "@mui/material";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { curentUser } from './Const';
 
 const CreateCollection = () => {
     const navigate = useNavigate(); // Initialize useNavigate
@@ -19,7 +20,7 @@ const CreateCollection = () => {
         const collection = {
             "name": collectionName,
             "description": collectionDescription,
-            "creatorId": "b4606ec1-2899-4416-45b9-08dc4b9ca01d",
+            "creatorId": curentUser,
         }
         fetch('https://localhost:7145/Collection', {
             method: 'POST',

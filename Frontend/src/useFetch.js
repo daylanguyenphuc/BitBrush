@@ -10,6 +10,8 @@ const useFetch = (url) => {
 
     const apiUrl = `${url}`;
 
+    console.log("Fetching data from:", apiUrl);
+
     fetch(apiUrl, {
       method: 'GET',
       headers: {
@@ -34,6 +36,7 @@ const useFetch = (url) => {
       } else {
         setError(error.message);
         setIsLoading(false);
+        console.error('Fetch error:', error);
       }
     });
 

@@ -29,6 +29,7 @@ namespace BitBrushAPI
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
             builder.Services.AddScoped<IUserAccountRepo, UserAccountRepo>();
             builder.Services.AddScoped<ITransactionRepo, TransactionRepo>();
+            builder.Services.AddScoped<ITagRepo, TagRepo>();
 
             // CORS
             builder.Services.AddCors(options =>
