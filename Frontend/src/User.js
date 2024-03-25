@@ -209,121 +209,145 @@ const User = () => {
                         <TabPanel value="2">
                             <Box>
                                 <Grid container spacing={2}>
-                                    { createdNfts && createdNfts.map( nft => (
-                                        <Grid item xs={12} sm={6} md={3}>
-                                            <Paper style={{ padding: '5%' }}>
-                                                <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                                    <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src={nft.thumbnailUrl} alt="image" />
-                                                </Box>
-                                                <Box style={{ width: '100%', margin: '15px 0' }}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={9} sm={9} md={9}>
-                                                            <Typography variant="h5" gutterBottom>{nft.name}</Typography>
+                                    {createdNfts && createdNfts.length > 0 ? ( // Checking if createdNfts exists and is not empty
+                                        createdNfts.map(nft => (
+                                            <Grid item xs={12} sm={6} md={3} key={nft.id}> {/* Added key prop for list items */}
+                                                <Paper style={{ padding: '5%' }}>
+                                                    <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                                        <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src={nft.thumbnailUrl} alt="image" />
+                                                    </Box>
+                                                    <Box style={{ width: '100%', margin: '15px 0' }}>
+                                                        <Grid container spacing={0}>
+                                                            <Grid item xs={9} sm={9} md={9}>
+                                                                <Typography variant="h5" gutterBottom>{nft.name}</Typography>
+                                                            </Grid>
+                                                            <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                                                <Typography variant="subtitle2" color='primary'>{nft.price} ETH</Typography>
+                                                            </Grid>
+                                                            <Grid item xs={12} sm={12} md={12}>
+                                                                <Typography variant="body2">Created by: {nft.creator.firstName} {nft.creator.lastName}</Typography>
+                                                            </Grid>
                                                         </Grid>
-                                                        <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                                            <Typography variant="subtitle2" color='primary'>{nft.price} ETH</Typography>
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={12} md={12}>
-                                                            <Typography variant="body2">Created by: {nft.creator.firstName} {nft.creator.lastName}</Typography>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                <Box style={{ width: '100%' }}>
-                                                    <Link to={`/nftdetail/${nft.id}`}><Button variant="contained">View details</Button></Link>
-                                                </Box>
-                                            </Paper>
+                                                    </Box>
+                                                    <Box style={{ width: '100%' }}>
+                                                        <Link to={`/nftdetail/${nft.id}`}><Button variant="contained">View details</Button></Link>
+                                                    </Box>
+                                                </Paper>
+                                            </Grid>
+                                        ))
+                                    ) : ( // If createdNfts is empty or not yet fetched
+                                        <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'center', margin: '100px auto' }}>
+                                            <Typography variant="h4" gutterBottom style={{ color: '#d6d6d6' }}>There's nothing to show here</Typography>
                                         </Grid>
-                                    ))}
+                                    )}
                                 </Grid>
                             </Box>
                         </TabPanel>
                         <TabPanel value="3">
                             <Box>
                                 <Grid container spacing={2}>
-                                    { ownedNfts && ownedNfts.map( nft => (
-                                        <Grid item xs={12} sm={6} md={3}>
-                                            <Paper style={{ padding: '5%' }}>
-                                                <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
-                                                    <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src={nft.thumbnailUrl} alt="image" />
-                                                </Box>
-                                                <Box style={{ width: '100%', margin: '15px 0' }}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={9} sm={9} md={9}>
-                                                            <Typography variant="h5" gutterBottom>{nft.name}</Typography>
+                                    {ownedNfts && ownedNfts.length > 0 ? ( // Checking if createdNfts exists and is not empty
+                                        ownedNfts.map(nft => (
+                                            <Grid item xs={12} sm={6} md={3} key={nft.id}> {/* Added key prop for list items */}
+                                                <Paper style={{ padding: '5%' }}>
+                                                    <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
+                                                        <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src={nft.thumbnailUrl} alt="image" />
+                                                    </Box>
+                                                    <Box style={{ width: '100%', margin: '15px 0' }}>
+                                                        <Grid container spacing={0}>
+                                                            <Grid item xs={9} sm={9} md={9}>
+                                                                <Typography variant="h5" gutterBottom>{nft.name}</Typography>
+                                                            </Grid>
+                                                            <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
+                                                                <Typography variant="subtitle2" color='primary'>{nft.price} ETH</Typography>
+                                                            </Grid>
+                                                            <Grid item xs={12} sm={12} md={12}>
+                                                                <Typography variant="body2">Created by: {nft.creator.firstName} {nft.creator.lastName}</Typography>
+                                                            </Grid>
                                                         </Grid>
-                                                        <Grid item xs={3} sm={3} md={3} style={{ textAlign: 'right', alignSelf: 'center' }}>
-                                                            <Typography variant="subtitle2" color='primary'>{nft.price} ETH</Typography>
-                                                        </Grid>
-                                                        <Grid item xs={12} sm={12} md={12}>
-                                                            <Typography variant="body2">Created by: {nft.creator.firstName} {nft.creator.lastName}</Typography>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Box>
-                                                <Box style={{ width: '100%' }}>
-                                                    <Link to={`/nftdetail/${nft.id}`}><Button variant="contained">View details</Button></Link>
-                                                </Box>
-                                            </Paper>
+                                                    </Box>
+                                                    <Box style={{ width: '100%' }}>
+                                                        <Link to={`/nftdetail/${nft.id}`}><Button variant="contained">View details</Button></Link>
+                                                    </Box>
+                                                </Paper>
+                                            </Grid>
+                                        ))
+                                    ) : ( // If createdNfts is empty or not yet fetched
+                                        <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'center', margin: '100px auto' }}>
+                                            <Typography variant="h4" gutterBottom style={{ color: '#d6d6d6' }}>There's nothing to show here</Typography>
                                         </Grid>
-                                    ))}
+                                    )}
                                 </Grid>
                             </Box>
                         </TabPanel>
                         <TabPanel value="4">
                             <Box>
                                 <Grid container spacing={2}>
-                                    {collections && collections.map( collection => (
-                                        <Grid item xs={12} sm={6} md={3}>
-                                            <Card>
-                                                <CardMedia
-                                                    component="img"
-                                                    height="140"
-                                                    image="https://i.pinimg.com/564x/02/ff/1f/02ff1feafd330a5e3e7010554c8f0941.jpg"
-                                                    alt="test image"
-                                                />
-                                                <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="div">{collection.name}</Typography>
-                                                    <Typography variant="body2" color="text.secondary">{collection.description}</Typography>
-                                                    {/* <Typography variant="body2" color="text.secondary">54 items</Typography> */}
-                                                    <Typography variant="body2" color="text.secondary">by {collection.creator.firstName} {collection.creator.lastName}</Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Link to={`/collectiondetail/${collection.id}`}><Button size="small" color="primary">Discover collection</Button></Link>
-                                                </CardActions>
-                                            </Card>
+                                    {collections && collections.length > 0 ? ( 
+                                        collections.map( collection => (
+                                            <Grid item xs={12} sm={6} md={3}>
+                                                <Card>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="140"
+                                                        image="https://i.pinimg.com/564x/02/ff/1f/02ff1feafd330a5e3e7010554c8f0941.jpg"
+                                                        alt="test image"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h5" component="div">{collection.name}</Typography>
+                                                        <Typography variant="body2" color="text.secondary">{collection.description}</Typography>
+                                                        {/* <Typography variant="body2" color="text.secondary">54 items</Typography> */}
+                                                        <Typography variant="body2" color="text.secondary">by {collection.creator.firstName} {collection.creator.lastName}</Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Link to={`/collectiondetail/${collection.id}`}><Button size="small" color="primary">Discover collection</Button></Link>
+                                                    </CardActions>
+                                                </Card>
+                                            </Grid>
+                                        ))
+                                    ) : (// If createdNfts is empty or not yet fetched
+                                        <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'center', margin: '100px auto' }}>
+                                            <Typography variant="h4" gutterBottom style={{ color: '#d6d6d6' }}>There's nothing to show here</Typography>
                                         </Grid>
-                                    ))}
+                                    )}
                                 </Grid>
                             </Box>
                         </TabPanel>
                         <TabPanel value="5">
-                            <TableContainer component={Paper}>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell align="left">Transaction ID</TableCell>
-                                            <TableCell align="left">NFT ID</TableCell>
-                                            <TableCell align="left">Asset name</TableCell>
-                                            <TableCell align="left">Price</TableCell>
-                                            <TableCell align="left">From</TableCell>
-                                            <TableCell align="left">To</TableCell>
-                                            <TableCell align="left">Date</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {transactions && transactions.map((transaction) => (
-                                            <TableRow key={transaction.id}>
-                                                <TableCell>{transaction.id}</TableCell>
-                                                <TableCell>{transaction.product.id}</TableCell>
-                                                <TableCell>{transaction.product.name}</TableCell>
-                                                <TableCell>{transaction.price} ETH</TableCell>
-                                                <TableCell>{transaction.seller.id}</TableCell>
-                                                <TableCell>{transaction.buyer.id}</TableCell>
-                                                <TableCell>{transaction.time}</TableCell>
+                            {transactions && transactions.length > 0 ? ( 
+                                <TableContainer component={Paper}>
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell align="left">Transaction ID</TableCell>
+                                                <TableCell align="left">NFT ID</TableCell>
+                                                <TableCell align="left">Asset name</TableCell>
+                                                <TableCell align="left">Price</TableCell>
+                                                <TableCell align="left">From</TableCell>
+                                                <TableCell align="left">To</TableCell>
+                                                <TableCell align="left">Date</TableCell>
                                             </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                                        </TableHead>
+                                        <TableBody>
+                                            {transactions && transactions.map((transaction) => (
+                                                <TableRow key={transaction.id}>
+                                                    <TableCell>{transaction.id}</TableCell>
+                                                    <TableCell>{transaction.product.id}</TableCell>
+                                                    <TableCell>{transaction.product.name}</TableCell>
+                                                    <TableCell>{transaction.price} ETH</TableCell>
+                                                    <TableCell>{transaction.seller.id}</TableCell>
+                                                    <TableCell>{transaction.buyer.id}</TableCell>
+                                                    <TableCell>{transaction.time}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            ) : (    // If transaction is empty or not yet fetched
+                                <Box style={{ textAlign: 'center', margin: '100px auto' }}>
+                                    <Typography variant="h4" gutterBottom style={{ color: '#d6d6d6' }}>There's nothing to show here</Typography>
+                                </Box>
+                            )}
                         </TabPanel>
                     </TabContext>
                 </Box>

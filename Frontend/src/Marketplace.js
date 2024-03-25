@@ -183,8 +183,9 @@ const Marketplace = () => {
             </Container>
             <Container maxWidth="xl" style={{ marginBottom: '50px' }}>
                 <Grid container spacing={2}>
-                    { nfts && nfts.map (nft => (
-                        <Grid item xs={12} sm={6} md={3}>
+                    {nfts && nfts.length > 0 ? ( // Checking if createdNfts exists and is not empty
+                        nfts.map(nft => (
+                            <Grid item xs={12} sm={6} md={3}>
                             <Paper style={{ padding: '5%' }}>
                                 <Box style={{ width: '100%', overflow: 'hidden', borderRadius: '2.5px' }}>
                                     <img style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', objectPosition: 'center center' }} src={nft.thumbnailUrl} alt="image" />
@@ -207,7 +208,12 @@ const Marketplace = () => {
                                 </Box>
                             </Paper>
                         </Grid>
-                    ))}
+                        ))
+                    ) : ( // If createdNfts is empty or not yet fetched
+                        <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'center', margin: '100px auto' }}>
+                            <Typography variant="h4" gutterBottom style={{ color: '#d6d6d6' }}>There's nothing to show here</Typography>
+                        </Grid>
+                    )}
                 </Grid>
             </Container>
             {/* <Container

@@ -83,27 +83,33 @@ const Collection = () => {
             
         <Container  maxWidth="xl" style = {{ marginBottom: '50px' }}>
             <Grid container spacing={2}>
-                { collections && collections.map( collection => (
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image="https://i.pinimg.com/564x/02/ff/1f/02ff1feafd330a5e3e7010554c8f0941.jpg"
-                                alt="test image"        
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">{collection.name}</Typography>
-                                <Typography variant="body2" color="text.secondary">{collection.description}</Typography>
-                                {/* <Typography variant="body2" color="text.secondary">5 items</Typography> */}
-                                <Typography variant="body2" color="text.secondary">by {collection.creator.firstName} {collection.creator.lastName}</Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Link to={`/collectiondetail/${collection.id}`}><Button size="small" color="primary">Discover collection</Button></Link>
-                            </CardActions>
-                        </Card>
+                {collections && collections.length > 0 ? ( 
+                    collections.map( collection => (
+                        <Grid item xs={12} sm={6} md={3}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image="https://i.pinimg.com/564x/02/ff/1f/02ff1feafd330a5e3e7010554c8f0941.jpg"
+                                    alt="test image"        
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">{collection.name}</Typography>
+                                    <Typography variant="body2" color="text.secondary">{collection.description}</Typography>
+                                    {/* <Typography variant="body2" color="text.secondary">5 items</Typography> */}
+                                    <Typography variant="body2" color="text.secondary">by {collection.creator.firstName} {collection.creator.lastName}</Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Link to={`/collectiondetail/${collection.id}`}><Button size="small" color="primary">Discover collection</Button></Link>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    ))
+                ) : (// If createdNfts is empty or not yet fetched
+                    <Grid item xs={12} sm={12} md={12} style={{ textAlign: 'center', margin: '100px auto' }}>
+                        <Typography variant="h4" gutterBottom style={{ color: '#d6d6d6' }}>There's nothing to show here</Typography>
                     </Grid>
-                ))}
+                )}
             </Grid>
         </Container>
 
