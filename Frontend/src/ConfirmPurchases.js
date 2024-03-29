@@ -21,7 +21,8 @@ const ConfirmPurchase = () => {
                     </clipPath>
                 </defs>
             </svg>
-            <Typography variant="h5" gutterBottom style={{ margin: '50px 0' }}>Transaction ID: { transaction && transaction.id }</Typography>
+            <Typography variant="h5" gutterBottom style={{ marginTop: '50px' }}>Transaction ID: { transaction && transaction.id }</Typography>
+            <Typography variant="body2" gutterBottom style={{ marginBottom: '50px' }}>Transaction hash: { transaction && transaction.hash }</Typography>
             <Button variant="contained">
                 <Link to={`/nftdetail/${transaction && transaction.product.id}`} style={{ textDecoration: 'none', color: 'white' }}>
                     View my item

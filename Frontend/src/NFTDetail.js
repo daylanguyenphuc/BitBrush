@@ -8,8 +8,50 @@ import useFetch from "./useFetch";
 import useFetchParam from "./useFetchParam";
 import { useNavigate } from "react-router-dom";
 import { curentUser } from './Const';
+import Web3 from 'web3';
+import NFTImagesJSON from './contracts/Artwork.json';
 
 const NFTDetail = () => {
+
+    const [web3Instance, setWeb3Instance] = useState(null);
+    const [contract, setContract] = useState(null);
+
+    // web3Instance & contract
+    useEffect(() => {
+        if (window.ethereum) {
+          if (window.ethereum.selectedAddress) {
+            const web3 = new Web3(window.ethereum);
+            setWeb3Instance(web3);
+          } else {
+            window.ethereum.request({ method: 'eth_requestAccounts' })
+              .then(async () => {
+                const web3 = new Web3(window.ethereum);
+                setWeb3Instance(web3);
+              })
+              .catch((err) => {
+                console.error("User rejected request:", err);
+              });
+          }
+        } else {
+          console.log('Please install MetaMask to use this application.');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (web3Instance) {
+        (async () => {
+            const networkId = await web3Instance.eth.net.getId();
+            const deployedNetwork = NFTImagesJSON.networks[networkId];
+            const instance = new web3Instance.eth.Contract(
+            NFTImagesJSON.abi,
+            deployedNetwork && deployedNetwork.address,
+            );
+            setContract(instance);
+        })();
+        }
+    }, [web3Instance]);
+
+
     const navigate = useNavigate(); // Initialize useNavigate
 
     // Parameter
@@ -40,35 +82,54 @@ const NFTDetail = () => {
     const handleConfirmPurchase = () => {
         setConfirmPurchase(true);
     };
-    const handlePurchase = () => {
-        const transaction = {
-            "productId": nft.id,
-            "buyerId": curentUser,
-            "price": nft.price
-        }
-        fetch('https://localhost:7145/Transaction', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(transaction),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to buy NFT');
-            }
-            return response.json();
-        })
-        .then((transaction) => {
-            // Handle success (e.g., show success message)
-            navigate(`/confirmPurchase/${transaction.id}`);
-        })
-        .catch(error => {
-            console.error('Error buying NFT:', error);
-            // Handle error (e.g., show error message)
-        })
-        .finally(() => {
 
-        });
+    const handlePurchase = async () => {
+        if (contract) {
+            try {
+                await contract.methods.buyNFT(nft.id).send({ value: web3Instance.utils.toWei(nft.price, 'ether'), from: window.ethereum.selectedAddress })
+                                                    .on('receipt', function(receipt) {
+                                                    console.log(receipt.transactionHash);
+                                                        const transaction = {
+                                                            "productId": nft.id,
+                                                            "buyerId": curentUser,
+                                                            "price": nft.price,
+                                                            "hash": receipt.transactionHash
+                                                        }
+                                                        console.log(transaction);
+                                                        fetch('https://localhost:7145/Transaction', {
+                                                            method: 'POST',
+                                                            headers: {'Content-Type': 'application/json'},
+                                                            body: JSON.stringify(transaction),
+                                                        })
+                                                        .then(response => {
+                                                            if (!response.ok) {
+                                                                throw new Error('Failed to buy NFT');
+                                                            }
+                                                            return response.json();
+                                                        })
+                                                        .then((transaction) => {
+                                                            // Handle success (e.g., show success message)
+                                                            navigate(`/confirmPurchase/${transaction.id}`);
+                                                        })
+                                                        .catch(error => {
+                                                            console.error('Error buying NFT:', error);
+                                                            // Handle error (e.g., show error message)
+                                                        })
+                                                        .finally(() => {
+                                                
+                                                        });
+                                                    });
+                console.log('NFT purchased successfully.');
+            } catch (error) {
+                console.error('Error buying NFT:', error);
+            }
+        } else {
+            console.log("contract is underdefined");
+            console.log(contract);
+        }
     };
+
+
 
     return (
 
@@ -125,6 +186,8 @@ const NFTDetail = () => {
                                 <TableCell align="left">From</TableCell>
                                 <TableCell align="left">To</TableCell>
                                 <TableCell align="left">Amount</TableCell>
+                                <TableCell align="left">Date</TableCell>
+                                <TableCell align="left">Transaction Hash</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -134,6 +197,8 @@ const NFTDetail = () => {
                                 <TableCell>{transaction.seller.id}</TableCell>
                                 <TableCell>{transaction.buyer.id}</TableCell>
                                 <TableCell>{transaction.price} ETH</TableCell>
+                                <TableCell>{transaction.time}</TableCell>
+                                <TableCell>{transaction.hash}</TableCell>
                             </TableRow>
                             ))}
                         </TableBody>
@@ -243,7 +308,7 @@ const NFTDetail = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleNoConirmPurchase} variant="text">Cancel purchase</Button>
-                    <Button onClick={handlePurchase} variant="contained" autoFocus>Confirm purchase</Button>
+                    <Button  id="buyImage" onClick={handlePurchase} variant="contained" autoFocus>Confirm purchase</Button>
                 </DialogActions>
             </Dialog>
         </>

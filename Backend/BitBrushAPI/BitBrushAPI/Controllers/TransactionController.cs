@@ -30,6 +30,19 @@ namespace BitBrushAPI.Controllers
             }
         }
 
+        [HttpGet("GetTransactionsByTransactionHash")]
+        public IActionResult GetTransactionsByTransactionHash(string hash)
+        {
+            try
+            {
+                return Ok(_transactionRepository.GetTransactionsByTransactionHash(hash));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpGet("GetTransactionsByUserId")]
         public IActionResult GetTransactionsByUserId(Guid id)
         {

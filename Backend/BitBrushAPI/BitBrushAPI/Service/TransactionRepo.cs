@@ -6,8 +6,8 @@ namespace BitBrushAPI.Service
 {
     public interface ITransactionRepo
     {
-        //List<CollectionFullDTO> GetAllTransaction(); // ??? cos can khum
         public TransactionFullDTO GetTransactionById(Guid id);
+        public TransactionFullDTO GetTransactionsByTransactionHash(string hash);
         public List<TransactionFullDTO> GetTransactionsByUserId(Guid id);
         public List<TransactionFullDTO> GetTransactionByProductId(Guid id);
         public TransactionFullDTO AddTransaction(TransactionAddDTO newTransacion);
@@ -51,8 +51,45 @@ namespace BitBrushAPI.Service
                                             },
                                             time = t.time,
                                             price = t.price,
+                                            hash = t.hash,
                                         }).FirstOrDefault();
                                     
+            return transaction;
+        }
+
+        public TransactionFullDTO GetTransactionsByTransactionHash(string hash)
+        {
+            var transaction = _dbContext.Transactions
+                                        .Include(t => t.product)
+                                        .Include(t => t.seller)
+                                        .Include(t => t.buyer)
+                                        .Where(t => t.hash == hash)
+                                        .Select(t => new TransactionFullDTO
+                                        {
+                                            id = t.id,
+                                            product = new ProductCompactDTO
+                                            {
+                                                id = t.product.id,
+                                                name = t.product.name,
+                                                thumbnailUrl = t.product.thumbnailUrl
+                                            },
+                                            seller = new UserCompactDTO
+                                            {
+                                                id = t.seller.id,
+                                                firstName = t.seller.firstName,
+                                                lastName = t.seller.lastName,
+                                            },
+                                            buyer = new UserCompactDTO
+                                            {
+                                                id = t.buyer.id,
+                                                firstName = t.buyer.firstName,
+                                                lastName = t.buyer.lastName,
+                                            },
+                                            time = t.time,
+                                            price = t.price,
+                                            hash = t.hash,
+                                        }).FirstOrDefault();
+
             return transaction;
         }
 
@@ -86,6 +123,7 @@ namespace BitBrushAPI.Service
                                             },
                                             time = t.time,
                                             price = t.price,
+                                            hash = t.hash,
                                         }).ToList();
 
             return transactions;
@@ -121,6 +159,7 @@ namespace BitBrushAPI.Service
                                 },
                                 time = t.time,
                                 price = t.price,
+                                hash = t.hash,
                             }).ToList();
 
             return transactions;
@@ -135,6 +174,7 @@ namespace BitBrushAPI.Service
                 buyerId = newTransaction.buyerId,
                 time = DateTime.UtcNow,
                 price = newTransaction.price,
+                hash = newTransaction.hash,
             };
 
             // Update owner Id, sellingStatus
@@ -169,7 +209,8 @@ namespace BitBrushAPI.Service
                     lastName = _dbContext.Users.SingleOrDefault(u => u.id == transaction.buyerId).lastName,
                 },
                 time = transaction.time,
-                price = transaction.price
+                price = transaction.price,
+                hash = transaction.hash,
             };
         }
     }

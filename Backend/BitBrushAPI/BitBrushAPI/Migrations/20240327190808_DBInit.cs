@@ -78,8 +78,7 @@ namespace BitBrushAPI.Migrations
                     userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    walletId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    walletId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -161,7 +160,8 @@ namespace BitBrushAPI.Migrations
                     sellerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     buyerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    hash = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

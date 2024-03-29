@@ -13,6 +13,7 @@ namespace BitBrushAPI.Data
         public Guid buyerId { get; set; }
         public DateTime time { get; set; }
         public decimal price { get; set; }
+        public string hash { get; set; }
 
         // Define relationships
         public Product product { get; set; }

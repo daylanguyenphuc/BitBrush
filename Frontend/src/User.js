@@ -326,6 +326,8 @@ const User = () => {
                                                 <TableCell align="left">From</TableCell>
                                                 <TableCell align="left">To</TableCell>
                                                 <TableCell align="left">Date</TableCell>
+                                                <TableCell align="left">Transaction Hash</TableCell>
+
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -338,6 +340,7 @@ const User = () => {
                                                     <TableCell>{transaction.seller.id}</TableCell>
                                                     <TableCell>{transaction.buyer.id}</TableCell>
                                                     <TableCell>{transaction.time}</TableCell>
+                                                    <TableCell>{transaction.hash}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>

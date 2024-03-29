@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BitBrushAPI.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20240324165336_DBInit")]
+    [Migration("20240327190808_DBInit")]
     partial class DBInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -149,6 +149,10 @@ namespace BitBrushAPI.Migrations
                     b.Property<Guid>("buyerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("hash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18,2)");
 
@@ -215,9 +219,6 @@ namespace BitBrushAPI.Migrations
                 {
                     b.Property<Guid>("userId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("balance")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("password")
                         .IsRequired()

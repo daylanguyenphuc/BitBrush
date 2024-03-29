@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Container, Typography, Grid, Paper, FormControl, InputLabel, InputAdornment, OutlinedInput, Select, MenuItem, Accordion, AccordionSummary, AccordionDetails, TextField, Chip, Button, Box } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch';
 import { curentUser } from './Const';
 import AWS from 'aws-sdk';
+import Web3 from 'web3';
+import NFTImagesJSON from './contracts/Artwork.json';
+
+
 
 // Upload artwork function
 const S3_BUCKET = 'bucketgroup1.4';
@@ -21,6 +25,45 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 const CreateNFT = () => {
+    const [web3Instance, setWeb3Instance] = useState(null);
+    const [contract, setContract] = useState(null);
+
+    // web3Instance & contract
+    useEffect(() => {
+        if (window.ethereum) {
+          if (window.ethereum.selectedAddress) {
+            const web3 = new Web3(window.ethereum);
+            setWeb3Instance(web3);
+          } else {
+            window.ethereum.request({ method: 'eth_requestAccounts' })
+              .then(async () => {
+                const web3 = new Web3(window.ethereum);
+                setWeb3Instance(web3);
+              })
+              .catch((err) => {
+                console.error("User rejected request:", err);
+              });
+          }
+        } else {
+          console.log('Please install MetaMask to use this application.');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (web3Instance) {
+        (async () => {
+            const networkId = await web3Instance.eth.net.getId();
+            const deployedNetwork = NFTImagesJSON.networks[networkId];
+            const instance = new web3Instance.eth.Contract(
+            NFTImagesJSON.abi,
+            deployedNetwork && deployedNetwork.address,
+            );
+            setContract(instance);
+        })();
+        }
+    }, [web3Instance]);
+
+
     const navigate = useNavigate(); // Initialize useNavigate
 
     const [uploadedFile, setUploadedFile] = useState(null);
@@ -108,13 +151,24 @@ const CreateNFT = () => {
                 }
                 return response.json();
             })
-            .then((createdNFT) => {
-                // Handle success (e.g., show success message)
-                // Navigate to CollectionDetail page with the newly created collection id
-                navigate(`/NFTDetail/${createdNFT.id}`);
+            .then( async (createdNFT) => {
+                // Handle success 
+                
+                if (contract) {
+                    try {
+                        await contract.methods.mintNFT(createdNFT.id, web3Instance.utils.toWei(createdNFT.price, 'ether')).send({ from: window.ethereum.selectedAddress });
+                        console.log('NFT minted successfully.');
+                        navigate(`/NFTDetail/${createdNFT.id}`);
+                    } catch (error) {
+                        console.error('Error minting NFT:', error);
+                    }
+                } else {
+                    console.log("contract is underdefined");
+                    console.log(contract);
+                }
             })
             .catch(error => {
-                console.error('Error creating collection:', error);
+                console.error('Error creating NFT:', error);
                 // Handle error (e.g., show error message)
             })
             .finally(() => {

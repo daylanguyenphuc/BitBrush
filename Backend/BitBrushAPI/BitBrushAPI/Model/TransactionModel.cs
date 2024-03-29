@@ -11,6 +11,7 @@ namespace BitBrushAPI.Model
         public Guid buyerId { get; set; }
         public DateTime time { get; set; }
         public decimal price { get; set; }
+        public string hash { get; set; }
 
         // Navigation properties
         public Product product { get; set; }
@@ -26,6 +27,7 @@ namespace BitBrushAPI.Model
         public UserCompactDTO buyer { get; set; }
         public DateTime time { get; set; }
         public decimal price { get; set; }
+        public string hash { get; set; }
     }
 
     public class TransactionAddDTO
@@ -33,6 +35,7 @@ namespace BitBrushAPI.Model
         public Guid productId { get; set; }
         public Guid buyerId { get; set; }
         public decimal price { get; set; }
+        public string hash { get; set; }
     }
 
     public class TransactionCompactDTO
@@ -41,5 +44,6 @@ namespace BitBrushAPI.Model
         public UserCompactDTO seller { get; set; }
         public UserCompactDTO buyer { get; set; }
         public decimal price { get; set; }
+        public string hash { get; set; }
     }
 }

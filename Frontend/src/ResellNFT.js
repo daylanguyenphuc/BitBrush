@@ -1,14 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Container, Typography, Grid, Paper, FormControl, InputLabel, InputAdornment, OutlinedInput, Select, MenuItem, Accordion, AccordionSummary, AccordionDetails, TextField, Chip, Button, Box } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import useFetch from './useFetch';
 import { curentUser } from './Const';
+import Web3 from 'web3';
+import NFTImagesJSON from './contracts/Artwork.json';
 
 
 const ResellNFT = () => {
-    const navigate = useNavigate(); // Initialize useNavigate
+
+    // web3instance && contract
+    const [web3Instance, setWeb3Instance] = useState(null);
+    const [contract, setContract] = useState(null);
+    useEffect(() => {
+        if (window.ethereum) {
+          if (window.ethereum.selectedAddress) {
+            const web3 = new Web3(window.ethereum);
+            setWeb3Instance(web3);
+          } else {
+            window.ethereum.request({ method: 'eth_requestAccounts' })
+              .then(async () => {
+                const web3 = new Web3(window.ethereum);
+                setWeb3Instance(web3);
+              })
+              .catch((err) => {
+                console.error("User rejected request:", err);
+              });
+          }
+        } else {
+          console.log('Please install MetaMask to use this application.');
+        }
+    }, []);
+    useEffect(() => {
+    if (web3Instance) {
+        (async () => {
+        const networkId = await web3Instance.eth.net.getId();
+        const deployedNetwork = NFTImagesJSON.networks[networkId];
+        const instance = new web3Instance.eth.Contract(
+            NFTImagesJSON.abi,
+            deployedNetwork && deployedNetwork.address,
+        );
+        setContract(instance);
+        })();
+    }
+    }, [web3Instance]);
+
+    // Initialize useNavigate
+    const navigate = useNavigate(); 
     // image URL
     const [uploadedFile, setUploadedFile] = useState(null);
 
@@ -63,8 +103,19 @@ const ResellNFT = () => {
     }, [selectedOwnedNFT]);
 
     // Handle submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (contract) {
+            try {
+                await contract.methods.resellNFT(selectedOwnedNFT.id, web3Instance.utils.toWei(price, 'ether')).send({ from: window.ethereum.selectedAddress });
+                console.log('NFT reselled successfully.');
+            } catch (error) {
+                console.error('Error reselling NFT:', error);
+            }
+        } else {
+        console.log("contract is underdefined");
+        console.log(contract);
+        }
         const nftBody = {
             "price": price
         }
